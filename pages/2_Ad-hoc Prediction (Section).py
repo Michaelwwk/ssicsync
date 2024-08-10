@@ -15,7 +15,7 @@ ssic_alpha_index_filepath = "dataSources/DoS/ssic2020-alphabetical-index.xlsx"
 # ssic_alpha_index_filepath = "C:/Users/Michael/Documents/GitHub/ssicsync/dataSources/DoS/ssic2020-alphabetical-index.xlsx"
 
 # Set page config
-apptitle = 'DSSI Workshop - SSIC Division Classification'
+apptitle = 'SSIC Classification'
 
 st.set_page_config(page_title=apptitle, layout='wide')
 
@@ -176,7 +176,7 @@ with col2:
     """)
 
     # User input for text description
-    user_input = st.text_area("Enter Business Description:", "Banking, insurance, investment services.")
+    user_input = st.text_area("Enter Business Description:", "")
 
     if user_input:
         # Process the input text using the model

@@ -10,7 +10,7 @@ import tensorflow as tf
 topN = 3
 
 # Set page config
-apptitle = 'DSSI Workshop - SSIC Division Classification'
+apptitle = 'SSIC Classification'
 
 st.set_page_config(page_title=apptitle, layout='wide')
 
