@@ -9,10 +9,10 @@ from transformers import AutoTokenizer, TFAutoModelForSequenceClassification
 
 # hard-coded values
 topN = 3
-# ssic_detailed_def_filepath = "dataSources/DoS/ssic2020-detailed-definitions.xlsx"
-# ssic_alpha_index_filepath = "dataSources/DoS/ssic2020-alphabetical-index.xlsx"
-ssic_detailed_def_filepath = "C:/Users/Michael/Documents/GitHub/ssicsync/dataSources/DoS/ssic2020-detailed-definitions.xlsx"
-ssic_alpha_index_filepath = "C:/Users/Michael/Documents/GitHub/ssicsync/dataSources/DoS/ssic2020-alphabetical-index.xlsx"
+ssic_detailed_def_filepath = "dataSources/DoS/ssic2020-detailed-definitions.xlsx"
+ssic_alpha_index_filepath = "dataSources/DoS/ssic2020-alphabetical-index.xlsx"
+# ssic_detailed_def_filepath = "C:/Users/Michael/Documents/GitHub/ssicsync/dataSources/DoS/ssic2020-detailed-definitions.xlsx"
+# ssic_alpha_index_filepath = "C:/Users/Michael/Documents/GitHub/ssicsync/dataSources/DoS/ssic2020-alphabetical-index.xlsx"
 
 # Set page config
 apptitle = 'DSSI Workshop - SSIC Division Classification'
