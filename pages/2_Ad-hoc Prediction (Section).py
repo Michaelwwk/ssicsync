@@ -5,9 +5,17 @@ from sklearn import datasets
 import matplotlib.pyplot as plt
 import seaborn as sns
 import tensorflow as tf
+from transformers import AutoTokenizer, TFAutoModelForSequenceClassification
+
+# hard-coded values
+topN = 3
+ssic_detailed_def_filepath = "dataSources/DoS/ssic2020-detailed-definitions.xlsx"
+ssic_alpha_index_filepath = "dataSources/DoS/ssic2020-alphabetical-index.xlsx"
+# ssic_detailed_def_filepath = "C:/Users/Michael/Documents/GitHub/ssicsync/dataSources/DoS/ssic2020-detailed-definitions.xlsx"
+# ssic_alpha_index_filepath = "C:/Users/Michael/Documents/GitHub/ssicsync/dataSources/DoS/ssic2020-alphabetical-index.xlsx"
 
 # Set page config
-apptitle = 'DSSI Workshop - SSIC Division Classification'
+apptitle = 'SSIC Classification'
 
 st.set_page_config(page_title=apptitle, layout='wide')
 
@@ -19,18 +27,11 @@ st.balloons()
 
 
 # load model directly from huggingface
-from transformers import AutoTokenizer, TFAutoModelForSequenceClassification
-tokenizer = AutoTokenizer.from_pretrained("nusebacra/ssicsync_class_classifier")
-model = TFAutoModelForSequenceClassification.from_pretrained("nusebacra/ssicsync_class_classifier")
-
-
+tokenizer = AutoTokenizer.from_pretrained("nusebacra/ssicsync_section_classifier")
+model = TFAutoModelForSequenceClassification.from_pretrained("nusebacra/ssicsync_section_classifier")
 
 # create ssic denormalized fact table
-ssic_detailed_def_filepath = "dataSources/DoS/ssic2020-detailed-definitions.xlsx"
-ssic_alpha_index_filepath = "dataSources/DoS/ssic2020-alphabetical-index.xlsx"
-
 df_detailed_def = pd.read_excel(ssic_detailed_def_filepath, skiprows=4)
-
 df_alpha_index = pd.read_excel(ssic_alpha_index_filepath, dtype=str, skiprows=5)
 df_alpha_index = df_alpha_index.drop(df_alpha_index.columns[2], axis=1).dropna().rename(columns={'SSIC 2020': 'SSIC 2020','SSIC 2020 Alphabetical Index Description': 'Detailed Definitions'})
 
@@ -48,7 +49,7 @@ df_data_dict = df_detailed_def
 # - 'Group'
 # - 'Class'
 # - 'Subclass'
-level = 'Class' 
+level = 'Section' 
 ####################################################################################################
 
 # prep ssic_n tables for joining/merging and reference
@@ -116,10 +117,6 @@ lvl_train_title = lvl_train + " Title"
 # prep ssic_n dictionary df_prep
 df_prep = ssic_df[[lvl_train, 'Detailed Definitions']]
 df_prep['encoded_cat'] = df_prep[lvl_train].astype('category').cat.codes
-
-data_texts = df_prep['Detailed Definitions'].to_list() # Features (not tokenized yet)
-data_labels = df_prep['encoded_cat'].to_list() # Labels
-
 df_prep = df_prep[[lvl_train, 'encoded_cat']].drop_duplicates()
 
 # WIP
@@ -151,12 +148,12 @@ with col1:
 
 with col2:
     # page subheader
-    st.subheader("Classify Business Descriptions into 382 Class Categories")
+    st.subheader("Classify Business Descriptions into 21 Section Categories")
 
     # Add some text explaining the app
     st.write("""
     Welcome to the Business Description Classifier! This application utilizes a multiclass text classification model 
-    to categorize business descriptions into one of 382 Class categories. Simply input your business description, 
+    to categorize business descriptions into one of 21 Section categories. Simply input your business description, 
     and the model will analyze the text and provide a list predicted categories.
 
     ##### How to Use
@@ -166,7 +163,7 @@ with col2:
 
     ##### About the Model
     This model has been trained on a diverse dataset of business descriptions and is capable of understanding and 
-    classifying a wide range of business activities. The 382 Class categories cover various industry sectors, 
+    classifying a wide range of business activities. The 21 Section categories cover various industry sectors, 
     providing accurate and meaningful classifications for your business needs.
 
     ##### Examples
@@ -223,14 +220,18 @@ with col2:
         elif lvl_train == 'SSIC 2020':
             ssic_lvl = ssic_5
 
-        # need to load ssic_df and df
+        # Merge DataFrames
         lvl_dict = df_prep[[lvl_train, 'encoded_cat']].drop_duplicates()
         lvl_ref = ssic_lvl[[lvl_train, lvl_train_title]].drop_duplicates()
-        merged_df = lvl_dict.merge(lvl_ref, on= lvl_train, how='left')
-        merged_df2 = sorted_output_df.merge(merged_df, on = 'encoded_cat', how='left')
+        merged_df = lvl_dict.merge(lvl_ref, on=lvl_train, how='left')
+        merged_df2 = sorted_output_df.merge(merged_df, on='encoded_cat', how='left')
 
         # Display the result as a table
-        st.subheader("Prediction Results")
-        st.table(merged_df2[['Value', lvl_train, lvl_train_title]].head(5))
+        st.subheader(f"Top {topN} Predicted SSIC & Descriptions:")
 
+        for result in range(0,topN):
 
+            lvl = merged_df2[['Value', lvl_train, lvl_train_title]].reset_index(drop = True)[lvl_train][result]
+            lvl_title = merged_df2[['Value', lvl_train, lvl_train_title]].reset_index(drop = True)[lvl_train_title][result].capitalize()
+
+            st.write(f"**{lvl}**: {lvl_title}")
