@@ -32,7 +32,11 @@ st.markdown(custom_styles, unsafe_allow_html=True)
 
 # st.sidebar.success("Explore our pages above ☝️")
 
-st.image('image/ACRA_logo2.jpg', caption='', output_format='JPEG', use_column_width=True)
+# Display the logo image at the top left corner with a specific width
+col1, col2, col3 = st.columns([1, 10, 1])  # Adjust column proportions as needed
+
+with col1:
+    st.image('image/ACRA_logo2.jpg', caption='', output_format='JPEG', width=100)  # Set width to shrink the image
 
 st.write("## Welcome to ssicsync streamlit page! 👋")
 
