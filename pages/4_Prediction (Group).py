@@ -20,7 +20,7 @@ st.set_page_config(page_title=apptitle, layout='wide')
 st.write('Reference: https://docs.streamlit.io/en/stable/api.html#display-data')
 
 # Visual Effects ### - https://docs.streamlit.io/develop/api-reference/status
-st.balloons() 
+# st.balloons() 
 
 # load model directly from huggingface
 tokenizer = AutoTokenizer.from_pretrained("nusebacra/ssicsync_group_classifier")

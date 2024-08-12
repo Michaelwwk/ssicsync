@@ -107,7 +107,7 @@ st.set_page_config(
 st.write('Reference: https://docs.streamlit.io/en/stable/api.html#display-data')
 
 # Visual Effects ### - https://docs.streamlit.io/develop/api-reference/status
-st.balloons() 
+# st.balloons() 
 
 # Guide to Streamlit Text Elements - https://docs.streamlit.io/develop/api-reference/text
 

@@ -28,7 +28,7 @@ custom_styles = """
 st.markdown(custom_styles, unsafe_allow_html=True)
 
 # Visual Effects ### - https://docs.streamlit.io/develop/api-reference/status
-st.balloons() 
+# st.balloons() 
 
 # st.sidebar.success("Explore our pages above ☝️")
 

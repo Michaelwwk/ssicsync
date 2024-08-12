@@ -21,7 +21,7 @@ st.set_page_config(page_title=apptitle, layout='wide')
 st.write('Reference: https://docs.streamlit.io/en/stable/api.html#display-data')
 
 # Visual Effects ### - https://docs.streamlit.io/develop/api-reference/status
-st.balloons() 
+# st.balloons() 
 
 # load model directly from huggingface
 tokenizer = AutoTokenizer.from_pretrained("nusebacra/ssicsync_section_classifier")
@@ -201,7 +201,6 @@ with col2:
         # Create a DataFrame from the output array
         sorted_output_df = pd.DataFrame(weighted_output_array.T, columns=['Score']).sort_values(by='Score', ascending=False)
         sorted_output_df.reset_index(inplace=True)
-
 
         sorted_output_df.columns = ['encoded_cat', 'Value']
 
