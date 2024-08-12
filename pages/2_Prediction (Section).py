@@ -143,7 +143,7 @@ col1, col2 = st.columns([1,1])
 with col1:
 
     # Add some text explaining the app
-    st.write("""
+    st.write(f"""
     ##### Classification (21 Section Categories)
     Welcome to the Business Description Classifier! This application utilizes a multiclass text classification model 
     to categorize business descriptions into one of 21 Section categories. Simply input your business description, 

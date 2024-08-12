@@ -142,7 +142,7 @@ col1, col2 = st.columns([1,1])
 with col1:
 
     # Add some text explaining the app
-    st.write("""
+    st.write(f"""
     ##### Classification (204 Group Categories)
     Welcome to the Business Description Classifier! This application utilizes a multiclass text classification model 
     to categorize business descriptions into one of 204 Group categories. Simply input your business description, 
