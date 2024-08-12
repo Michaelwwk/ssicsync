@@ -42,11 +42,11 @@ st.write("## About this Webpage")
 
 st.markdown(
     '''
-This platform offers an interactive exploration of SSIC Classification Results, \
+This platform offers an interactive exploration of SSIC classification results, \
 from overall accuracy metrics to detailed company-level analyses. \
 Users can leverage the Prediction pages to input custom company descriptions, \
 allowing the model to generate and return the most relevant SSIC codes based on the specified hierarchical level. \
-Additionally, the Reference pages provide a comprehensive search feature for SSIC codes, \
+Additionally, the Reference pages provide a quick search feature for SSIC codes, \
 enabling users to gain a deeper understanding of their applications.
 '''
 )
@@ -55,8 +55,18 @@ st.write("## Table of Contents")
 
 st.markdown(
 '''
-**Results**                     qasdasd\n
-**Prediction (Section)**        asdasd\n
+**Results**\n
+This section presents the overall classification results as well as SSIC results at the company level. \n
+It is particularly useful for validating companies' declared SSIC codes against the recommended SSIC codes.
+**Prediction (Section)**\n
+This section enables users to apply the classification model to ad-hoc company descriptions, returning the top SSIC code at the Section level. \n
+It is ideal for conducting quick analyses to obtain the recommended SSIC codes at the Section level.
+**Reference (Section)**\n
+**Reference (Section)**\n
+This section allows users to search for SSIC codes and related keywords in SSIC titles. \n
+The search results will provide a relevant list of SSIC codes and titles based on the input terms. \n
+This feature is ideal for gaining a comprehensive understanding of the meanings and applications of each SSIC code.
+**Reference (Section)**\n
 '''
 )
 
