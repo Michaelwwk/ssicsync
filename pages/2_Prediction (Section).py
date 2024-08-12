@@ -157,7 +157,9 @@ with col2:
     This model has been trained on a diverse dataset of business descriptions and is capable of understanding and 
     classifying a wide range of business activities. The 21 Section categories cover various industry sectors, 
     providing accurate and meaningful classifications for your business needs.
-
+             
+    We hope you find this tool helpful for your business classification tasks. If you have any feedback or suggestions, 
+    please feel free to reach out.
     """)
 
 col3, col4 = st.columns([1,1])
