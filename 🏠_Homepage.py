@@ -38,7 +38,20 @@ col1, col2, col3 = st.columns([1, 10, 1])  # Adjust column proportions as needed
 with col1:
     st.image('image/ACRA_logo2.jpg', caption='', output_format='JPEG', width=200)  # Set width to shrink the image
 
-st.write("## About this Webpage")
+# Reduce spacing using a smaller margin above "About this Webpage"
+st.markdown(
+    """
+    <style>
+    .about-header {
+        margin-top: -30px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# Add the "About this Webpage" section with reduced spacing
+st.markdown("<h2 class='about-header'>About this Webpage</h2>", unsafe_allow_html=True)
 
 st.markdown(
     '''
@@ -55,9 +68,8 @@ st.write("## Table of Contents")
 
 st.markdown(
 '''
-**Results**                     /n
-**Prediction (Section)**        /n
-
+**Results**                     qasdasd\n
+**Prediction (Section)**        asdasd\n
 ''', unsafe_allow_html=True
 )
 
