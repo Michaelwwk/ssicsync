@@ -133,7 +133,7 @@ st.markdown(custom_styles, unsafe_allow_html=True)
 
 st.header('🏷️ Class, 382 Categories', divider='rainbow')
 
-col1, col2, col3, col4, col5 = st.columns([3,1,1,1.5,3.5])
+col1, col2, col3, col4 = st.columns([3,1,1.5,3.5])
 
 with col1:
     st.markdown('''
@@ -144,10 +144,10 @@ with col1:
 with col2:
     section_filter = st.text_input('Search by Class:', '')
 
-with col3:
-    ssic_filter = st.text_input('Search by SSIC:', '')
+# with col3:
+#     ssic_filter = st.text_input('Search by SSIC:', '')
 
-with col4:
+with col3:
     ssic_2020_title_filter = st.text_input('Search by Title Keywords:', '')
 
     # Filtering logic based on user input
@@ -156,15 +156,15 @@ with col4:
     else:
         filtered_df_ref = ssic_sl
 
-    if section_filter:
-        filtered_df_section = df_streamlit[df_streamlit['Class'].str.contains(section_filter, case=False)]
-    else:
-        filtered_df_section = df_streamlit
+    # if section_filter:
+    #     filtered_df_section = df_streamlit[df_streamlit['Class'].str.contains(section_filter, case=False)]
+    # else:
+    #     filtered_df_section = df_streamlit
 
-    if ssic_filter:
-        filtered_df_ssic = filtered_df_section[filtered_df_section['SSIC 2020'].str.contains(ssic_filter, case=False)]
-    else:
-        filtered_df_ssic = filtered_df_section
+    # if ssic_filter:
+    #     filtered_df_ssic = filtered_df_section[filtered_df_section['SSIC 2020'].str.contains(ssic_filter, case=False)]
+    # else:
+    #     filtered_df_ssic = filtered_df_section
 
     if ssic_2020_title_filter:
         filtered_df_ssic_2020_title = filtered_df_ssic[filtered_df_ssic['SSIC 2020 Title'].str.contains(ssic_2020_title_filter, case=False)]

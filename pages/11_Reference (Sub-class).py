@@ -131,23 +131,23 @@ custom_styles = """
 # Display CSS styles using st.markdown
 st.markdown(custom_styles, unsafe_allow_html=True)
 
-st.header('🔖 Subclass, 1,032 Categories', divider='rainbow')
+st.header('🔖 Sub-class, 1032 Categories', divider='rainbow')
 
-col1, col2, col3, col4, col5 = st.columns([3,1,1,1.5,3.5])
+col1, col2, col3 = st.columns([3,1,1.5])
 
 with col1:
     st.markdown('''
     <br><br>
-    Subclass Reference Table
+    Sub-class Reference Table
     ''', unsafe_allow_html=True)
 
 with col2:
-    section_filter = st.text_input('Search by Subclass:', '')
+    section_filter = st.text_input('Search by Sub-class:', '')
+
+# # with col3:
+#     ssic_filter = st.text_input('Search by SSIC:', '')
 
 with col3:
-    ssic_filter = st.text_input('Search by SSIC:', '')
-
-with col4:
     ssic_2020_title_filter = st.text_input('Search by Title Keywords:', '')
 
     # Filtering logic based on user input
@@ -156,20 +156,20 @@ with col4:
     else:
         filtered_df_ref = ssic_sl
 
-    if section_filter:
-        filtered_df_section = df_streamlit[df_streamlit['Subclass'].str.contains(section_filter, case=False)]
-    else:
-        filtered_df_section = df_streamlit
+    # if section_filter:
+    #     filtered_df_section = df_streamlit[df_streamlit['Subclass'].str.contains(section_filter, case=False)]
+    # else:
+    #     filtered_df_section = df_streamlit
 
-    if ssic_filter:
-        filtered_df_ssic = filtered_df_section[filtered_df_section['SSIC 2020'].str.contains(ssic_filter, case=False)]
-    else:
-        filtered_df_ssic = filtered_df_section
+    # if ssic_filter:
+    #     filtered_df_ssic = filtered_df_section[filtered_df_section['SSIC 2020'].str.contains(ssic_filter, case=False)]
+    # else:
+    #     filtered_df_ssic = filtered_df_section
 
     if ssic_2020_title_filter:
-        filtered_df_ssic_2020_title = filtered_df_ssic[filtered_df_ssic['SSIC 2020 Title'].str.contains(ssic_2020_title_filter, case=False)]
+        filtered_df_ref = filtered_df_ref[filtered_df_ref['SSIC 2020 Title'].str.contains(ssic_2020_title_filter, case=False)]
     else:
-        filtered_df_ssic_2020_title = filtered_df_ssic
+        filtered_df_ref = filtered_df_ref
 
 # col1, col2 = st.columns([2,3])
 
