@@ -176,6 +176,12 @@ with col3:
 # with col1:
 level = filtered_df_ref.columns[1]
 filtered_df_ref[level] = filtered_df_ref[level].apply(lambda x: x.capitalize())
+
+if filtered_df_ref.columns[0] == 'SSIC 2020':
+    filtered_df_ref.columns[0] = 'Sub-class'
+if filtered_df_ref.columns[1] == 'SSIC 2020 Title':
+    filtered_df_ref.columns[0] = 'Sub-class Title' 
+
 st.write(filtered_df_ref, use_container_width=True)
     # st.table(ssic_sl) # use st.table to display full table w/o scrolling
 
