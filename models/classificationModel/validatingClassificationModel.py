@@ -10,7 +10,7 @@ def validatingClassificationModel(level, topN):
 
     level = 'Subclass'
     topN = 3
-    list_df_filepath = r"dataSources\ScrapedOutputFiles\List of 90 Coy and SSIC.csv"
+    list_df_filepath = r"dataSources\ScrapedOutputFiles\(Roy) List of 90 Coy and SSIC.csv"
     vdf_filepath = r"LLM_Test\Summarised_output_for_model.xlsx" # TODO CHANGE PATH NAME AND FILE NAME
     ssic_detailed_def_filepath = r"dataSources/DoS/ssic2020-detailed-definitions.xlsx"
     ssic_alpha_index_filepath = r"dataSources/DoS/ssic2020-alphabetical-index.xlsx"
