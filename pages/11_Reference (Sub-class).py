@@ -171,14 +171,14 @@ with col4:
     else:
         filtered_df_ssic_2020_title = filtered_df_ssic
 
+# col1, col2 = st.columns([2,3])
 
-col1, col2 = st.columns([2,3])
-
-with col1:
-    st.write(filtered_df_ref, use_container_width=True)
+# with col1:
+level = filtered_df_ref.columns[1]
+filtered_df_ref[level] = filtered_df_ref[level].apply(lambda x: x.capitalize())
+st.write(filtered_df_ref, use_container_width=True)
     # st.table(ssic_sl) # use st.table to display full table w/o scrolling
 
-       
-with col2:
-    st.write(filtered_df_ssic_2020_title, use_container_width=True)
-    # st.table(filtered_df_ssic_2020_title)
+# with col2:
+#     st.write(filtered_df_ssic_2020_title, use_container_width=True)
+#     # st.table(filtered_df_ssic_2020_title)

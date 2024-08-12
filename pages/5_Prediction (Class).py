@@ -146,7 +146,7 @@ st.title("Business Description Classifier")
 col1, col2 = st.columns([1,1])
 
 with col1:
-    ssic_n_sl[lvl_train_title] = ssic_n_sl[lvl_train_title].capitalize()
+    ssic_n_sl[lvl_train_title] = ssic_n_sl[lvl_train_title].apply(lambda x: x.capitalize())
     st.dataframe(ssic_n_sl, use_container_width=True)
 
 with col2:
