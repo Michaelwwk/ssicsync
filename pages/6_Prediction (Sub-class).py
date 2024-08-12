@@ -5,13 +5,15 @@ from sklearn import datasets
 import matplotlib.pyplot as plt
 import seaborn as sns
 import tensorflow as tf
+from transformers import AutoTokenizer, TFAutoModelForSequenceClassification
 
 # hard-coded values
 topN = 3
+ssic_detailed_def_filepath = "dataSources/DoS/ssic2020-detailed-definitions.xlsx"
+ssic_alpha_index_filepath = "dataSources/DoS/ssic2020-alphabetical-index.xlsx"
 
 # Set page config
 apptitle = 'SSIC Classification'
-
 st.set_page_config(page_title=apptitle, layout='wide')
 
 # st.title('SSIC Dictionary')
@@ -20,18 +22,11 @@ st.write('Reference: https://docs.streamlit.io/en/stable/api.html#display-data')
 # Visual Effects ### - https://docs.streamlit.io/develop/api-reference/status
 st.balloons() 
 
-
 # load model directly from huggingface
-from transformers import AutoTokenizer, TFAutoModelForSequenceClassification
 tokenizer = AutoTokenizer.from_pretrained("nusebacra/ssicsync_subclass_classifier")
 model = TFAutoModelForSequenceClassification.from_pretrained("nusebacra/ssicsync_subclass_classifier")
 
-
-
 # create ssic denormalized fact table
-ssic_detailed_def_filepath = "dataSources/DoS/ssic2020-detailed-definitions.xlsx"
-ssic_alpha_index_filepath = "dataSources/DoS/ssic2020-alphabetical-index.xlsx"
-
 df_detailed_def = pd.read_excel(ssic_detailed_def_filepath, skiprows=4)
 
 df_alpha_index = pd.read_excel(ssic_alpha_index_filepath, dtype=str, skiprows=5)

@@ -11,8 +11,6 @@ from transformers import AutoTokenizer, TFAutoModelForSequenceClassification
 topN = 3
 ssic_detailed_def_filepath = "dataSources/DoS/ssic2020-detailed-definitions.xlsx"
 ssic_alpha_index_filepath = "dataSources/DoS/ssic2020-alphabetical-index.xlsx"
-# ssic_detailed_def_filepath = "C:/Users/Michael/Documents/GitHub/ssicsync/dataSources/DoS/ssic2020-detailed-definitions.xlsx"
-# ssic_alpha_index_filepath = "C:/Users/Michael/Documents/GitHub/ssicsync/dataSources/DoS/ssic2020-alphabetical-index.xlsx"
 
 # Set page config
 apptitle = 'SSIC Classification'
@@ -24,7 +22,6 @@ st.write('Reference: https://docs.streamlit.io/en/stable/api.html#display-data')
 
 # Visual Effects ### - https://docs.streamlit.io/develop/api-reference/status
 st.balloons() 
-
 
 # load model directly from huggingface
 tokenizer = AutoTokenizer.from_pretrained("nusebacra/ssicsync_section_classifier")
