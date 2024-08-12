@@ -94,7 +94,6 @@ st.set_page_config(
     page_icon="🔍", # Set display icon of browser tab
     layout="centered", # "wide" or "centered"
     initial_sidebar_state="expanded"
-    }
 )
 
 # st.title('SSIC Dictionary')
