@@ -42,9 +42,12 @@ st.write("## Welcome to ssicsync streamlit page! 👋")
 
 st.markdown(
     '''
-    Welcome to our Streamlit page! We explore multiclass text classification using DistilBERT, <br>
-    offering interactive insights into training and evaluating models for accurate text categorization. <br>
-    Join us to learn and experience the power of modern NLP 🤖.
+This platform offers an interactive exploration of SSIC Classification Results, \
+from overall accuracy metrics to detailed company-level analyses. \
+Users can leverage the Prediction pages to input custom company descriptions, \
+allowing the model to generate and return the most relevant SSIC codes based on the specified hierarchical level. \
+Additionally, the Reference pages provide a comprehensive search feature for SSIC codes, \
+enabling users to gain a deeper understanding of their applications.
 ''', unsafe_allow_html=True
 )
 
