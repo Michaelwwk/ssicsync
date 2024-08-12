@@ -101,7 +101,7 @@ st.set_page_config(
 )
 
 # st.title('SSIC Dictionary')
-st.write('Reference: https://docs.streamlit.io/en/stable/api.html#display-data')
+# st.write('Reference: https://docs.streamlit.io/en/stable/api.html#display-data')
 
 # Visual Effects ### - https://docs.streamlit.io/develop/api-reference/status
 # st.balloons() 
@@ -149,16 +149,6 @@ with col2:
         filtered_df_ref = ssic_sl[ssic_sl['SSIC 2020'].str.contains(section_filter, case=False)]
     else:
         filtered_df_ref = ssic_sl
-
-    # if section_filter:
-    #     filtered_df_section = df_streamlit[df_streamlit['Subclass'].str.contains(section_filter, case=False)]
-    # else:
-    #     filtered_df_section = df_streamlit
-
-    # if ssic_filter:
-    #     filtered_df_ssic = filtered_df_section[filtered_df_section['SSIC 2020'].str.contains(ssic_filter, case=False)]
-    # else:
-    #     filtered_df_ssic = filtered_df_section
 
     if ssic_2020_title_filter:
         filtered_df_ref = filtered_df_ref[filtered_df_ref['SSIC 2020 Title'].str.contains(ssic_2020_title_filter, case=False)]

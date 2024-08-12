@@ -101,7 +101,7 @@ st.set_page_config(
 )
 
 # st.title('SSIC Dictionary')
-st.write('Reference: https://docs.streamlit.io/en/stable/api.html#display-data')
+# st.write('Reference: https://docs.streamlit.io/en/stable/api.html#display-data')
 
 # Visual Effects ### - https://docs.streamlit.io/develop/api-reference/status
 # st.balloons() 
