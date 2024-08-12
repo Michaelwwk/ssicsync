@@ -156,10 +156,10 @@ with col3:
     else:
         filtered_df_ref = ssic_sl
 
-    # if section_filter:
-    #     filtered_df_section = df_streamlit[df_streamlit['Subclass'].str.contains(section_filter, case=False)]
-    # else:
-    #     filtered_df_section = df_streamlit
+    if section_filter:
+        filtered_df_section = df_streamlit[df_streamlit['Subclass'].str.contains(section_filter, case=False)]
+    else:
+        filtered_df_section = df_streamlit
 
     # if ssic_filter:
     #     filtered_df_ssic = filtered_df_section[filtered_df_section['SSIC 2020'].str.contains(ssic_filter, case=False)]
