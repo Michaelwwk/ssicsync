@@ -198,6 +198,7 @@ for index, ssic in enumerate(allSSICs_list):
         details_input = details_display[level]
 
         if details_input == sectionTitle_input:
+            print(ssic_df[ssic_df['Section Title'] == sectionTitle_input].head())
             ssicCode = capitalize_sentence(ssic_df[ssic_df['Section Title'] == sectionTitle_input].reset_index(drop = True)['Section'][0])
 
         if index <= 1: # first 2 indexes are the company's 1st and/or 2nd SSIC codes
