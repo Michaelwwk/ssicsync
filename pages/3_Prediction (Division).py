@@ -79,7 +79,7 @@ with col1:
     # Add some text explaining the app
     st.write(f"""
     ##### Classification (81 Division Categories)
-    This application utilizes a multi-class text classification model 
+    Welcome to the Business Description Classifier! This application utilizes a multi-class text classification model 
     to categorize business descriptions into one of 81 Division categories. Simply input your business description, 
     and the model will analyze the text and provide a list of predicted categories.
              
