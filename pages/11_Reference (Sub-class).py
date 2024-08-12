@@ -133,21 +133,15 @@ st.markdown(custom_styles, unsafe_allow_html=True)
 
 st.header('🔖 Sub-class, 1032 Categories', divider='rainbow')
 
-col1, col2, col3 = st.columns([3,1,1.5])
+col1, col2 = st.columns([1,1.5])
 
 with col1:
-    st.markdown('''
-    <br><br>
-    Sub-class Reference Table
-    ''', unsafe_allow_html=True)
-
-with col2:
     section_filter = st.text_input('Search by Sub-class:', '')
 
 # # with col3:
 #     ssic_filter = st.text_input('Search by SSIC:', '')
 
-with col3:
+with col2:
     ssic_2020_title_filter = st.text_input('Search by Title Keywords:', '')
 
     # Filtering logic based on user input
@@ -172,6 +166,11 @@ with col3:
         filtered_df_ref = filtered_df_ref
 
 # col1, col2 = st.columns([2,3])
+
+st.markdown('''
+<br><br>
+Sub-class Reference Table
+''', unsafe_allow_html=True)
 
 # with col1:
 level = filtered_df_ref.columns[1]
