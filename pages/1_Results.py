@@ -91,7 +91,7 @@ for bar in bars:
 plt.tight_layout()
 
 # Use Streamlit layout to align the plot to the left
-col1, col2 = st.columns([3, 1])  # Adjust columns to align chart to the left
+col1, col2 = st.columns([5, 1])  # Adjust columns to align chart to the left
 
 with col1:
     st.pyplot(fig)
