@@ -92,11 +92,8 @@ ssic_sl = ssic_4_sl
 st.set_page_config(
     page_title='ssicsync', # Set display name of browser tab
     page_icon="🔍", # Set display icon of browser tab
-    layout="wide", # "wide" or "centered"
-    initial_sidebar_state="expanded",
-    menu_items={
-        'About': '''Explore multiclass text classification with DistilBERT on our Streamlit page. 
-        Discover interactive insights and the power of modern NLP in text categorization!'''
+    layout="centered", # "wide" or "centered"
+    initial_sidebar_state="expanded"
     }
 )
 
