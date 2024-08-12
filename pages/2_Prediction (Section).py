@@ -158,76 +158,84 @@ with col2:
     2. Hit Control + Enter.
     3. The top 5 predicted categories will be displayed below the button.
 
+    """)
+
+col3, col4 = st.columns([1,1])
+
+with col3:
+
+    st.write("""
     ##### About the Model
     This model has been trained on a diverse dataset of business descriptions and is capable of understanding and 
     classifying a wide range of business activities. The 21 Section categories cover various industry sectors, 
     providing accurate and meaningful classifications for your business needs.
+    """)
 
+with col4:
+    
+    st.write("""
     ##### Examples
     - **Technology:** Software development, IT consulting, hardware manufacturing.
     - **Healthcare:** Hospitals, pharmaceutical companies, medical research.
     - **Finance:** Banking, insurance, investment services.
-
-    We hope you find this tool helpful for your business classification tasks. If you have any feedback or suggestions, 
-    please feel free to reach out.
     """)
 
-    # User input for text description
-    user_input = st.text_area("Enter Business Description:", "")
+# User input for text description
+user_input = st.text_area("Enter Business Description:", "")
 
-    if user_input:
-        # Process the input text using the model
-        # predict_input = loaded_tokenizer.encode(user_input, truncation=True, padding=True, return_tensors="tf")
-        # output = loaded_model(predict_input)[0]
+if user_input:
+    # Process the input text using the model
+    # predict_input = loaded_tokenizer.encode(user_input, truncation=True, padding=True, return_tensors="tf")
+    # output = loaded_model(predict_input)[0]
 
-        inputs = tokenizer(user_input, return_tensors="tf")
+    inputs = tokenizer(user_input, return_tensors="tf")
 
-        output = model(inputs)[0]
+    output = model(inputs)[0]
 
-        # Convert the output tensor to numpy array
-        output_array = output.numpy() # Logits (+ve to -ve)
-        # output_array = tf.nn.softmax(output, axis=-1).numpy() # Probability (0-1)
+    # Convert the output tensor to numpy array
+    output_array = output.numpy() # Logits (+ve to -ve)
+    # output_array = tf.nn.softmax(output, axis=-1).numpy() # Probability (0-1)
 
-        ###############################################################################################################################################
-        # Define specific weights for the classes (example weights, for Probability)
-        # class_weights = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5, 0.5, 0.5, 1, 1, 1, 1, 1, 1, 1, 1]  
-        # class_weights = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1] # Adjust the weights according to your classes
+    ###############################################################################################################################################
+    # Define specific weights for the classes (example weights, for Probability)
+    # class_weights = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5, 0.5, 0.5, 1, 1, 1, 1, 1, 1, 1, 1]  
+    # class_weights = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1] # Adjust the weights according to your classes
 
 
-        # Apply the class weights to the output array
-        weighted_output_array = output_array #* class_weights
-        ############################################################################################################################################### 
+    # Apply the class weights to the output array
+    weighted_output_array = output_array #* class_weights
+    ############################################################################################################################################### 
 
-        # Create a DataFrame from the output array
-        sorted_output_df = pd.DataFrame(weighted_output_array.T, columns=['Score']).sort_values(by='Score', ascending=False)
-        sorted_output_df.reset_index(inplace=True)
+    # Create a DataFrame from the output array
+    sorted_output_df = pd.DataFrame(weighted_output_array.T, columns=['Score']).sort_values(by='Score', ascending=False)
+    sorted_output_df.reset_index(inplace=True)
 
-        sorted_output_df.columns = ['encoded_cat', 'Value']
+    sorted_output_df.columns = ['encoded_cat', 'Value']
 
-        # Conditional statements based on lvl_train
-        if lvl_train == 'Section':
-            ssic_lvl = ssic_1
-        elif lvl_train == 'Division':
-            ssic_lvl = ssic_2
-        elif lvl_train == 'Group':
-            ssic_lvl = ssic_3
-        elif lvl_train == 'Class':
-            ssic_lvl = ssic_4
-        elif lvl_train == 'SSIC 2020':
-            ssic_lvl = ssic_5
+    # Conditional statements based on lvl_train
+    if lvl_train == 'Section':
+        ssic_lvl = ssic_1
+    elif lvl_train == 'Division':
+        ssic_lvl = ssic_2
+    elif lvl_train == 'Group':
+        ssic_lvl = ssic_3
+    elif lvl_train == 'Class':
+        ssic_lvl = ssic_4
+    elif lvl_train == 'SSIC 2020':
+        ssic_lvl = ssic_5
 
-        # Merge DataFrames
-        lvl_dict = df_prep[[lvl_train, 'encoded_cat']].drop_duplicates()
-        lvl_ref = ssic_lvl[[lvl_train, lvl_train_title]].drop_duplicates()
-        merged_df = lvl_dict.merge(lvl_ref, on=lvl_train, how='left')
-        merged_df2 = sorted_output_df.merge(merged_df, on='encoded_cat', how='left')
+    # Merge DataFrames
+    lvl_dict = df_prep[[lvl_train, 'encoded_cat']].drop_duplicates()
+    lvl_ref = ssic_lvl[[lvl_train, lvl_train_title]].drop_duplicates()
+    merged_df = lvl_dict.merge(lvl_ref, on=lvl_train, how='left')
+    merged_df2 = sorted_output_df.merge(merged_df, on='encoded_cat', how='left')
 
-        # Display the result as a table
-        st.subheader(f"Top {topN} Predicted SSIC & Descriptions:")
+    # Display the result as a table
+    st.subheader(f"Top {topN} Predicted SSIC & Descriptions:")
 
-        for result in range(0,topN):
+    for result in range(0,topN):
 
-            lvl = merged_df2[['Value', lvl_train, lvl_train_title]].reset_index(drop = True)[lvl_train][result]
-            lvl_title = merged_df2[['Value', lvl_train, lvl_train_title]].reset_index(drop = True)[lvl_train_title][result].capitalize()
+        lvl = merged_df2[['Value', lvl_train, lvl_train_title]].reset_index(drop = True)[lvl_train][result]
+        lvl_title = merged_df2[['Value', lvl_train, lvl_train_title]].reset_index(drop = True)[lvl_train_title][result].capitalize()
 
-            st.write(f"**{lvl}**: {lvl_title}")
+        st.write(f"**{lvl}**: {lvl_title}")
