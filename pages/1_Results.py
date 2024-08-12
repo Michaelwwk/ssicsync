@@ -196,9 +196,13 @@ for index, ssic in enumerate(allSSICs_list):
             subclass: subclassTitle_input
         }
         details_input = details_display[level]
-        if index <= 1:
+
+        if details_input == sectionTitle_input:
+            ssicCode = capitalize_sentence(ssic_df[ssic_df['Section Title'] == sectionTitle_input].reset_index(drop = True)['Section'][0])
+
+        if index <= 1: # first 2 indexes are the company's 1st and/or 2nd SSIC codes
             coySSIC_input.append(f"**{ssicCode}**: {details_input}")
-        else:
+        else: # remaining indexes (after 2) are the company's predicted SSIC codes
             predictedSSIC_input.append(f"**{ssicCode}**: {details_input}")
 
 col1, col2 = st.columns([1,1])
