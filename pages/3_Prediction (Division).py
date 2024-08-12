@@ -225,7 +225,11 @@ with col2:
         merged_df2 = sorted_output_df.merge(merged_df, on='encoded_cat', how='left')
 
         # Display the result as a table
-        st.subheader("Prediction Results")
-        st.table(merged_df2[['Value', lvl_train, lvl_train_title]].head(5))
+        st.subheader(f"Top {topN} Predicted SSIC & Descriptions:")
 
+        for result in range(0,topN):
 
+            lvl = merged_df2[['Value', lvl_train, lvl_train_title]].reset_index(drop = True)[lvl_train][result]
+            lvl_title = merged_df2[['Value', lvl_train, lvl_train_title]].reset_index(drop = True)[lvl_train_title][result].capitalize()
+
+            st.write(f"**{lvl}**: {lvl_title}")

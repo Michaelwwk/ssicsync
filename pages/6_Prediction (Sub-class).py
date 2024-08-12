@@ -221,14 +221,19 @@ with col2:
         elif lvl_train == 'SSIC 2020':
             ssic_lvl = ssic_5
 
-        # need to load ssic_df and df
+        # Merge DataFrames
         lvl_dict = df_prep[[lvl_train, 'encoded_cat']].drop_duplicates()
         lvl_ref = ssic_lvl[[lvl_train, lvl_train_title]].drop_duplicates()
-        merged_df = lvl_dict.merge(lvl_ref, on= lvl_train, how='left')
-        merged_df2 = sorted_output_df.merge(merged_df, on = 'encoded_cat', how='left')
+        merged_df = lvl_dict.merge(lvl_ref, on=lvl_train, how='left')
+        merged_df2 = sorted_output_df.merge(merged_df, on='encoded_cat', how='left')
 
         # Display the result as a table
-        st.subheader("Prediction Results")
-        st.table(merged_df2[['Value', lvl_train, lvl_train_title]].head(5))
+        st.subheader(f"Top {topN} Predicted SSIC & Descriptions:")
 
+        for result in range(0,topN):
+
+            lvl = merged_df2[['Value', lvl_train, lvl_train_title]].reset_index(drop = True)[lvl_train][result]
+            lvl_title = merged_df2[['Value', lvl_train, lvl_train_title]].reset_index(drop = True)[lvl_train_title][result].capitalize()
+
+            st.write(f"**{lvl}**: {lvl_title}")
 
