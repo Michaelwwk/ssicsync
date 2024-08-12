@@ -38,7 +38,7 @@ col1, col2, col3 = st.columns([1, 10, 1])  # Adjust column proportions as needed
 with col1:
     st.image('image/ACRA_logo2.jpg', caption='', output_format='JPEG', width=200)  # Set width to shrink the image
 
-st.write("## Welcome to ssicsync streamlit page! 👋")
+st.write("About this Webpage")
 
 st.markdown(
     '''
@@ -48,6 +48,16 @@ Users can leverage the Prediction pages to input custom company descriptions, \
 allowing the model to generate and return the most relevant SSIC codes based on the specified hierarchical level. \
 Additionally, the Reference pages provide a comprehensive search feature for SSIC codes, \
 enabling users to gain a deeper understanding of their applications.
+''', unsafe_allow_html=True
+)
+
+st.write("## Table of Contents")
+
+st.markdown(
+'''
+**Results**                     asd
+**Prediction (Section)**        asdas
+
 ''', unsafe_allow_html=True
 )
 
