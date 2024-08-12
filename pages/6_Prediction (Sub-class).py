@@ -46,7 +46,6 @@ df_data_dict = df_detailed_def
 # - 'Group'
 # - 'Class'
 # - 'Subclass'
-level = 'Subclass' 
 ####################################################################################################
 
 # prep ssic_n tables for joining/merging and reference
@@ -97,6 +96,8 @@ ssic_df = pd.merge(ssic_df, ssic_3[['Group', 'Group Title']], on='Group', how='l
 ssic_df = pd.merge(ssic_df, ssic_4[['Class', 'Class Title']], on='Class', how='left')
 
 ####################################################################################################
+level = 'Subclass' 
+
 # mapping
 level_map = {
     'Section': ('Section', ssic_df.iloc[:, [0, 1, 9, 10, 11, 12, 13]].drop_duplicates(), ssic_1.iloc[:, [0, 1]].drop_duplicates().reset_index(drop=True)),
