@@ -88,9 +88,6 @@ ssic_sl = ssic_2_sl
 ###############################################################################################################################
 # Streamlit Page UI Config
 
-import streamlit as st
-from PIL import Image
-
 # Set page config
 st.set_page_config(
     page_title='ssicsync', # Set display name of browser tab

@@ -30,6 +30,9 @@ def capitalize_sentence(text):
     # Join the sentences back into a single string
     return '. '.join(sentences)
 
+# page title
+st.title("Results for List of Companies")
+
 values = []
 prop_dict = {}
 df_display = {}

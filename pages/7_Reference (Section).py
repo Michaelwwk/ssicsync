@@ -88,9 +88,6 @@ ssic_sl = ssic_1_sl
 ###############################################################################################################################
 # Streamlit Page UI Config
 
-import streamlit as st
-from PIL import Image
-
 # Set page config
 st.set_page_config(
     page_title='ssicsync', # Set display name of browser tab
@@ -166,13 +163,15 @@ with col4:
         filtered_df_ssic_2020_title = filtered_df_ssic
 
 
-col1, col2 = st.columns([2,3])
+# col1, col2 = st.columns([2,3])
 
-with col1:
-    st.write(filtered_df_ref, use_container_width=True)
+# with col1:
+last_column = filtered_df_ref.iloc[:, -1]
+last_column = last_column.str.capitalize()
+st.write(filtered_df_ref, use_container_width=True)
     # st.table(ssic_sl) # use st.table to display full table w/o scrolling
 
        
-with col2:
-    st.write(filtered_df_ssic_2020_title, use_container_width=True)
-    # st.table(filtered_df_ssic_2020_title)
+# with col2:
+#     st.write(filtered_df_ssic_2020_title, use_container_width=True)
+#     # st.table(filtered_df_ssic_2020_title)
