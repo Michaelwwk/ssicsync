@@ -168,11 +168,11 @@ col3, col4 = st.columns([1,1])
 
 with col3:
 
-    st.write("""
+    st.write(f"""
     ##### How to Use
     1. Enter the business description in the text box below.
     2. Hit Control + Enter.
-    3. The top 5 predicted categories will be displayed below the button.
+    3. The top {topN} predicted categories will be displayed below the button.
     """)
 
 with col4:
