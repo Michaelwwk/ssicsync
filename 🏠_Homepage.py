@@ -61,23 +61,23 @@ It is particularly useful for validating companies' declared SSIC codes against 
 
 
 **Prediction (Section)**\n
-This section enables users to apply the classification model to ad-hoc company descriptions, returning the top SSIC code at the Section level. \
+This section enables users to apply the classification model to ad-hoc company descriptions, returning the top SSIC codes at the Section level. \
 It is ideal for conducting quick analyses to obtain the recommended SSIC codes at the Section level.
 
 **Prediction (Division)**\n
-This section enables users to apply the classification model to ad-hoc company descriptions, returning the top SSIC code at the Division level. \
+This section enables users to apply the classification model to ad-hoc company descriptions, returning the top SSIC codes at the Division level. \
 It is ideal for conducting quick analyses to obtain the recommended SSIC codes at the Division level.
 
 **Prediction (Group)**\n
-This section enables users to apply the classification model to ad-hoc company descriptions, returning the top SSIC code at the Group level. \
+This section enables users to apply the classification model to ad-hoc company descriptions, returning the top SSIC codes at the Group level. \
 It is ideal for conducting quick analyses to obtain the recommended SSIC codes at the Group level.
 
 **Prediction (Class)**\n
-This section enables users to apply the classification model to ad-hoc company descriptions, returning the top SSIC code at the Class level. \
+This section enables users to apply the classification model to ad-hoc company descriptions, returning the top SSIC codes at the Class level. \
 It is ideal for conducting quick analyses to obtain the recommended SSIC codes at the Class level.
 
 **Prediction (Sub-class)**\n
-This section enables users to apply the classification model to ad-hoc company descriptions, returning the top SSIC code at the Sub-class level. \
+This section enables users to apply the classification model to ad-hoc company descriptions, returning the top SSIC codes at the Sub-class level. \
 It is ideal for conducting quick analyses to obtain the recommended SSIC codes at the Sub-class level.
 
 
