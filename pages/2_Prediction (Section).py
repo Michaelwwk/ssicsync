@@ -153,10 +153,10 @@ with col2:
     to categorize business descriptions into one of 21 Section categories. Simply input your business description, 
     and the model will analyze the text and provide a list predicted categories.
 
-    ##### How to Use
-    1. Enter the business description in the text box below.
-    2. Hit Control + Enter.
-    3. The top 5 predicted categories will be displayed below the button.
+    ##### About the Model
+    This model has been trained on a diverse dataset of business descriptions and is capable of understanding and 
+    classifying a wide range of business activities. The 21 Section categories cover various industry sectors, 
+    providing accurate and meaningful classifications for your business needs.
 
     """)
 
@@ -165,10 +165,10 @@ col3, col4 = st.columns([1,1])
 with col3:
 
     st.write("""
-    ##### About the Model
-    This model has been trained on a diverse dataset of business descriptions and is capable of understanding and 
-    classifying a wide range of business activities. The 21 Section categories cover various industry sectors, 
-    providing accurate and meaningful classifications for your business needs.
+    ##### How to Use
+    1. Enter the business description in the text box below.
+    2. Hit Control + Enter.
+    3. The top 5 predicted categories will be displayed below the button.
     """)
 
 with col4:
