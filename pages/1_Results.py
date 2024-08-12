@@ -18,7 +18,7 @@ division = 'Division'
 group = 'Group'
 Class = 'Class'
 subclass = 'Sub-class'
-DoS = pd.read_csv("./dataSources/ScrapedOutputFiles/(Roy) List of 90 Coy and SSIC.csv")
+DoS = pd.read_csv("./dataSources/ScrapedOutputFiles/list of 90 Coy and SSIC.csv")
 modelOutputs = pd.read_excel("./vdf.xlsx",  dtype={'ssic_code': str, 'ssic_code2': str})
 
 # functions
