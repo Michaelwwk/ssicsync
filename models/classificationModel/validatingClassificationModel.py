@@ -10,8 +10,8 @@ def validatingClassificationModel(self):
 
     level = self.level
     topN = self.topN
-    list_df_filepath = r"dataSources\ScrapedOutputFiles\list of 90 Coy and SSIC.csv" # TODO change file name! 
-    vdf_filepath = r"LLM_Test\Summarised_output_for_model.xlsx" # TODO change path name and file name eventually!
+    list_df_filepath = r"dataSources/ScrapedOutputFiles/list of 90 Coy and SSIC.csv"
+    vdf_filepath = r"LLM_Test/Summarised_output_for_model.xlsx" # TODO change path name and file name eventually!
     ssic_detailed_def_filepath = r"dataSources/DoS/ssic2020-detailed-definitions.xlsx"
     ssic_alpha_index_filepath = r"dataSources/DoS/ssic2020-alphabetical-index.xlsx"
 
@@ -319,7 +319,7 @@ def validatingClassificationModel(self):
         axis=1
     )
 
-    # vdf.to_excel('vdf.xlsx', index=False)
+    vdf.to_csv('models/classificationModel/modelOutputFiles/pdfModelFinalOutputs.csv', index=False)
 
     # take model from huggingFace
     # read csv from "C:\..\GitHub\ssicsync\models\summaryModel\modelOutputFiles\pdfModelSummaryOutputs.csv"

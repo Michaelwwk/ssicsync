@@ -19,7 +19,7 @@ group = 'Group'
 Class = 'Class'
 subclass = 'Sub-class'
 DoS = pd.read_csv("./dataSources/ScrapedOutputFiles/list of 90 Coy and SSIC.csv")
-modelOutputs = pd.read_excel("./vdf.xlsx",  dtype={'ssic_code': str, 'ssic_code2': str})
+modelOutputs = pd.read_csv("./models/classificationModel/modelOutputFiles/pdfModelFinalOutputs.csv", dtype={'ssic_code': str, 'ssic_code2': str})
 
 # functions
 def capitalize_sentence(text):
@@ -134,8 +134,6 @@ st.subheader('Company Description:')
 st.write(content_input)
 
 ###############################################################################################
-
-# TODO TO DELETE EVENTUALLY
 
 df_detailed_def = pd.read_excel("./dataSources/DoS/ssic2020-detailed-definitions.xlsx", skiprows=4)
 df_alpha_index = pd.read_excel("./dataSources/DoS/ssic2020-alphabetical-index.xlsx", dtype=str, skiprows=5)
