@@ -68,7 +68,7 @@ categories = [subclass, Class, group, division, section]
 values.reverse()
 
 # Create horizontal bar chart
-fig, ax = plt.subplots(figsize=(6, 3.6))
+fig, ax = plt.subplots(figsize=(6, 4))
 bars = ax.barh(categories, values, color='skyblue')
 # ax.set_xlabel('Percentage')
 # ax.set_ylabel('Categories')
@@ -90,8 +90,11 @@ for bar in bars:
 # Adjust layout
 plt.tight_layout()
 
-# Display plot in Streamlit
-st.pyplot(fig)
+# Use Streamlit layout to align the plot to the left
+col1, col2 = st.columns([3, 1])  # Adjust columns to align chart to the left
+
+with col1:
+    st.pyplot(fig)
 
 # Streamlit selectbox for user input
 level_input = st.selectbox(
