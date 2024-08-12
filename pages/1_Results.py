@@ -2,11 +2,12 @@ import streamlit as st
 import ast
 import numpy as np
 import pandas as pd
-from sklearn import datasets
 import matplotlib.pyplot as plt
 import seaborn as sns
-from transformers import AutoTokenizer, TFAutoModelForSequenceClassification
 import matplotlib.pyplot as plt
+from sklearn import datasets
+from transformers import AutoTokenizer, TFAutoModelForSequenceClassification
+from commonFunctions import ssic_df
 
 pd.set_option('display.max_columns', None)
 
@@ -18,6 +19,8 @@ division = 'Division'
 group = 'Group'
 Class = 'Class'
 subclass = 'Sub-class'
+ssic_detailed_def_filepath = "dataSources/DoS/ssic2020-detailed-definitions.xlsx"
+ssic_alpha_index_filepath = "dataSources/DoS/ssic2020-alphabetical-index.xlsx"
 DoS = pd.read_csv("./dataSources/ScrapedOutputFiles/list of 90 Coy and SSIC.csv")
 modelOutputs = pd.read_csv("./models/classificationModel/modelOutputFiles/pdfModelFinalOutputs.csv", dtype={'ssic_code': str, 'ssic_code2': str})
 
@@ -52,7 +55,8 @@ DoS = pd.DataFrame(uenEntity_dict)
 uenEntity_dict = dict(zip(DoS['UEN'], DoS['entity_name']))
 
 for cat in categories:
-    prop_dict[cat] = modelOutputs[modelOutputs[f'p_{modelChoice}_{cat}_check'] == 'Y'].shape[0]/modelOutputs[(modelOutputs[f'p_{modelChoice}_{cat}_check'].notnull()) & (modelOutputs[f'p_{modelChoice}_{cat}_check'] != 'Null')].shape[0]
+    prop_dict[cat] = modelOutputs[modelOutputs[f'p_{modelChoice}_{cat}_check'] == 'Y'].shape[0]/modelOutputs[(modelOutputs[f'p_{modelChoice}_{cat}_check'].notnull())\
+                    & (modelOutputs[f'p_{modelChoice}_{cat}_check'] != 'Null')].shape[0]
     modelOutputs['entity_name'] = modelOutputs['UEN Number'].map(uenEntity_dict)
     if cat == 'Subclass':
         cat_key = subclass
@@ -133,11 +137,7 @@ st.write(companies_input)
 st.subheader('Company Description:')
 st.write(content_input)
 
-###############################################################################################
-
-
-
-###############################################################################################
+ssic_1, ssic_2, ssic_3, ssic_4, ssic_5, ssic_df = ssic_df(ssic_detailed_def_filepath, ssic_alpha_index_filepath)
 
 if pd.isna(ssic_input):
     ssic_input = 'NULL'
