@@ -68,7 +68,7 @@ categories = [subclass, Class, group, division, section]
 values.reverse()
 
 # Create horizontal bar chart
-fig, ax = plt.subplots(figsize=(10, 6))
+fig, ax = plt.subplots(figsize=(6, 3.6))
 bars = ax.barh(categories, values, color='skyblue')
 # ax.set_xlabel('Percentage')
 # ax.set_ylabel('Categories')
