@@ -1,11 +1,11 @@
-import pandas as pd
-import numpy as np
-import tensorflow as tf
-from commonFunctions import ssic_df
-from transformers import AutoTokenizer, TFAutoModelForSequenceClassification
-pd.set_option('display.max_columns', None)
-
 def validatingClassificationModel(self):
+
+    import pandas as pd
+    import numpy as np
+    import tensorflow as tf
+    from commonFunctions import ssic_df
+    from transformers import AutoTokenizer, TFAutoModelForSequenceClassification
+    pd.set_option('display.max_columns', None)
 
     # hard-coded values:
 
