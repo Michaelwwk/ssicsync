@@ -1,10 +1,10 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-from sklearn import datasets
 import matplotlib.pyplot as plt
 import seaborn as sns
 import tensorflow as tf
+from sklearn import datasets
 from commonFunctions import ssic_df
 from transformers import AutoTokenizer, TFAutoModelForSequenceClassification
 
@@ -15,7 +15,6 @@ ssic_alpha_index_filepath = "dataSources/DoS/ssic2020-alphabetical-index.xlsx"
 
 # Set page config
 apptitle = 'SSIC Classification'
-
 st.set_page_config(page_title=apptitle, layout='wide')
 
 # st.title('SSIC Dictionary')
@@ -27,7 +26,6 @@ st.set_page_config(page_title=apptitle, layout='wide')
 # load model directly from huggingface
 tokenizer = AutoTokenizer.from_pretrained("nusebacra/ssicsync_section_classifier")
 model = TFAutoModelForSequenceClassification.from_pretrained("nusebacra/ssicsync_section_classifier")
-
 ssic_1, ssic_2, ssic_3, ssic_4, ssic_5, ssic_df = ssic_df(ssic_detailed_def_filepath, ssic_alpha_index_filepath)
 
 ####################################################################################################

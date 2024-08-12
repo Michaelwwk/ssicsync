@@ -6,6 +6,7 @@ import seaborn as sns
 from sklearn import datasets
 from commonFunctions import ssic_df
 
+# hard-coded values
 ssic_detailed_def_filepath = "dataSources/DoS/ssic2020-detailed-definitions.xlsx"
 ssic_alpha_index_filepath = "dataSources/DoS/ssic2020-alphabetical-index.xlsx"
 

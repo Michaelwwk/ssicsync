@@ -1,6 +1,0 @@
-2024-08-12 19:24:34,784 - INFO - Start code execution.
-2024-08-12 19:24:34,784 - ERROR - Uncaught exception
-Traceback (most recent call last):
-  File "C:\Users\Michael\Documents\GitHub\ssicsync\main.py", line 11, in <module>
-    modelResults.runValidatingClassificationModel(ssic_df)
-TypeError: controllerService.runValidatingClassificationModel() takes 1 positional argument but 2 were given

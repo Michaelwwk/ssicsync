@@ -1,11 +1,11 @@
-def validatingClassificationModel(self):
+import pandas as pd
+import numpy as np
+import tensorflow as tf
+from commonFunctions import ssic_df
+from transformers import AutoTokenizer, TFAutoModelForSequenceClassification
+pd.set_option('display.max_columns', None)
 
-    import pandas as pd
-    import numpy as np
-    import tensorflow as tf
-    from commonFunctions import ssic_df
-    from transformers import AutoTokenizer, TFAutoModelForSequenceClassification
-    pd.set_option('display.max_columns', None)
+def validatingClassificationModel(self, logger):
 
     # hard-coded values:
 
@@ -139,20 +139,20 @@ def validatingClassificationModel(self):
 
     ####################################################################################################
 
-    ssic_1, ssic_2, ssic_3, ssic_4, ssic_5, ssic_df = ssic_df(ssic_detailed_def_filepath, ssic_alpha_index_filepath)
+    ssic_1, ssic_2, ssic_3, ssic_4, ssic_5, ssic_dataframe = ssic_df(ssic_detailed_def_filepath, ssic_alpha_index_filepath)
 
     # mapping
     level_map = {
-        'Section': ('Section', ssic_df.iloc[:, [0, 1, 9, 10, 11, 12, 13]].\
+        'Section': ('Section', ssic_dataframe.iloc[:, [0, 1, 9, 10, 11, 12, 13]].\
                     drop_duplicates(), ssic_1.iloc[:, [0, 1]].drop_duplicates().reset_index(drop=True), "nusebacra/ssicsync_section_classifier", ssic_1),
-        'Division': ('Division', ssic_df.iloc[:, [0, 1, 6, 10, 11, 12, 13]].\
+        'Division': ('Division', ssic_dataframe.iloc[:, [0, 1, 6, 10, 11, 12, 13]].\
                      drop_duplicates(), ssic_2.iloc[:, [0, 1]].drop_duplicates().\
                         reset_index(drop=True), "nusebacra/ssicsync_division_classifier", ssic_2),
-        'Group': ('Group', ssic_df.iloc[:, [0, 1, 7, 10, 11, 12, 13]].drop_duplicates(), ssic_3.iloc[:, [0, 1]].drop_duplicates().\
+        'Group': ('Group', ssic_dataframe.iloc[:, [0, 1, 7, 10, 11, 12, 13]].drop_duplicates(), ssic_3.iloc[:, [0, 1]].drop_duplicates().\
                   reset_index(drop=True), "nusebacra/ssicsync_group_classifier", ssic_3),
-        'Class': ('Class', ssic_df.iloc[:, [0, 1, 8, 10, 11, 12, 13]].drop_duplicates(), ssic_4.iloc[:, [0, 1]].drop_duplicates().\
+        'Class': ('Class', ssic_dataframe.iloc[:, [0, 1, 8, 10, 11, 12, 13]].drop_duplicates(), ssic_4.iloc[:, [0, 1]].drop_duplicates().\
                   reset_index(drop=True), "nusebacra/ssicsync_class_classifier", ssic_4),
-        'Subclass': ('SSIC 2020', ssic_df.iloc[:, [0, 1, 9, 10, 11, 12, 13]].drop_duplicates(), ssic_5.iloc[:, [0, 1]].drop_duplicates().\
+        'Subclass': ('SSIC 2020', ssic_dataframe.iloc[:, [0, 1, 9, 10, 11, 12, 13]].drop_duplicates(), ssic_5.iloc[:, [0, 1]].drop_duplicates().\
                      reset_index(drop=True), "nusebacra/ssicsync_subclass_classifier", ssic_5)
     }
 
@@ -161,7 +161,7 @@ def validatingClassificationModel(self):
     lvl_train_title = lvl_train + " Title"
 
     # prep ssic_n dictionary df_prep
-    df_prep = ssic_df[[lvl_train, 'Detailed Definitions']]
+    df_prep = ssic_dataframe[[lvl_train, 'Detailed Definitions']]
     df_prep['encoded_cat'] = df_prep[lvl_train].astype('category').cat.codes
     df_prep = df_prep[[lvl_train, 'encoded_cat']].drop_duplicates()
 

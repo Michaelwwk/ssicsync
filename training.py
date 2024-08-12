@@ -1,8 +1,11 @@
-import sys
 from controller import controllerService
 
 # hard-coded variables
-# placeholder
+max_files = 100
 
-modelResults = controllerService()
-modelResults.runValidatingClassificationModel()
+modelTraining = controllerService(maxFiles = max_files)
+logger = modelTraining.setup_logger('training')
+logger.info('Start code execution.')
+
+modelTraining.runTrainingClassificationModel(logger)
+logger.info('Model training completed. h5 file generated.')
