@@ -168,8 +168,7 @@ with col2:
 # col1, col2 = st.columns([2,3])
 
 st.markdown('''
-<br><br>
-Sub-class Reference Table
+Sub-class Reference Table:
 ''', unsafe_allow_html=True)
 
 # with col1:
