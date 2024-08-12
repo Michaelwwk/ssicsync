@@ -167,7 +167,7 @@ with col4:
 
 # with col1:
 last_column = filtered_df_ref.iloc[:, -1]
-last_column = last_column.str.capitalize()
+filtered_df_ref[last_column] = last_column.str.capitalize()
 st.write(filtered_df_ref, use_container_width=True)
     # st.table(ssic_sl) # use st.table to display full table w/o scrolling
 
