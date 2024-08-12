@@ -92,12 +92,12 @@ ssic_sl = ssic_4_sl
 st.set_page_config(
     page_title='ssicsync', # Set display name of browser tab
     page_icon="🔍", # Set display icon of browser tab
-    layout="centered", # "wide" or "centered"
+    layout="wide", # "wide" or "centered"
     initial_sidebar_state="expanded"
 )
 
 # st.title('SSIC Dictionary')
-# st.write('Reference: https://docs.streamlit.io/en/stable/api.html#display-data')
+st.write('Reference: https://docs.streamlit.io/en/stable/api.html#display-data')
 
 # Visual Effects ### - https://docs.streamlit.io/develop/api-reference/status
 # st.balloons() 

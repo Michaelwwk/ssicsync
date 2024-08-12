@@ -30,6 +30,14 @@ def capitalize_sentence(text):
     # Join the sentences back into a single string
     return '. '.join(sentences)
 
+# Set page config
+st.set_page_config(
+    page_title='ssicsync', # Set display name of browser tab
+    page_icon="🔍", # Set display icon of browser tab
+    layout="wide", # "wide" or "centered"
+    initial_sidebar_state="expanded"
+)
+
 # page title
 st.title("Results for List of Companies")
 
