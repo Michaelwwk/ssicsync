@@ -101,7 +101,7 @@ st.set_page_config(
 )
 
 # st.title('SSIC Dictionary')
-# st.write('Reference: https://docs.streamlit.io/en/stable/api.html#display-data')
+st.write('Reference: https://docs.streamlit.io/en/stable/api.html#display-data')
 
 # Visual Effects ### - https://docs.streamlit.io/develop/api-reference/status
 # st.balloons() 
@@ -123,21 +123,15 @@ st.markdown(custom_styles, unsafe_allow_html=True)
 
 st.header('📄 Section, 21 Categories', divider='rainbow')
 
-col1, col2, col3, col4, col5 = st.columns([3,1,1,1.5,3.5])
+col1, col2 = st.columns([1,1.5])
 
 with col1:
-    st.markdown('''
-    <br><br>
-    Section Reference Table
-    ''', unsafe_allow_html=True)
-
-with col2:
     section_filter = st.text_input('Search by Section:', '')
 
-with col3:
-    ssic_filter = st.text_input('Search by SSIC:', '')
+# # with col3:
+#     ssic_filter = st.text_input('Search by SSIC:', '')
 
-with col4:
+with col2:
     ssic_2020_title_filter = st.text_input('Search by Title Keywords:', '')
 
     # Filtering logic based on user input
@@ -146,27 +140,28 @@ with col4:
     else:
         filtered_df_ref = ssic_sl
 
-
-    if section_filter:
-        filtered_df_section = df_streamlit[df_streamlit['Section'].str.contains(section_filter, case=False)]
-    else:
-        filtered_df_section = df_streamlit
-
-    if ssic_filter:
-        filtered_df_ssic = filtered_df_section[filtered_df_section['SSIC 2020'].str.contains(ssic_filter, case=False)]
-    else:
-        filtered_df_ssic = filtered_df_section
-
     if ssic_2020_title_filter:
-        filtered_df_ssic_2020_title = filtered_df_ssic[filtered_df_ssic['SSIC 2020 Title'].str.contains(ssic_2020_title_filter, case=False)]
+        filtered_df_ref = filtered_df_ref[filtered_df_ref['Section Title'].str.contains(ssic_2020_title_filter, case=False)]
     else:
-        filtered_df_ssic_2020_title = filtered_df_ssic
+        filtered_df_ref = filtered_df_ref
 
 # col1, col2 = st.columns([2,3])
+
+st.markdown('''
+Section Reference Table:
+''', unsafe_allow_html=True)
 
 # with col1:
 level = filtered_df_ref.columns[1]
 filtered_df_ref[level] = filtered_df_ref[level].apply(lambda x: x.capitalize())
+
+if filtered_df_ref.columns[0] == 'SSIC 2020':
+    firstCol = filtered_df_ref.columns[0]
+    filtered_df_ref.rename(columns= {firstCol:'Sub-class'}, inplace = True)
+if filtered_df_ref.columns[1] == 'SSIC 2020 Title':
+    secondCol = filtered_df_ref.columns[1]
+    filtered_df_ref.rename(columns= {secondCol:'Sub-class Title'}, inplace = True)
+
 st.write(filtered_df_ref, use_container_width=True)
     # st.table(ssic_sl) # use st.table to display full table w/o scrolling
 
