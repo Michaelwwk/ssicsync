@@ -32,7 +32,7 @@ st.markdown(custom_styles, unsafe_allow_html=True)
 
 # st.sidebar.success("Explore our pages above ☝️")
 
-st.image('image/ACRA_logo.jpg', caption='', output_format='JPEG', use_column_width=True)
+st.image('image/ACRA_logo2.jpg', caption='', output_format='JPEG', use_column_width=True)
 
 st.write("## Welcome to ssicsync streamlit page! 👋")
 
