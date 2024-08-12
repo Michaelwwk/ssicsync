@@ -152,12 +152,12 @@ with col3:
 
     # Filtering logic based on user input
     if section_filter:
-        filtered_df_ref = ssic_sl[ssic_sl['Subclass'].str.contains(section_filter, case=False)]
+        filtered_df_ref = ssic_sl[ssic_sl['Sub-class'].str.contains(section_filter, case=False)]
     else:
         filtered_df_ref = ssic_sl
 
     if section_filter:
-        filtered_df_section = df_streamlit[df_streamlit['Subclass'].str.contains(section_filter, case=False)]
+        filtered_df_section = df_streamlit[df_streamlit['Sub-class'].str.contains(section_filter, case=False)]
     else:
         filtered_df_section = df_streamlit
 
