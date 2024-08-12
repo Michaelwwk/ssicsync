@@ -2,8 +2,7 @@ import sys
 from controller import controllerService
 
 # hard-coded variables
-level = 'Subclass'
-topN = 3
+# placeholder
 
-modelResults = controllerService(level, topN)
+modelResults = controllerService()
 modelResults.runValidatingClassificationModel()

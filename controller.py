@@ -3,13 +3,13 @@ from models.classificationModel.validatingClassificationModel import validatingC
 
 class controllerService:
 
-    def __init__(self, test):
-        self.test = test
+    def __init__(self, level = 'Subclass', topN = 3):
+        self.level = level
+        self.topN = topN
 
     def runTrainingClassificationModel(self):
         output = trainingClassificationModel(self)
         return output
 
     def runValidatingClassificationModel(self):
-        output = validatingClassificationModel(self)
-        return output
+        validatingClassificationModel(self)

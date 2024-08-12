@@ -271,6 +271,5 @@ else:
     st.write(f"{companies_input} SSIC {grammar} **{classification}** its predicted top {topN} SSIC Codes.")
 
 # Visual Effects ### - https://docs.streamlit.io/develop/api-reference/status
-st.balloons() 
-
-st.sidebar.success("Explore our pages above ☝️")
+# st.balloons() 
+# st.sidebar.success("Explore our pages above ☝️")
