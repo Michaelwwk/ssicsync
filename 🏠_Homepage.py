@@ -43,7 +43,7 @@ st.markdown(
     """
     <style>
     .about-header {
-        margin-top: -30px;
+        margin-top: -3px;
     }
     </style>
     """,
