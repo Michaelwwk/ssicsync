@@ -34,7 +34,7 @@ def capitalize_sentence(text):
 st.set_page_config(
     page_title='ssicsync', # Set display name of browser tab
     page_icon="🔍", # Set display icon of browser tab
-    layout="wide", # "wide" or "centered"
+    layout="centered", # "wide" or "centered"
     initial_sidebar_state="expanded"
 )
 
@@ -68,11 +68,11 @@ categories = [subclass, Class, group, division, section]
 values.reverse()
 
 # Create horizontal bar chart
-fig, ax = plt.subplots(figsize=(4, 2.5))
+fig, ax = plt.subplots(figsize=(10, 6))
 bars = ax.barh(categories, values, color='skyblue')
 # ax.set_xlabel('Percentage')
 # ax.set_ylabel('Categories')
-# ax.set_title('Classification Accuracy',  fontweight='bold')
+ax.set_title('Classification Accuracy',  fontweight='bold')
 fig.text(0.525, 0.92, f'Company SSIC(s) Within Top {topN} Predicted SSICs', ha='center', fontsize=10)
 ax.set_xlim(0, 100)  # Assuming the percentage is between 0 and 100
 
@@ -90,11 +90,8 @@ for bar in bars:
 # Adjust layout
 plt.tight_layout()
 
-# Use Streamlit layout to align the plot to the left
-col1, col2 = st.columns([5, 1])  # Adjust columns to align chart to the left
-
-with col1:
-    st.pyplot(fig)
+# Display plot in Streamlit
+st.pyplot(fig)
 
 # Streamlit selectbox for user input
 level_input = st.selectbox(
