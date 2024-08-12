@@ -144,7 +144,7 @@ with col1:
 
     # Add some text explaining the app
     st.write("""
-    ##### Classify Business Descriptions into 21 Section Categories
+    ##### Classification (21 Section Categories)
     Welcome to the Business Description Classifier! This application utilizes a multiclass text classification model 
     to categorize business descriptions into one of 21 Section categories. Simply input your business description, 
     and the model will analyze the text and provide a list predicted categories.
