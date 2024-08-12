@@ -146,39 +146,28 @@ st.title("Business Description Classifier")
 col1, col2 = st.columns([1,1])
 
 with col1:
-    ssic_n_sl[lvl_train_title] = ssic_n_sl[lvl_train_title].apply(lambda x: x.capitalize())
-    st.dataframe(ssic_n_sl, use_container_width=True)
-
-with col2:
-    # page subheader
-    st.subheader("Classify Business Descriptions into 21 Section Categories")
 
     # Add some text explaining the app
     st.write("""
+    ##### Classification (382 Class Categories)
     Welcome to the Business Description Classifier! This application utilizes a multiclass text classification model 
-    to categorize business descriptions into one of 21 Section categories. Simply input your business description, 
+    to categorize business descriptions into one of 382 Class categories. Simply input your business description, 
     and the model will analyze the text and provide a list predicted categories.
-
-    ##### About the Model
-    This model has been trained on a diverse dataset of business descriptions and is capable of understanding and 
-    classifying a wide range of business activities. The 21 Section categories cover various industry sectors, 
-    providing accurate and meaningful classifications for your business needs.
-    """)
-
-col3, col4 = st.columns([1,1])
-
-with col3:
-
-    st.write(f"""
+             
     ##### How to Use
     1. Enter the business description in the text box below.
     2. Hit Control + Enter.
     3. The top {topN} predicted categories will be displayed below the button.
     """)
 
-with col4:
-    
-    st.write("""
+with col2:
+
+    st.write(f"""
+    ##### About the Model
+    This model has been trained on a diverse dataset of business descriptions and is capable of understanding and 
+    classifying a wide range of business activities. The 382 Class categories cover various industry sectors, 
+    providing accurate and meaningful classifications for your business needs.
+             
     ##### Examples
     - **Technology:** Software development, IT consulting, hardware manufacturing.
     - **Healthcare:** Hospitals, pharmaceutical companies, medical research.

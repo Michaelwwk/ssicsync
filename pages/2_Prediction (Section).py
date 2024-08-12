@@ -148,6 +148,7 @@ with col1:
     Welcome to the Business Description Classifier! This application utilizes a multiclass text classification model 
     to categorize business descriptions into one of 21 Section categories. Simply input your business description, 
     and the model will analyze the text and provide a list predicted categories.
+             
     ##### How to Use
     1. Enter the business description in the text box below.
     2. Hit Control + Enter.
@@ -161,6 +162,7 @@ with col2:
     This model has been trained on a diverse dataset of business descriptions and is capable of understanding and 
     classifying a wide range of business activities. The 21 Section categories cover various industry sectors, 
     providing accurate and meaningful classifications for your business needs.
+             
     ##### Examples
     - **Technology:** Software development, IT consulting, hardware manufacturing.
     - **Healthcare:** Hospitals, pharmaceutical companies, medical research.
