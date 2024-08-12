@@ -59,14 +59,52 @@ st.markdown(
 This section presents the overall classification results as well as SSIC results at the company level. \
 It is particularly useful for validating companies' declared SSIC codes against the recommended SSIC codes.
 
+
 **Prediction (Section)**\n
 This section enables users to apply the classification model to ad-hoc company descriptions, returning the top SSIC code at the Section level. \
 It is ideal for conducting quick analyses to obtain the recommended SSIC codes at the Section level.
 
+**Prediction (Division)**\n
+This section enables users to apply the classification model to ad-hoc company descriptions, returning the top SSIC code at the Division level. \
+It is ideal for conducting quick analyses to obtain the recommended SSIC codes at the Division level.
+
+**Prediction (Group)**\n
+This section enables users to apply the classification model to ad-hoc company descriptions, returning the top SSIC code at the Group level. \
+It is ideal for conducting quick analyses to obtain the recommended SSIC codes at the Group level.
+
+**Prediction (Class)**\n
+This section enables users to apply the classification model to ad-hoc company descriptions, returning the top SSIC code at the Class level. \
+It is ideal for conducting quick analyses to obtain the recommended SSIC codes at the Class level.
+
+**Prediction (Sub-class)**\n
+This section enables users to apply the classification model to ad-hoc company descriptions, returning the top SSIC code at the Sub-class level. \
+It is ideal for conducting quick analyses to obtain the recommended SSIC codes at the Sub-class level.
+
+
 **Reference (Section)**\n
-This section allows users to search for SSIC codes and related keywords in SSIC titles. \
-The search results will provide a relevant list of SSIC codes and titles based on the input terms. \
-This feature is ideal for gaining a comprehensive understanding of the meanings and applications of each SSIC code.
+This section allows users to search for SSIC Section codes and related keywords in SSIC titles. \
+The search results will provide a relevant list of SSIC Section codes and titles based on the input terms. \
+This feature is ideal for gaining a comprehensive understanding of the meanings and applications of each SSIC Section code.
+
+**Reference (Division)**\n
+This section allows users to search for SSIC Division codes and related keywords in SSIC titles. \
+The search results will provide a relevant list of SSIC Division codes and titles based on the input terms. \
+This feature is ideal for gaining a comprehensive understanding of the meanings and applications of each SSIC Division code.
+
+**Reference (Group)**\n
+This section allows users to search for SSIC Group codes and related keywords in SSIC titles. \
+The search results will provide a relevant list of SSIC Group codes and titles based on the input terms. \
+This feature is ideal for gaining a comprehensive understanding of the meanings and applications of each SSIC Group code.
+
+**Reference (Class)**\n
+This section allows users to search for SSIC Class codes and related keywords in SSIC titles. \
+The search results will provide a relevant list of SSIC Class codes and titles based on the input terms. \
+This feature is ideal for gaining a comprehensive understanding of the meanings and applications of each SSIC Class code.
+
+**Reference (Sub-class)**\n
+This section allows users to search for SSIC Sub-class codes and related keywords in SSIC titles. \
+The search results will provide a relevant list of SSIC Sub-class codes and titles based on the input terms. \
+This feature is ideal for gaining a comprehensive understanding of the meanings and applications of each SSIC Sub-class code.
 
 '''
 )
