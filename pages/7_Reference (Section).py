@@ -6,6 +6,7 @@ import seaborn as sns
 from sklearn import datasets
 from commonFunctions import ssic_df
 
+# hard-coded values
 ssic_detailed_def_filepath = "dataSources/DoS/ssic2020-detailed-definitions.xlsx"
 ssic_alpha_index_filepath = "dataSources/DoS/ssic2020-alphabetical-index.xlsx"
 
@@ -32,13 +33,9 @@ ssic_sl = ssic_1_sl
 # Set page config
 st.set_page_config(
     page_title='ssicsync', # Set display name of browser tab
-    page_icon="🔍", # Set display icon of browser tab
+    # page_icon="🔍", # Set display icon of browser tab
     layout="wide", # "wide" or "centered"
-    initial_sidebar_state="expanded",
-    menu_items={
-        'About': '''Explore multiclass text classification with DistilBERT on our Streamlit page. 
-        Discover interactive insights and the power of modern NLP in text categorization!'''
-    }
+    initial_sidebar_state="expanded"
 )
 
 # st.title('SSIC Dictionary')

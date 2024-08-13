@@ -1,10 +1,10 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-from sklearn import datasets
 import matplotlib.pyplot as plt
 import seaborn as sns
 import tensorflow as tf
+from sklearn import datasets
 from commonFunctions import ssic_df
 from transformers import AutoTokenizer, TFAutoModelForSequenceClassification
 
@@ -15,7 +15,6 @@ ssic_alpha_index_filepath = "dataSources/DoS/ssic2020-alphabetical-index.xlsx"
 
 # Set page config
 apptitle = 'SSIC Classification'
-
 st.set_page_config(page_title=apptitle, layout='wide')
 
 # st.title('SSIC Dictionary')
@@ -27,7 +26,6 @@ st.set_page_config(page_title=apptitle, layout='wide')
 # load model directly from huggingface
 tokenizer = AutoTokenizer.from_pretrained("nusebacra/ssicsync_section_classifier")
 model = TFAutoModelForSequenceClassification.from_pretrained("nusebacra/ssicsync_section_classifier")
-
 ssic_1, ssic_2, ssic_3, ssic_4, ssic_5, ssic_df = ssic_df(ssic_detailed_def_filepath, ssic_alpha_index_filepath)
 
 ####################################################################################################
@@ -81,9 +79,9 @@ with col1:
     # Add some text explaining the app
     st.write(f"""
     ##### Classification (21 Section Categories)
-    Welcome to the Business Description Classifier! This application utilizes a multiclass text classification model 
+    Welcome to the Business Description Classifier! This application utilizes a multi-class text classification model 
     to categorize business descriptions into one of 21 Section categories. Simply input your business description, 
-    and the model will analyze the text and provide a list predicted categories.
+    and the model will analyze the text and provide a list of predicted categories.
              
     ##### How to Use
     1. Enter the business description in the text box below.
