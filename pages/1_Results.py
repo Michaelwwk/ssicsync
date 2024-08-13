@@ -36,7 +36,7 @@ def capitalize_sentence(text):
 # Set page config
 st.set_page_config(
     page_title='ssicsync', # Set display name of browser tab
-    page_icon="🔍", # Set display icon of browser tab
+    # page_icon="🔍", # Set display icon of browser tab
     layout="centered", # "wide" or "centered"
     initial_sidebar_state="expanded"
 )

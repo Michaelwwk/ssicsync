@@ -7,7 +7,7 @@ acraLogoPath = 'image/ACRA_logo.jpg'
 # Set page config
 st.set_page_config(
     page_title='ssicsync', # Set display name of browser tab
-    page_icon="🔍", # Set display icon of browser tab
+    # page_icon="🔍", # Set display icon of browser tab
     layout="wide", # "wide" or "centered"
     initial_sidebar_state="expanded"
 )
