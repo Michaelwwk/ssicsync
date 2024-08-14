@@ -21,7 +21,7 @@ Class = 'Class'
 subclass = 'Sub-class'
 ssic_detailed_def_filepath = "dataSources/DoS/ssic2020-detailed-definitions.xlsx"
 ssic_alpha_index_filepath = "dataSources/DoS/ssic2020-alphabetical-index.xlsx"
-DoS = pd.read_csv("./dataSources/ScrapedOutputFiles/list of 90 Coy and SSIC.csv")
+companies_df = pd.read_csv("dataSources/input_listOfCompanies.csv")
 modelOutputs = pd.read_csv("./models/classificationModel/modelOutputFiles/pdfModelFinalOutputs.csv", dtype={'ssic_code': str, 'ssic_code2': str})
 
 # functions
@@ -49,10 +49,10 @@ prop_dict = {}
 df_display = {}
 categories = [section, division, group, Class, "Subclass"]
 
-uenEntity_dict = {"UEN": DoS['UEN'].to_list(),
-                  "entity_name": DoS['entity_name'].to_list()}
-DoS = pd.DataFrame(uenEntity_dict)
-uenEntity_dict = dict(zip(DoS['UEN'], DoS['entity_name']))
+uenEntity_dict = {"UEN": companies_df['UEN'].to_list(),
+                  "entity_name": companies_df['entity_name'].to_list()}
+uenEntity_df = pd.DataFrame(uenEntity_dict)
+uenEntity_dict = dict(zip(uenEntity_df['UEN'], uenEntity_df['entity_name']))
 
 for cat in categories:
     prop_dict[cat] = modelOutputs[modelOutputs[f'p_{modelChoice}_{cat}_check'] == 'Y'].shape[0]/modelOutputs[(modelOutputs[f'p_{modelChoice}_{cat}_check'].notnull())\

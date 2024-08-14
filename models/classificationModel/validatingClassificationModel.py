@@ -11,7 +11,7 @@ def validatingClassificationModel(self, logger):
 
     level = self.level
     topN = self.topN
-    list_df_filepath = r"dataSources/ScrapedOutputFiles/list of 90 Coy and SSIC.csv"
+    list_df_filepath = r"dataSources/input_listOfCompanies.csv"
     vdf_filepath = r"LLM_Test/Summarised_output_for_model_v3.xlsx" # TODO change path name and file name eventually!
     ssic_detailed_def_filepath = r"dataSources/DoS/ssic2020-detailed-definitions.xlsx"
     ssic_alpha_index_filepath = r"dataSources/DoS/ssic2020-alphabetical-index.xlsx"
