@@ -65,8 +65,9 @@ for cat in categories:
     df_display[cat_key] = modelOutputs[['entity_name', f'p_{modelChoice}_{cat}_check', 'ssic_code', 'ssic_code2']]
     df_display[cat_key].rename(columns = {f'p_{modelChoice}_{cat}_check': 'classification'}, inplace = True)
 
-    df_display[cat_key].loc[(df_display[cat_key].ssic_code == 'Null' | df_display[cat_key].ssic_code.isnull()) &
-                (df_display[cat_key].ssic_code2 == 'Null' | df_display[cat_key].ssic_code2.isnull()), 'classification'] = 'Null'
+    df_display[cat_key].loc[(df_display[cat_key]['ssic_code'].isnull() | (df_display[cat_key]['ssic_code'] == 'Null')) &
+                            (df_display[cat_key]['ssic_code2'].isnull() | (df_display[cat_key]['ssic_code2'] == 'Null')), 
+                            'classification'] = 'Null'
 
 for level in prop_dict.values():
     values.append(round(level*100, 1))
