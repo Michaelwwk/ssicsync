@@ -62,8 +62,11 @@ for cat in categories:
         cat_key = subclass
     else:
         cat_key = cat
-    df_display[cat_key] = modelOutputs[['entity_name', f'p_{modelChoice}_{cat}_check']]
+    df_display[cat_key] = modelOutputs[['entity_name', f'p_{modelChoice}_{cat}_check', 'ssic_code', 'ssic_code2']]
     df_display[cat_key].rename(columns = {f'p_{modelChoice}_{cat}_check': 'classification'}, inplace = True)
+
+    df_display[cat_key].loc[(df_display[cat_key].ssic_code == 'Null' | df_display[cat_key].ssic_code.isnull()) &
+                (df_display[cat_key].ssic_code2 == 'Null' | df_display[cat_key].ssic_code2.isnull()), 'classification'] = 'Null'
 
 for level in prop_dict.values():
     values.append(round(level*100, 1))
@@ -105,7 +108,10 @@ level_input = st.selectbox(
 level = level_input if level_input else section
 
 levelDisplay_df = df_display[level]
-correctWrongClassification_df = levelDisplay_df[levelDisplay_df.classification.notnull()] # TODO Missing SSIC predictions because no company descriptions!
+# Filter records with annual report PDF but no record in input_listOfCompanies.csv
+correctWrongClassification_df = levelDisplay_df[levelDisplay_df.entity_name.notnull()]
+# Filter records with no SSIC predictions (e.g. no company descriptions) 
+correctWrongClassification_df = correctWrongClassification_df[correctWrongClassification_df.classification.notnull()]
 
 correctWrongClassification_df.loc[correctWrongClassification_df.classification == 'N', 'classification'] = 'No'
 correctWrongClassification_df.loc[correctWrongClassification_df.classification == 'Y', 'classification'] = 'Yes'
