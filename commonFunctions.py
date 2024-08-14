@@ -1,8 +1,5 @@
 import pandas as pd
 
-ssic_detailed_def_filepath = "dataSources/DoS/ssic2020-detailed-definitions.xlsx"
-ssic_alpha_index_filepath = "dataSources/DoS/ssic2020-alphabetical-index.xlsx"
-
 def ssic_df(ssic_detailed_def_filepath, ssic_alpha_index_filepath):
 
     df_detailed_def = pd.read_excel(ssic_detailed_def_filepath, skiprows=4)
