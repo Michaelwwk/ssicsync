@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn import datasets
 from commonFunctions import ssic_df
+from main import Class
 
 # hard-coded values
 ssic_detailed_def_filepath = "dataSources/DoS/ssic2020-detailed-definitions.xlsx"
@@ -71,7 +72,7 @@ custom_styles = """
 # Display CSS styles using st.markdown
 st.markdown(custom_styles, unsafe_allow_html=True)
 
-st.header('🏷️ Class, 382 Categories', divider='rainbow')
+st.header(f'🏷️ Class, {Class} Categories', divider='rainbow')
 
 col1, col2 = st.columns([1,1.5])
 
