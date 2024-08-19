@@ -54,6 +54,7 @@ uenEntity_dict = {"UEN": companies_df['UEN'].to_list(),
 uenEntity_df = pd.DataFrame(uenEntity_dict)
 uenEntity_dict = dict(zip(uenEntity_df['UEN'], uenEntity_df['entity_name']))
 
+modelOutputs['adjusted_score'] = modelOutputs['adjusted_score'].round(2)
 for cat in categories:
     prop_dict[cat] = modelOutputs[modelOutputs[f'p_{modelChoice}_{cat}_check'] == 'Y'].shape[0]/modelOutputs[(modelOutputs[f'p_{modelChoice}_{cat}_check'].notnull())\
                     & (modelOutputs[f'p_{modelChoice}_{cat}_check'] != 'Null')].shape[0]
@@ -62,7 +63,7 @@ for cat in categories:
         cat_key = subclass
     else:
         cat_key = cat
-    df_display[cat_key] = modelOutputs[['entity_name', f'p_{modelChoice}_{cat}_check', 'ssic_code', 'ssic_code2', 'adjusted_score']]
+    df_display[cat_key] = modelOutputs[['entity_name', f'p_{modelChoice}_{cat}_check', 'ssic_code', 'ssic_code2', 'c']]
     df_display[cat_key].rename(columns = {f'p_{modelChoice}_{cat}_check': 'classification'}, inplace = True)
 
     df_display[cat_key].loc[(df_display[cat_key]['ssic_code'].isnull() | (df_display[cat_key]['ssic_code'] == 'Null')) &
@@ -89,7 +90,7 @@ with col1:
     percentages = counts * bin_width * 100
 
     # Adjusting X-axis ticks to have 10 labels
-    plt.xticks(np.linspace(bins.min(), bins.max(), 10))
+    # plt.xticks(np.linspace(bins.min(), bins.max(), 10))
 
     # Normalize bin centers to get a value between 0 and 1 for color mapping
     norm = plt.Normalize(bins.min(), bins.max())
@@ -166,7 +167,6 @@ correctWrongClassification_df.loc[correctWrongClassification_df.classification =
 correctWrongClassification_df.loc[correctWrongClassification_df.classification == 'Y', 'classification'] = 'Yes'
 correctWrongClassification_df.loc[correctWrongClassification_df.classification == 'Null', 'classification'] = 'NA'
 correctWrongClassification_df.rename(columns = {'classification': f'Within Top {topN}', 'adjusted_score': 'Adjusted Score'}, inplace = True)
-correctWrongClassification_df['Adjusted Score'] = correctWrongClassification_df['Adjusted Score'].round(2)
 correctWrongClassification_df['Company Name'] = correctWrongClassification_df['entity_name'].str.rstrip('.')
 
 # Display df with text wrapping and no truncation
@@ -182,7 +182,7 @@ companies_input = st.selectbox(
     "List of Companies",
     companies_tuple)
 
-score_input = modelOutputs[modelOutputs.entity_name.str.rstrip('.') == companies_input].reset_index(drop = True)['Adjusted Score'][0]
+score_input = modelOutputs[modelOutputs.entity_name.str.rstrip('.') == companies_input].reset_index(drop = True)['adjusted_score'][0]
 content_input = capitalize_sentence(modelOutputs[modelOutputs.entity_name.str.rstrip('.') == companies_input].reset_index(drop = True)['Notes Page Content'][0])
 ssic_input = modelOutputs[modelOutputs.entity_name.str.rstrip('.') == companies_input].reset_index(drop = True).ssic_code[0]
 ssic2_input = modelOutputs[modelOutputs.entity_name.str.rstrip('.') == companies_input].reset_index(drop = True).ssic_code2[0]
