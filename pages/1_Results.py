@@ -107,7 +107,7 @@ with col2:
     data = np.linspace(0, 1, 86)
 
     # Create the histogram to get counts, bins, and patches
-    counts, bins, patches = np.histogram(data, bins=10, density=True)
+    counts, bins = np.histogram(data, bins=10, density=True)
     bin_width = bins[1] - bins[0]
     percentages = counts * bin_width * 100
 
