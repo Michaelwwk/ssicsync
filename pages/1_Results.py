@@ -63,6 +63,7 @@ for cat in categories:
         cat_key = subclass
     else:
         cat_key = cat
+    print(modelOutputs.columns) # TODO DELETE!!!
     df_display[cat_key] = modelOutputs[['entity_name', f'p_{modelChoice}_{cat}_check', 'ssic_code', 'ssic_code2', 'adjusted_score']]
     df_display[cat_key].rename(columns = {f'p_{modelChoice}_{cat}_check': 'classification'}, inplace = True)
 
