@@ -53,6 +53,7 @@ uenEntity_dict = {"UEN": companies_df['UEN'].to_list(),
                   "entity_name": companies_df['entity_name'].to_list()}
 uenEntity_df = pd.DataFrame(uenEntity_dict)
 uenEntity_dict = dict(zip(uenEntity_df['UEN'], uenEntity_df['entity_name']))
+modelOutputs['adjusted_score'] = modelOutputs['adjusted_score'].round(2)
 
 for cat in categories:
     prop_dict[cat] = modelOutputs[modelOutputs[f'p_{modelChoice}_{cat}_check'] == 'Y'].shape[0]/modelOutputs[(modelOutputs[f'p_{modelChoice}_{cat}_check'].notnull())\
@@ -166,7 +167,6 @@ correctWrongClassification_df.loc[correctWrongClassification_df.classification =
 correctWrongClassification_df.loc[correctWrongClassification_df.classification == 'Y', 'classification'] = 'Yes'
 correctWrongClassification_df.loc[correctWrongClassification_df.classification == 'Null', 'classification'] = 'NA'
 correctWrongClassification_df.rename(columns = {'classification': f'Within Top {topN}', 'adjusted_score': 'Adjusted Score'}, inplace = True)
-correctWrongClassification_df['Adjusted Score'] = correctWrongClassification_df['Adjusted Score'].round(2)
 correctWrongClassification_df['Company Name'] = correctWrongClassification_df['entity_name'].str.rstrip('.')
 
 # Display df with text wrapping and no truncation
