@@ -100,7 +100,7 @@ with col1:
     st.pyplot(fig)
     
 with col2:
-    # Generate random data points uniformly distributed between 0 and 1
+    # Generate random data points uniformly distributed between 0 and 1 TODO: CHANGE THIS PART TO THE ACTUAL DATA
     np.random.seed(0)  # For reproducibility
     data = np.random.uniform(0, 1, 86)
 
@@ -132,7 +132,8 @@ with col2:
 
     # Set labels and title
     ax.set_xlabel('Adjusted Score')
-    ax.set_title('Distribution of Adjusted Scores\n across Companies', pad=20, fontweight='bold')
+    ax.set_title('Distribution of Adjusted Scores', pad=20, fontweight='bold')
+    fig.text(0.525, 0.92, f'{modelOutputs.entity_name.shape[0]} Companies', ha='center', fontsize=10)
 
     # Adjust layout
     plt.tight_layout()
