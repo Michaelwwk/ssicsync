@@ -72,16 +72,13 @@ for cat in categories:
 for level in prop_dict.values():
     values.append(round(level*100, 1))
 
-col1, col2 = st.columns([1,3])
+col1, col2 = st.columns([1,1])
 
 with col1:
-
     # Create horizontal bar chart
     fig, ax = plt.subplots(figsize=(10, 6))
     bars = ax.barh(categories, values, color='skyblue')
-    # ax.set_xlabel('Percentage')
-    # ax.set_ylabel('Categories')
-    ax.set_title('Classification Accuracy',  fontweight='bold')
+    ax.set_title('Classification Accuracy', fontweight='bold')
     fig.text(0.525, 0.92, f'Company SSIC(s) Within Top {topN} Predicted SSICs', ha='center', fontsize=10)
     ax.set_xlim(0, 100)  # Assuming the percentage is between 0 and 100
 
@@ -103,42 +100,38 @@ with col1:
     st.pyplot(fig)
     
 with col2:
+    # Create histogram plot
+    fig, ax = plt.subplots(figsize=(10, 6))  # Use same figsize as the bar chart
 
     # Generate 86 data points uniformly distributed between 0 and 1
     data = np.linspace(0, 1, 86)
 
     # Create the histogram to get counts, bins, and patches
-    counts, bins, patches = plt.hist(data, bins=10, density=True, alpha=0.6)
-
-    # Calculate the bin width and percentages
+    counts, bins, patches = np.histogram(data, bins=10, density=True)
     bin_width = bins[1] - bins[0]
     percentages = counts * bin_width * 100
-
-    # Clear the previous plot and create a bar plot to show percentages with edges
-    plt.clf()
 
     # Normalize bin centers to get a value between 0 and 1 for color mapping
     norm = plt.Normalize(bins.min(), bins.max())
     colors = cm.coolwarm_r(norm(bins[:-1]))  # Use reversed colormap
 
     # Create the bar plot with the gradient color
-    bars = plt.bar(bins[:-1], percentages, width=bin_width, color=colors, edgecolor='black', linewidth=1)
+    bars = ax.bar(bins[:-1], percentages, width=bin_width, color=colors, edgecolor='black', linewidth=1)
 
     # Add percentage labels on top of each bar with added space
     offset = 0.08  # Adjust this value to control the amount of space
     for bar, percentage in zip(bars, percentages):
         height = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width() / 2, height + offset,
+        ax.text(bar.get_x() + bar.get_width() / 2, height + offset,
                 f'{percentage:.1f}%', ha='center', va='bottom')
 
     # Remove right and top spines
-    plt.gca().spines['right'].set_visible(False)
-    plt.gca().spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.spines['top'].set_visible(False)
 
     # Set labels and title
-    plt.xlabel('Adjusted Score')
-    # plt.ylabel('Percentage (%)')
-    plt.title('Distribution of Adjusted Scores\n across Companies', pad=20, fontweight='bold')
+    ax.set_xlabel('Adjusted Score')
+    ax.set_title('Distribution of Adjusted Scores\n across Companies', pad=20, fontweight='bold')
 
     # Adjust layout
     plt.tight_layout()
