@@ -54,7 +54,7 @@ uenEntity_dict = {"UEN": companies_df['UEN'].to_list(),
 uenEntity_df = pd.DataFrame(uenEntity_dict)
 uenEntity_dict = dict(zip(uenEntity_df['UEN'], uenEntity_df['entity_name']))
 
-modelOutputs['adjusted_score'] = modelOutputs['adjusted_score'].round(2)
+# modelOutputs['adjusted_score'] = modelOutputs['adjusted_score'].round(2)
 for cat in categories:
     prop_dict[cat] = modelOutputs[modelOutputs[f'p_{modelChoice}_{cat}_check'] == 'Y'].shape[0]/modelOutputs[(modelOutputs[f'p_{modelChoice}_{cat}_check'].notnull())\
                     & (modelOutputs[f'p_{modelChoice}_{cat}_check'] != 'Null')].shape[0]
