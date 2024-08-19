@@ -110,7 +110,7 @@ with col1:
     ax.spines['top'].set_visible(False)
 
     # Set labels and title
-    ax.set_xlabel('Adjusted Score')
+    ax.set_xlabel('HI WHY NO CHANGE')
     ax.set_title('Distribution of Adjusted Scores', pad=20, fontweight='bold')
     fig.text(0.525, 0.92, f'List of {modelOutputs.entity_name.shape[0]} Companies', ha='center', fontsize=10)
 
