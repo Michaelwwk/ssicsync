@@ -100,13 +100,14 @@ with col1:
     st.pyplot(fig)
     
 with col2:
+    # Generate random data points uniformly distributed between 0 and 1
+    np.random.seed(0)  # For reproducibility
+    data = np.random.uniform(0, 1, 86)
+
     # Create histogram plot
     fig, ax = plt.subplots(figsize=(10, 6))  # Use same figsize as the bar chart
 
-    # Generate 86 data points uniformly distributed between 0 and 1
-    data = np.linspace(0, 1, 86)
-
-    # Create the histogram to get counts, bins, and patches
+    # Create the histogram to get counts and bins
     counts, bins = np.histogram(data, bins=10, density=True)
     bin_width = bins[1] - bins[0]
     percentages = counts * bin_width * 100
