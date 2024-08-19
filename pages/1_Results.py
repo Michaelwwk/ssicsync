@@ -62,7 +62,7 @@ for cat in categories:
         cat_key = subclass
     else:
         cat_key = cat
-    df_display[cat_key] = modelOutputs[['entity_name', f'p_{modelChoice}_{cat}_check', 'ssic_code', 'ssic_code2']]
+    df_display[cat_key] = modelOutputs[['entity_name', f'p_{modelChoice}_{cat}_check', 'ssic_code', 'ssic_code2', 'adjusted_score']]
     df_display[cat_key].rename(columns = {f'p_{modelChoice}_{cat}_check': 'classification'}, inplace = True)
 
     df_display[cat_key].loc[(df_display[cat_key]['ssic_code'].isnull() | (df_display[cat_key]['ssic_code'] == 'Null')) &
@@ -75,31 +75,7 @@ for level in prop_dict.values():
 col1, col2 = st.columns([1,1])
 
 with col1:
-    # Create horizontal bar chart
-    fig, ax = plt.subplots(figsize=(10, 6))
-    bars = ax.barh(categories, values, color='skyblue')
-    ax.set_title('Classification Accuracy', fontweight='bold')
-    fig.text(0.525, 0.92, f'Company SSIC(s) Within Top {topN} Predicted SSICs', ha='center', fontsize=10)
-    ax.set_xlim(0, 100)  # Assuming the percentage is between 0 and 100
 
-    # Remove right and top spines
-    ax.spines[['right', 'top']].set_visible(False)
-
-    # Adding data labels
-    for bar in bars:
-        ax.annotate(f'{bar.get_width()}%', 
-                    xy=(bar.get_width(), bar.get_y() + bar.get_height() / 2),
-                    xytext=(5, 0),  # 5 points offset
-                    textcoords='offset points',
-                    ha='left', va='center')
-
-    # Adjust layout
-    plt.tight_layout()
-
-    # Display plot in Streamlit
-    st.pyplot(fig)
-    
-with col2:
     # Generate random data points uniformly distributed between 0 and 1 TODO: CHANGE THIS PART TO THE ACTUAL DATA
     np.random.seed(0)  # For reproducibility
     data = np.random.uniform(0, 1, 86)
@@ -111,6 +87,9 @@ with col2:
     counts, bins = np.histogram(data, bins=10, density=True)
     bin_width = bins[1] - bins[0]
     percentages = counts * bin_width * 100
+
+    # Adjusting X-axis ticks to have 10 labels
+    plt.xticks(np.linspace(bins.min(), bins.max(), 10))
 
     # Normalize bin centers to get a value between 0 and 1 for color mapping
     norm = plt.Normalize(bins.min(), bins.max())
@@ -140,6 +119,32 @@ with col2:
 
     # Display plot in Streamlit
     st.pyplot(fig)
+    
+with col2:
+
+    # Create horizontal bar chart
+    fig, ax = plt.subplots(figsize=(10, 6))
+    bars = ax.barh(categories, values, color='skyblue')
+    ax.set_title('Classification Accuracy', fontweight='bold')
+    fig.text(0.525, 0.92, f'Company SSIC(s) Within Top {topN} Predicted SSICs', ha='center', fontsize=10)
+    ax.set_xlim(0, 100)  # Assuming the percentage is between 0 and 100
+
+    # Remove right and top spines
+    ax.spines[['right', 'top']].set_visible(False)
+
+    # Adding data labels
+    for bar in bars:
+        ax.annotate(f'{bar.get_width()}%', 
+                    xy=(bar.get_width(), bar.get_y() + bar.get_height() / 2),
+                    xytext=(5, 0),  # 5 points offset
+                    textcoords='offset points',
+                    ha='left', va='center')
+
+    # Adjust layout
+    plt.tight_layout()
+
+    # Display plot in Streamlit
+    st.pyplot(fig)
 
 categories = [subclass, Class, group, division, section]
 values.reverse()
@@ -160,12 +165,13 @@ correctWrongClassification_df = correctWrongClassification_df[correctWrongClassi
 correctWrongClassification_df.loc[correctWrongClassification_df.classification == 'N', 'classification'] = 'No'
 correctWrongClassification_df.loc[correctWrongClassification_df.classification == 'Y', 'classification'] = 'Yes'
 correctWrongClassification_df.loc[correctWrongClassification_df.classification == 'Null', 'classification'] = 'NA'
-correctWrongClassification_df.rename(columns = {'classification': f'Within Top {topN}'}, inplace = True)
+correctWrongClassification_df.rename(columns = {'classification': f'Within Top {topN}', 'adjusted_score': 'Adjusted Score'}, inplace = True)
+correctWrongClassification_df['Adjusted Score'] = correctWrongClassification_df['Adjusted Score'].round(2)
 correctWrongClassification_df['Company Name'] = correctWrongClassification_df['entity_name'].str.rstrip('.')
 
 # Display df with text wrapping and no truncation
 st.dataframe(
-    correctWrongClassification_df[['Company Name', f'Within Top {topN}']].style.set_properties(**{
+    correctWrongClassification_df[['Company Name', 'Adjusted Score', f'Within Top {topN}']].style.set_properties(**{
         'white-space': 'pre-wrap',
         'overflow-wrap': 'break-word',
     })
@@ -176,14 +182,21 @@ companies_input = st.selectbox(
     "List of Companies",
     companies_tuple)
 
+score_input = modelOutputs[modelOutputs.entity_name.str.rstrip('.') == companies_input].reset_index(drop = True)['Adjusted Score'][0]
 content_input = capitalize_sentence(modelOutputs[modelOutputs.entity_name.str.rstrip('.') == companies_input].reset_index(drop = True)['Notes Page Content'][0])
 ssic_input = modelOutputs[modelOutputs.entity_name.str.rstrip('.') == companies_input].reset_index(drop = True).ssic_code[0]
 ssic2_input = modelOutputs[modelOutputs.entity_name.str.rstrip('.') == companies_input].reset_index(drop = True).ssic_code2[0]
 topNSSIC_input_list = modelOutputs[modelOutputs.entity_name.str.rstrip('.') == companies_input].reset_index(drop = True)[f'p_{modelChoice}'][0]
 
 st.header('Company SSIC Details')
-st.subheader('Company Name:')
-st.write(companies_input)
+
+col1, col2 = st.columns([1,1])
+with col1:
+    st.subheader('Company Name:')
+    st.write(companies_input)
+with col2:
+    st.subheader('Company Adjusted Score:')
+    st.write(score_input)
 st.subheader('Company Description:')
 st.write(content_input)
 
