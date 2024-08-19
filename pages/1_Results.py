@@ -89,7 +89,7 @@ with col1:
     percentages = counts * bin_width * 100
 
     # Adjusting X-axis ticks to have 10 labels
-    plt.xticks(np.linspace(bins.min(), bins.max(), 10))
+    # plt.xticks(np.linspace(bins.min(), bins.max(), 10))
 
     # Normalize bin centers to get a value between 0 and 1 for color mapping
     norm = plt.Normalize(bins.min(), bins.max())
