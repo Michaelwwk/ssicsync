@@ -190,11 +190,11 @@ topNSSIC_input_list = modelOutputs[modelOutputs.entity_name.str.rstrip('.') == c
 
 st.header('Company SSIC Details')
 
-col1, col2 = st.columns([1,1])
-with col1:
+col3, col4 = st.columns([1,1])
+with col3:
     st.subheader('Company Name:')
     st.write(companies_input)
-with col2:
+with col4:
     st.subheader('Company Adjusted Score:')
     st.write(score_input)
 st.subheader('Company Description:')
@@ -268,12 +268,12 @@ for index, ssic in enumerate(allSSICs_list):
         else: # remaining indexes (after 2) are the company's predicted SSIC codes
             predictedSSIC_input.append(f"**{ssicCode}**: {details_input}")
 
-col1, col2 = st.columns([1,1])
-with col1:
+col5, col6 = st.columns([1,1])
+with col5:
     st.subheader('Company SSICs & Descriptions:')
     coySSICstring_input = '  \n'.join(coySSIC_input)
     st.write(coySSICstring_input)
-with col2:
+with col6:
     st.subheader(f'Top {topN} Predicted SSICs & Descriptions:')
     predictedSSICstring_input = '  \n'.join(predictedSSIC_input)
     st.write(predictedSSICstring_input)
