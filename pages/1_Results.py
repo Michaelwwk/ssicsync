@@ -133,7 +133,7 @@ with col2:
     # Set labels and title
     ax.set_xlabel('Adjusted Score')
     ax.set_title('Distribution of Adjusted Scores', pad=20, fontweight='bold')
-    fig.text(0.525, 0.92, f'{modelOutputs.entity_name.shape[0]} Companies', ha='center', fontsize=10)
+    fig.text(0.525, 0.92, f'List of {modelOutputs.entity_name.shape[0]} Companies', ha='center', fontsize=10)
 
     # Adjust layout
     plt.tight_layout()
