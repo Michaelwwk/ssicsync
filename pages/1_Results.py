@@ -42,7 +42,7 @@ st.set_page_config(
 )
 
 # page title
-st.title("Results for List of Companies_NOT UPDATED")
+st.title("Results for List of Companies")
 
 values = []
 prop_dict = {}
