@@ -72,7 +72,7 @@ for cat in categories:
 for level in prop_dict.values():
     values.append(round(level*100, 1))
 
-col1, col2 = st.columns([1,1])
+col1, col2 = st.columns([1,3])
 
 with col1:
 
