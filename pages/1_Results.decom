@@ -2,9 +2,9 @@ import streamlit as st
 import ast
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib.pyplot as plt
-import matplotlib.cm as cm
 from sklearn import datasets
 from transformers import AutoTokenizer, TFAutoModelForSequenceClassification
 from commonFunctions import ssic_df
@@ -72,82 +72,34 @@ for cat in categories:
 for level in prop_dict.values():
     values.append(round(level*100, 1))
 
-col1, col2 = st.columns([1,1])
-
-with col1:
-
-    # Create horizontal bar chart
-    fig, ax = plt.subplots(figsize=(10, 6))
-    bars = ax.barh(categories, values, color='skyblue')
-    # ax.set_xlabel('Percentage')
-    # ax.set_ylabel('Categories')
-    ax.set_title('Classification Accuracy',  fontweight='bold')
-    fig.text(0.525, 0.92, f'Company SSIC(s) Within Top {topN} Predicted SSICs', ha='center', fontsize=10)
-    ax.set_xlim(0, 100)  # Assuming the percentage is between 0 and 100
-
-    # Remove right and top spines
-    ax.spines[['right', 'top']].set_visible(False)
-
-    # Adding data labels
-    for bar in bars:
-        ax.annotate(f'{bar.get_width()}%', 
-                    xy=(bar.get_width(), bar.get_y() + bar.get_height() / 2),
-                    xytext=(5, 0),  # 5 points offset
-                    textcoords='offset points',
-                    ha='left', va='center')
-
-    # Adjust layout
-    plt.tight_layout()
-
-    # Display plot in Streamlit
-    st.pyplot(fig)
-    
-with col2:
-
-    # Generate 86 data points uniformly distributed between 0 and 1
-    data = np.linspace(0, 1, 86)
-
-    # Create the histogram to get counts, bins, and patches
-    counts, bins, patches = plt.hist(data, bins=10, density=True, alpha=0.6)
-
-    # Calculate the bin width and percentages
-    bin_width = bins[1] - bins[0]
-    percentages = counts * bin_width * 100
-
-    # Clear the previous plot and create a bar plot to show percentages with edges
-    plt.clf()
-
-    # Normalize bin centers to get a value between 0 and 1 for color mapping
-    norm = plt.Normalize(bins.min(), bins.max())
-    colors = cm.coolwarm_r(norm(bins[:-1]))  # Use reversed colormap
-
-    # Create the bar plot with the gradient color
-    bars = plt.bar(bins[:-1], percentages, width=bin_width, color=colors, edgecolor='black', linewidth=1)
-
-    # Add percentage labels on top of each bar with added space
-    offset = 0.08  # Adjust this value to control the amount of space
-    for bar, percentage in zip(bars, percentages):
-        height = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width() / 2, height + offset,
-                f'{percentage:.1f}%', ha='center', va='bottom')
-
-    # Remove right and top spines
-    plt.gca().spines['right'].set_visible(False)
-    plt.gca().spines['top'].set_visible(False)
-
-    # Set labels and title
-    plt.xlabel('Adjusted Score')
-    # plt.ylabel('Percentage (%)')
-    plt.title('Distribution of Adjusted Scores\n across Companies', pad=20, fontweight='bold')
-
-    # Adjust layout
-    plt.tight_layout()
-
-    # Display plot in Streamlit
-    st.pyplot(fig)
-
 categories = [subclass, Class, group, division, section]
 values.reverse()
+
+# Create horizontal bar chart
+fig, ax = plt.subplots(figsize=(10, 6))
+bars = ax.barh(categories, values, color='skyblue')
+# ax.set_xlabel('Percentage')
+# ax.set_ylabel('Categories')
+ax.set_title('Classification Accuracy',  fontweight='bold')
+fig.text(0.525, 0.92, f'Company SSIC(s) Within Top {topN} Predicted SSICs', ha='center', fontsize=10)
+ax.set_xlim(0, 100)  # Assuming the percentage is between 0 and 100
+
+# Remove right and top spines
+ax.spines[['right', 'top']].set_visible(False)
+
+# Adding data labels
+for bar in bars:
+    ax.annotate(f'{bar.get_width()}%', 
+                xy=(bar.get_width(), bar.get_y() + bar.get_height() / 2),
+                xytext=(5, 0),  # 5 points offset
+                textcoords='offset points',
+                ha='left', va='center')
+
+# Adjust layout
+plt.tight_layout()
+
+# Display plot in Streamlit
+st.pyplot(fig)
 
 # Streamlit selectbox for user input
 level_input = st.selectbox(
