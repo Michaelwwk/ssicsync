@@ -124,12 +124,19 @@ def trainingClassificationModel(self, logger):
     train_texts, test_texts, train_labels, test_labels = train_test_split(train_texts, train_labels, test_size=0.01, random_state=0, shuffle=True)
 
     ###############################################################################################################################################
-
     from transformers import DistilBertTokenizer
     from transformers import TFDistilBertForSequenceClassification
     import tensorflow as tf
     import pandas as pd
 
+    # Using disilbert-base-uncased (67M param) - https://huggingface.co/distilbert/distilbert-base-uncased 
+    # uncased: means no distinction between 'English' and 'english'
+
+    # Other options of pre-trained models
+    # - google-bert/bert-base-uncased (110M param): https://huggingface.co/google-bert/bert-base-uncased
+    # - google-bert/bert-large-uncased (336M param): https://huggingface.co/google-bert/bert-large-uncased
+    # - FacebookAI/xlm-roberta-large (561M param): https://huggingface.co/FacebookAI/xlm-roberta-large
+    
     tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-uncased')
     train_encodings = tokenizer(train_texts, truncation=True, padding=True)
     val_encodings = tokenizer(val_texts, truncation=True, padding=True)
