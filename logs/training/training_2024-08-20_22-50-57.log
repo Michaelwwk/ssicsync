@@ -1,0 +1,14 @@
+2024-08-20 22:50:57,098 - INFO - Start training Group model ...
+2024-08-20 22:52:12,563 - ERROR - Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\training.py", line 24, in <module>
+    modelTraining.runTrainingClassificationModel(logger)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\controller.py", line 89, in runTrainingClassificationModel
+    output = trainingClassificationModel(self, logger)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\models\classificationModel\trainingClassificationModel.py", line 53, in trainingClassificationModel
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\models\classificationModel\trainingClassificationModel.py", line 53, in trainingClassificationModel
+  File "C:\Program Files\Python310\lib\bdb.py", line 90, in trace_dispatch
+    return self.dispatch_line(frame)
+  File "C:\Program Files\Python310\lib\bdb.py", line 115, in dispatch_line
+    if self.quitting: raise BdbQuit
+bdb.BdbQuit

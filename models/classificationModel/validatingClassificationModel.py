@@ -255,6 +255,8 @@ def validatingClassificationModel(self, logger):
         axis=1
     )
 
+    # TODO For Wee Yang ... add in codes for 'adjusted_Score' column
+
     vdf.to_csv('models/classificationModel/modelOutputFiles/pdfModelFinalOutputs.csv', index=False)
 
     # take model from huggingFace
