@@ -161,4 +161,5 @@ if user_input:
 
         lvl = merged_df2[['Value', lvl_train, lvl_train_title]].reset_index(drop = True)[lvl_train][result]
         lvl_title = capitalize_sentence(merged_df2[['Value', lvl_train, lvl_train_title]].reset_index(drop = True)[lvl_train_title][result])
+        
         st.write(f"**{lvl}**: {lvl_title}")
