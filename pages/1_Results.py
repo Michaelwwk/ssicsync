@@ -30,7 +30,7 @@ for each company. This score measures accuracy based on the top predictions, reg
 The Adjusted Score ranges from 0 to 1, where a value closer to 0 indicates poorer overall classification accuracy, 
 and a value closer to 1 indicates stronger overall classification accuracy."""
 
-# functions
+# functions 
 def capitalize_sentence(text):
     # Split the text into sentences
     sentences = text.split('. ')
