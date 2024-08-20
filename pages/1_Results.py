@@ -207,7 +207,7 @@ with col4:
     # # Display the superscript using st.markdown with HTML
     # st.markdown("<sup>*</sup>:", unsafe_allow_html=True)
     # Combining the text with superscript in one line using st.write
-    st.write("### Company's Adjusted Score<sup>*</sup>:", unsafe_allow_html=True)
+    st.write("### Company Adjusted Score<sup>*</sup>:", unsafe_allow_html=True)
     st.write(score_input)
 st.subheader('Company Description:')
 st.write(content_input)
@@ -305,7 +305,7 @@ else:
         grammar = 'Codes are'
     st.write(f"{companies_input} SSIC {grammar} **{classification}** its predicted top {topN} SSIC Codes.")
 
-st.write(f"*{adjustedWeightDef}")
+st.write(f"<sup>*</sup>{adjustedWeightDef}", unsafe_allow_html=True)
 
 # Visual Effects ### - https://docs.streamlit.io/develop/api-reference/status
 # st.balloons() 
