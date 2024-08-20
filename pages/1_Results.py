@@ -298,7 +298,8 @@ else:
         grammar = 'Codes are'
     st.write(f"{companies_input} SSIC {grammar} **{classification}** its predicted top {topN} SSIC Codes.")
 
-st.write(f"\n\n<p style='font-size:10px;'><sup>*</sup>{adjustedWeightDef}</p>", unsafe_allow_html=True)
+st.write("\n\n\n")
+st.write(f"<p style='font-size:12px;'><sup>*</sup>{adjustedWeightDef}</p>", unsafe_allow_html=True)
 
 # Visual Effects ### - https://docs.streamlit.io/develop/api-reference/status
 # st.balloons() 
