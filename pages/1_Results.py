@@ -300,8 +300,7 @@ else:
 
 col7, col8 = st.columns([1,1])
 with col7:
-    st.write("\n\n\n")
-    st.write(f"<p style='font-size:12px; text-align:left;'>*{adjustedWeightDef}</p>", unsafe_allow_html=True)
+    st.write(f"<p style='font-size:12px; text-align:left; margin-top:20px;'>*{adjustedWeightDef}</p>", unsafe_allow_html=True)
 with col8:
     st.write("")
 
