@@ -96,7 +96,7 @@ def trainingClassificationModel(self, logger):
     # 4 - Class
     # 5 - SSIC 2020 (SSIC Sub-class)
 
-    lvl_train = 'SSIC 2020'
+    lvl_train = 'Section'
     lvl_train_title = lvl_train + " Title"
     ###############################################################################################################################################
     # prep training data for specified hierachy
