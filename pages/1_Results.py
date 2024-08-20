@@ -200,13 +200,6 @@ with col3:
     st.subheader('Company Name:')
     st.write(companies_input)
 with col4:
-    # st.subheader('Company Adjusted Score*:')
-    # Display the main part with st.subheader
-    # st.subheader('Company Adjusted Score')
-
-    # # Display the superscript using st.markdown with HTML
-    # st.markdown("<sup>*</sup>:", unsafe_allow_html=True)
-    # Combining the text with superscript in one line using st.write
     st.write("### Company Adjusted Score<sup>*</sup>:", unsafe_allow_html=True)
     st.write(score_input)
 st.subheader('Company Description:')
@@ -305,7 +298,7 @@ else:
         grammar = 'Codes are'
     st.write(f"{companies_input} SSIC {grammar} **{classification}** its predicted top {topN} SSIC Codes.")
 
-st.write(f"<sup>*</sup>{adjustedWeightDef}", unsafe_allow_html=True)
+st.write(f"\n\n<p style='font-size:10px;'><sup>*</sup>{adjustedWeightDef}</p>", unsafe_allow_html=True)
 
 # Visual Effects ### - https://docs.streamlit.io/develop/api-reference/status
 # st.balloons() 
