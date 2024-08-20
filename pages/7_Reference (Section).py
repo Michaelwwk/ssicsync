@@ -92,7 +92,7 @@ Section Reference Table:
 
 # with col1:
 level = filtered_df_ref.columns[1]
-filtered_df_ref[level] = filtered_df_ref[level].apply(lambda x: x.capitalize_sentence())
+filtered_df_ref[level] = filtered_df_ref[level].apply(lambda x: capitalize_sentence(x))
 
 if filtered_df_ref.columns[0] == 'SSIC 2020':
     firstCol = filtered_df_ref.columns[0]
