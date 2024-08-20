@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn import datasets
-from commonFunctions import ssic_df
+from commonFunctions import ssic_df, capitalize_sentence
 from main import section
 
 # hard-coded values
@@ -92,7 +92,7 @@ Section Reference Table:
 
 # with col1:
 level = filtered_df_ref.columns[1]
-filtered_df_ref[level] = filtered_df_ref[level].apply(lambda x: x.capitalize())
+filtered_df_ref[level] = filtered_df_ref[level].apply(lambda x: x.capitalize_sentence())
 
 if filtered_df_ref.columns[0] == 'SSIC 2020':
     firstCol = filtered_df_ref.columns[0]

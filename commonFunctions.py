@@ -1,5 +1,13 @@
 import pandas as pd
 
+def capitalize_sentence(text):
+    # Split the text into sentences
+    sentences = text.split('. ')
+    # Capitalize the first letter of each sentence
+    sentences = [sentence[0].upper() + sentence[1:].lower() if sentence else '' for sentence in sentences]
+    # Join the sentences back into a single string
+    return '. '.join(sentences)
+
 def ssic_df(ssic_detailed_def_filepath, ssic_alpha_index_filepath):
 
     df_detailed_def = pd.read_excel(ssic_detailed_def_filepath, skiprows=4)

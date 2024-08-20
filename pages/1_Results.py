@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 from sklearn import datasets
 from transformers import AutoTokenizer, TFAutoModelForSequenceClassification
-from commonFunctions import ssic_df
+from commonFunctions import ssic_df, capitalize_sentence
 
 pd.set_option('display.max_columns', None)
 
@@ -29,15 +29,6 @@ from Sub-class to Class, Group, Division, and Section. These weights are then ag
 for each company. This score measures accuracy based on the top predictions, regardless of classification level. 
 The Adjusted Score ranges from 0 to 1, where a value closer to 0 indicates poorer overall classification accuracy, 
 and a value closer to 1 indicates stronger overall classification accuracy."""
-
-# functions 
-def capitalize_sentence(text):
-    # Split the text into sentences
-    sentences = text.split('. ')
-    # Capitalize the first letter of each sentence
-    sentences = [sentence[0].upper() + sentence[1:].lower() if sentence else '' for sentence in sentences]
-    # Join the sentences back into a single string
-    return '. '.join(sentences)
 
 # Set page config
 st.set_page_config(
