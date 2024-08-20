@@ -200,7 +200,14 @@ with col3:
     st.subheader('Company Name:')
     st.write(companies_input)
 with col4:
-    st.subheader('Company Adjusted Score*:')
+    # st.subheader('Company Adjusted Score*:')
+    # HTML string with smaller font size for the "*"
+    st.markdown(
+        """
+        <p>Company Adjusted Score<sup style="font-size: 10px;">*</sup></p>
+        """, 
+        unsafe_allow_html=True
+    )
     st.write(score_input)
 st.subheader('Company Description:')
 st.write(content_input)
