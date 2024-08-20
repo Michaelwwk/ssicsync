@@ -298,7 +298,7 @@ else:
         grammar = 'Codes are'
     st.write(f"{companies_input} SSIC {grammar} **{classification}** its predicted top {topN} SSIC Codes.")
 
-col7, col8 = st.columns([0.1, 0.9])
+col7, col8 = st.columns([1,1])
 with col7:
     st.write("")
 with col8:
