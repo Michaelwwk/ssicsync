@@ -143,6 +143,7 @@ def trainingClassificationModel(self, logger):
     optimizer = tf.keras.optimizers.Adam(learning_rate=5e-5, epsilon=1e-08)
     model.compile(optimizer=optimizer, loss=model.hf_compute_loss, metrics=['accuracy'])
 
+    ### Step 3: run model training
     ###############################################################################################################################################
     # Model Training Step - est. 2h, depending on no. of categories
     # Save Model
@@ -181,6 +182,15 @@ def trainingClassificationModel(self, logger):
     model.save_pretrained(new_folder_path)
     tokenizer.save_pretrained(new_folder_path)
 
+    ### Step 4: Save model in huggingface - https://huggingface.co/ 
+    # callable via transformer
+    # Option 1: Use a pipeline as a high-level helper
+    # from transformers import pipeline
+    # pipe = pipeline("text-classification", model="nusebacra/ssicsync_subclass_classifier")
 
+    # Option 2: Load model directly
+    # from transformers import AutoTokenizer, AutoModelForSequenceClassification
+    # tokenizer = AutoTokenizer.from_pretrained("nusebacra/ssicsync_subclass_classifier")
+    # model = AutoModelForSequenceClassification.from_pretrained("nusebacra/ssicsync_subclass_classifier")
 
     logger.info('print test from trainingClassificationModel')
