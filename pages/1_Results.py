@@ -98,10 +98,11 @@ with col1:
 
     # Normalize bin centers to get a value between 0 and 1 for color mapping
     norm = plt.Normalize(bins.min(), bins.max())
-    colors = cm.coolwarm_r(norm(bins[:-1]))  # Use reversed colormap
+    # colors = cm.coolwarm_r(norm(bins[:-1]))  # Use red-to-blue gradient
+    colors = cm.RdYlGn(norm(bins[:-1]))  # Use the 'RdYlGn' colormap for red-to-green gradient
 
     # Create the bar plot with the gradient color
-    bars = ax.bar(bins[:-1], percentages, width=bin_width, color=colors, edgecolor='black', linewidth=1)
+    bars = ax.bar(bins[:-1], percentages, width=bin_width, color=colors, edgecolor='black', linewidth=0.5)
 
     # Add percentage labels on top of each bar with added space
     offset = 0.08  # Adjust this value to control the amount of space
@@ -127,6 +128,9 @@ with col1:
     
 with col2:
 
+    categories = [subclass, Class, group, division, section]
+    values.reverse()
+
     # Create horizontal bar chart
     fig, ax = plt.subplots(figsize=(10, 6))
     bars = ax.barh(categories, values, color='skyblue')
@@ -150,9 +154,6 @@ with col2:
 
     # Display plot in Streamlit
     st.pyplot(fig)
-
-categories = [subclass, Class, group, division, section]
-values.reverse()
 
 # Streamlit selectbox for user input
 level_input = st.selectbox(
