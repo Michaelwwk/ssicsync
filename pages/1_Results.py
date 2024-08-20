@@ -201,13 +201,11 @@ with col3:
     st.write(companies_input)
 with col4:
     # st.subheader('Company Adjusted Score*:')
-    # HTML string with smaller font size for the "*"
-    st.markdown(
-        """
-        <p>Company Adjusted Score<sup style="font-size: 10px;">*</sup></p>
-        """, 
-        unsafe_allow_html=True
-    )
+    # Display the main part with st.subheader
+    st.subheader('Company Adjusted Score')
+
+    # Display the superscript using st.markdown with HTML
+    st.markdown("<sup>*</sup>:", unsafe_allow_html=True)
     st.write(score_input)
 st.subheader('Company Description:')
 st.write(content_input)
