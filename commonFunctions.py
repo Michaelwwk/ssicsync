@@ -8,7 +8,7 @@ def capitalize_sentence(text):
     # Join the sentences back into a single string
     return '. '.join(sentences)
 
-def ssic_df(ssic_detailed_def_filepath, ssic_alpha_index_filepath):
+def ssic_df(ssic_detailed_def_filepath, ssic_alpha_index_filepath, concat = False):
 
     df_detailed_def = pd.read_excel(ssic_detailed_def_filepath, skiprows=4)
     df_alpha_index = pd.read_excel(ssic_alpha_index_filepath, dtype=str, skiprows=5)
@@ -20,7 +20,11 @@ def ssic_df(ssic_detailed_def_filepath, ssic_alpha_index_filepath):
     # Select which dictionary to train
     # 1 - df_detailed_def
     # 2 - df_concat (df_detailed_def and df_alpha_index)
-    df_data_dict = df_detailed_def 
+    
+    if concat == False:
+        df_data_dict = df_detailed_def
+    else:
+        df_data_dict = df_concat
     ###############################################################################################################################################
 
     # Prep SSIC ref-join tables
@@ -70,4 +74,7 @@ def ssic_df(ssic_detailed_def_filepath, ssic_alpha_index_filepath):
     ssic_df = pd.merge(ssic_df, ssic_3[['Group', 'Group Title']], on='Group', how='left')
     ssic_df = pd.merge(ssic_df, ssic_4[['Class', 'Class Title']], on='Class', how='left')
 
-    return ssic_1, ssic_2, ssic_3, ssic_4, ssic_5, ssic_df
+    if concat == False:
+        return ssic_1, ssic_2, ssic_3, ssic_4, ssic_5, ssic_df
+    else:
+        return ssic_1, ssic_2, ssic_3, ssic_4, ssic_5, ssic_df, df_detailed_def

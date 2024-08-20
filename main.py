@@ -13,7 +13,7 @@ group = 204 # this refers to the no. of SSIC codes in this hierarchy (from DoS).
 Class = 382 # this refers to the no. of SSIC codes in this hierarchy (from DoS).
 subclass = 1032 # this refers to the no. of SSIC codes in this hierarchy (from DoS).
 
-modelResults = controllerService(level, topN, max_files)
+modelResults = controllerService(level = level, topN = topN, maxFiles = max_files)
 logger = modelResults.setup_logger('main')
 logger.info('Start code execution.')
 
