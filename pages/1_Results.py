@@ -11,7 +11,7 @@ from commonFunctions import ssic_df, capitalize_sentence
 
 pd.set_option('display.max_columns', None)
 
-# hard-coded values 
+# hard-coded values
 modelChoice = 'fb_bart_tfidf'
 topN = 3
 section = 'Section'
