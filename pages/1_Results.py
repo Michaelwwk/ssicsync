@@ -23,10 +23,12 @@ ssic_detailed_def_filepath = "dataSources/DoS/ssic2020-detailed-definitions.xlsx
 ssic_alpha_index_filepath = "dataSources/DoS/ssic2020-alphabetical-index.xlsx"
 companies_df = pd.read_csv("dataSources/input_listOfCompanies.csv")
 modelOutputs = pd.read_csv("./models/classificationModel/modelOutputFiles/pdfModelFinalOutputs.csv", dtype={'ssic_code': str, 'ssic_code2': str})
-adjustedWeightDef = """The Adjusted Score is a metric designed to reward companies' top SSIC predictions with higher weights, 
-while later predictions receive progressively lower weights. Additionally, higher weights are allocated from Section scoring to Division, 
-Group, Class, and Sub-class in that order. These weights are aggregated to calculate the overall Adjusted Score for each company. 
-This score reflects the accuracy based on the top number of predictions, independent of the classification level."""
+adjustedWeightDef = """The Adjusted Score is a metric designed to assign higher weights to a company's top SSIC predictions, 
+with progressively lower weights applied to subsequent predictions. Weights are also distributed in descending order 
+from Sub-class to Class, Group, Division, and Section. These weights are then aggregated to compute the overall Adjusted Score 
+for each company. This score measures accuracy based on the top predictions, regardless of classification level. 
+The Adjusted Score ranges from 0 to 1, where a value closer to 0 indicates poorer overall classification accuracy, 
+and a value closer to 1 indicates stronger overall classification accuracy."""
 
 # functions
 def capitalize_sentence(text):
