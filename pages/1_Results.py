@@ -159,17 +159,17 @@ with col2:
     st.pyplot(fig)
 
 categories = [section, division, group, Class, subclass]
-if level == subclass:
-    categories = categories
-if level == Class:
-    categories = categories[:-1]
-if level == group:
-    categories = categories[:-2]
-if level == division:
-    categories = categories[:-3]
-if level == section:
-    categories = categories[:-4]
-    
+# if level == subclass:
+#     categories = categories
+# if level == Class:
+#     categories = categories[:-1]
+# if level == group:
+#     categories = categories[:-2]
+# if level == division:
+#     categories = categories[:-3]
+# if level == section:
+#     categories = categories[:-4]
+
 # Streamlit selectbox for user input
 level_input = st.selectbox(
     "Level of Classification:",
