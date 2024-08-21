@@ -158,7 +158,7 @@ with col2:
     # Display plot in Streamlit
     st.pyplot(fig)
 
-categories.reverse()
+categories.reverse() 
 # Streamlit selectbox for user input
 level_input = st.selectbox(
     "Level of Classification:",
