@@ -48,7 +48,7 @@ prop_dict = {}
 df_display = {}
 
 categories = [section, division, group, Class, subclass]
-if level == 'Sub-class':
+if level == 'Subclass':
     categories = categories
 if level == Class:
     categories = categories[:-1]
