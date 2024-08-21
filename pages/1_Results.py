@@ -158,10 +158,11 @@ with col2:
     # Display plot in Streamlit
     st.pyplot(fig)
 
+categories.reverse()
 # Streamlit selectbox for user input
 level_input = st.selectbox(
     "Level of Classification:",
-    categories.reverse()
+    categories
 )
 level = level_input if level_input else section
 
