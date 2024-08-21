@@ -135,7 +135,7 @@ def validatingClassificationModel(self, logger):
     # 2. 'Division'
     # 3. 'Group'
     # 4. 'Class'
-    # 5. 'Sub-class'
+    # 5. 'Subclass'
 
     ####################################################################################################
 
@@ -152,7 +152,7 @@ def validatingClassificationModel(self, logger):
                   reset_index(drop=True), "nusebacra/ssicsync_group_classifier", ssic_3),
         'Class': ('Class', ssic_dataframe.iloc[:, [0, 1, 8, 10, 11, 12, 13]].drop_duplicates(), ssic_4.iloc[:, [0, 1]].drop_duplicates().\
                   reset_index(drop=True), "nusebacra/ssicsync_class_classifier", ssic_4),
-        'Sub-class': ('SSIC 2020', ssic_dataframe.iloc[:, [0, 1, 9, 10, 11, 12, 13]].drop_duplicates(), ssic_5.iloc[:, [0, 1]].drop_duplicates().\
+        'Subclass': ('SSIC 2020', ssic_dataframe.iloc[:, [0, 1, 9, 10, 11, 12, 13]].drop_duplicates(), ssic_5.iloc[:, [0, 1]].drop_duplicates().\
                      reset_index(drop=True), "nusebacra/ssicsync_subclass_classifier", ssic_5)
     }
 
