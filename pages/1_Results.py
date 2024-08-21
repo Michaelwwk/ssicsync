@@ -48,7 +48,7 @@ prop_dict = {}
 df_display = {}
 
 categories = [section, division, group, Class, subclass]
-if level == subclass:
+if level == 'Sub-class':
     categories = categories
 if level == Class:
     categories = categories[:-1]
@@ -158,22 +158,10 @@ with col2:
     # Display plot in Streamlit
     st.pyplot(fig)
 
-categories = [section, division, group, Class, subclass]
-if level == subclass:
-    categories = categories
-if level == Class:
-    categories = categories[:-1]
-if level == group:
-    categories = categories[:-2]
-if level == division:
-    categories = categories[:-3]
-if level == section:
-    categories = categories[:-4]
-
 # Streamlit selectbox for user input
 level_input = st.selectbox(
     "Level of Classification:",
-    categories
+    categories.reverse()
 )
 level = level_input if level_input else section
 
