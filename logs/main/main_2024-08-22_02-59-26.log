@@ -1,0 +1,12 @@
+2024-08-22 02:59:26,626 - INFO - Start code execution ...
+2024-08-22 03:00:56,315 - ERROR - Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\main.py", line 22, in <module>
+    modelResults.runValidatingClassificationModel(logger)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\controller.py", line 94, in runValidatingClassificationModel
+    validatingClassificationModel(self, logger)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\models\classificationModel\validatingClassificationModel.py", line 383, in validatingClassificationModel
+    with pd.ExcelWriter(overallResults_filepath, engine='xlsxwriter') as writer:
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\io\excel\_xlsxwriter.py", line 192, in __init__
+    from xlsxwriter import Workbook
+ModuleNotFoundError: No module named 'xlsxwriter'

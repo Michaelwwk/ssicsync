@@ -12,7 +12,7 @@ class controllerService:
                  maxFiles = 100, learningRate = 5e-5, epsilon = 1e-08,
                  patience = 3, shuffle = 1000, batch = 16, epochs = 3,
                  numLabels = 1032, testSize = 0.01, randomState = 0,
-                 lvl_train = 'Group'):
+                 lvl_train = 'Group', resultsLevel = 'Group', modelChoice = 'fb_bart_tfidf'):
         
         self.level = level
         self.topN = topN
@@ -27,6 +27,8 @@ class controllerService:
         self.testSize = testSize
         self.randomState = randomState
         self.lvl_train = lvl_train
+        self.resultsLevel = resultsLevel
+        self.modelChoice = modelChoice
 
     def setup_logger(self, entryPoint = 'main'):
 
