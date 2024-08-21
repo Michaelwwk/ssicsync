@@ -1,0 +1,13 @@
+2024-08-22 02:32:54,643 - INFO - Start code execution.
+2024-08-22 02:58:25,058 - ERROR - Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\main.py", line 20, in <module>
+    logger.info('Start code execution ...')
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\controller.py", line 92, in runValidatingClassificationModel
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\models\classificationModel\validatingClassificationModel.py", line 380, in validatingClassificationModel
+    modelOutputs_df.drop(columns = 'Recommended SSIC Descriptions', inplace = True)
+  File "C:\Program Files\Python310\lib\bdb.py", line 94, in trace_dispatch
+    return self.dispatch_return(frame, arg)
+  File "C:\Program Files\Python310\lib\bdb.py", line 156, in dispatch_return
+    if self.quitting: raise BdbQuit
+bdb.BdbQuit

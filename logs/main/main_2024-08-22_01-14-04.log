@@ -1,0 +1,19 @@
+2024-08-22 01:14:04,298 - INFO - Start code execution.
+2024-08-22 01:15:33,966 - ERROR - Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\main.py", line 20, in <module>
+    modelResults.runValidatingClassificationModel(logger)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\controller.py", line 92, in runValidatingClassificationModel
+    validatingClassificationModel(self, logger)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\models\classificationModel\validatingClassificationModel.py", line 334, in validatingClassificationModel
+    modelOutputs_df['SSIC 1 Title'] = modelOutputs_df['SSIC 1'].apply(
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\core\series.py", line 4630, in apply
+    return SeriesApply(self, func, convert_dtype, args, kwargs).apply()
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\core\apply.py", line 1025, in apply
+    return self.apply_standard()
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\core\apply.py", line 1076, in apply_standard
+    mapped = lib.map_infer(
+  File "pandas\_libs\lib.pyx", line 2834, in pandas._libs.lib.map_infer
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\models\classificationModel\validatingClassificationModel.py", line 336, in <lambda>
+    ssic_dataframe.loc[ssic_dataframe['SSIC 2020'] == x, 'Section Title'].values[0]
+IndexError: index 0 is out of bounds for axis 0 with size 0

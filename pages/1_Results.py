@@ -48,7 +48,7 @@ prop_dict = {}
 df_display = {}
 
 categories = [section, division, group, Class, subclass]
-if level == subclass:
+if level == 'Subclass':
     categories = categories
 if level == Class:
     categories = categories[:-1]
@@ -158,11 +158,22 @@ with col2:
     # Display plot in Streamlit
     st.pyplot(fig)
 
-# categories.reverse() 
+categories = [section, division, group, Class, subclass]
+if level == 'Subclass':
+    categories = categories
+if level == Class:
+    categories = categories[:-1]
+if level == group:
+    categories = categories[:-2]
+if level == division:
+    categories = categories[:-3]
+if level == section:
+    categories = categories[:-4]
+
 # Streamlit selectbox for user input
 level_input = st.selectbox(
     "Level of Classification:",
-    categories.reverse()
+    categories
 )
 level = level_input if level_input else section
 
@@ -272,7 +283,7 @@ for index, ssic in enumerate(allSSICs_list):
         details_input = details_display[level]
 
         if level == section and details_input == sectionTitle_input:
-            ssicCode = ssic_df[ssic_df['Section Title'] ==sectionTitle_input.upper()].reset_index(drop = True)['Section'][0]
+            ssicCode = ssic_df[ssic_df['Section Title'].str.lower() == sectionTitle_input.lower()].reset_index(drop = True)['Section'][0]
 
         if index <= 1: # first 2 indexes are the company's 1st and/or 2nd SSIC codes
             coySSIC_input.append(f"**{ssicCode}**: {details_input}")
