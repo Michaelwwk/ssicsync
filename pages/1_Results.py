@@ -40,7 +40,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# page title 
+# page title
 st.title("Results for List of Companies")
 
 values = []
