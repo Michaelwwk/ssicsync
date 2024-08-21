@@ -231,7 +231,7 @@ def validatingClassificationModel(self, logger):
         vdf[p_column_to_check + '_Division_check'] = vdf.apply(check_division, prediction_col_name=p_column_to_check, axis=1)
         vdf[p_column_to_check + '_Group_check'] = vdf.apply(check_group, prediction_col_name=p_column_to_check, axis=1)
         vdf[p_column_to_check + '_Class_check'] = vdf.apply(check_class, prediction_col_name=p_column_to_check, axis=1)
-        vdf[p_column_to_check + '_Subclass_check'] = vdf.apply(check_subclass, prediction_col_name=p_column_to_check, axis=1)
+        vdf[p_column_to_check + '_Sub-class_check'] = vdf.apply(check_subclass, prediction_col_name=p_column_to_check, axis=1)
 
     check_columns = [col for col in vdf.columns if col.endswith('_check')]
 
@@ -256,16 +256,12 @@ def validatingClassificationModel(self, logger):
     )
 
     # TODO For Wee Yang ... add in codes for 'adjusted_Score' column
-
-    vdf.to_csv('models/classificationModel/modelOutputFiles/pdfModelFinalOutputs.csv', index=False)
-
-    # take model from huggingFace
-    # read csv from "C:\..\GitHub\ssicsync\models\summaryModel\modelOutputFiles\pdfModelSummaryOutputs.csv"
-    # output csv file name as 'pdfModelFinalOutputs.csv' (not xlsx!)
-    # Store csv in "C:\..\GitHub\ssicsync\models\classificationModel\modelOutputFiles\pdfModelFinalOutputs.csv"
-
-    # Wee Yang's codes on other model evaluation metrices should be inserted here too!
+    # Wee Yang's codes on other model evaluation metrices should be inserted here too.
     # Then combine WY's output and Roy's parsed model output results into a final Excel file:
     # 'C:\..\GitHub\ssicsync\results.xlsx'
 
-    # streamlit's visualisation should be the based on the CSV files, after the model results has been parsed (pdfModelFinalOutputs.csv)!
+    vdf.to_csv('models/classificationModel/modelOutputFiles/pdfModelFinalOutputs.csv', index=False)
+
+    resultsLevel = 'Group'
+
+

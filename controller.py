@@ -86,8 +86,7 @@ class controllerService:
         return logger
 
     def runTrainingClassificationModel(self, logger):
-        output = trainingClassificationModel(self, logger)
-        return output
+        trainingClassificationModel(self, logger)
 
     def runValidatingClassificationModel(self, logger):
         validatingClassificationModel(self, logger)
