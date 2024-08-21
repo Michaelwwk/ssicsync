@@ -231,7 +231,7 @@ def validatingClassificationModel(self, logger):
         vdf[p_column_to_check + '_Division_check'] = vdf.apply(check_division, prediction_col_name=p_column_to_check, axis=1)
         vdf[p_column_to_check + '_Group_check'] = vdf.apply(check_group, prediction_col_name=p_column_to_check, axis=1)
         vdf[p_column_to_check + '_Class_check'] = vdf.apply(check_class, prediction_col_name=p_column_to_check, axis=1)
-        vdf[p_column_to_check + '_Subclass_check'] = vdf.apply(check_subclass, prediction_col_name=p_column_to_check, axis=1)
+        vdf[p_column_to_check + '_Sub-class_check'] = vdf.apply(check_subclass, prediction_col_name=p_column_to_check, axis=1)
 
     check_columns = [col for col in vdf.columns if col.endswith('_check')]
 
