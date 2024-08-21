@@ -162,7 +162,7 @@ with col2:
 # Streamlit selectbox for user input
 level_input = st.selectbox(
     "Level of Classification:",
-    categories # TODO
+    categories.reverse()
 )
 level = level_input if level_input else section
 
@@ -229,6 +229,7 @@ for index, ssic in enumerate(allSSICs_list):
             ssic = ssic
         else:
             ssic = str(int(ssic))
+        ssic = ssic.zfill(5)
         if level == section:
             ssicCode = ssic[:1]
         elif level == division:
