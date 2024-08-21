@@ -41,7 +41,7 @@ st.set_page_config(
 )
 
 # page title
-st.title("Results for List of Companies_TEST")
+st.title("Results for List of Companies")
 
 values = []
 prop_dict = {}
