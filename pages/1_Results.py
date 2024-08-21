@@ -8,6 +8,7 @@ import matplotlib.cm as cm
 from sklearn import datasets
 from transformers import AutoTokenizer, TFAutoModelForSequenceClassification
 from commonFunctions import ssic_df, capitalize_sentence
+from main import level
 
 pd.set_option('display.max_columns', None)
 
@@ -45,7 +46,18 @@ st.title("Results for List of Companies")
 values = []
 prop_dict = {}
 df_display = {}
-categories = [section, division, group, Class, "Subclass"]
+
+categories = [section, division, group, Class, subclass]
+if level == subclass:
+    categories = categories
+if level == Class:
+    categories = categories[:-1]
+if level == group:
+    categories = categories[:-2]
+if level == division:
+    categories = categories[:-3]
+if level == section:
+    categories = categories[:-4]
 
 uenEntity_dict = {"UEN": companies_df['UEN'].to_list(),
                   "entity_name": companies_df['entity_name'].to_list()}
@@ -57,10 +69,7 @@ for cat in categories:
     prop_dict[cat] = modelOutputs[modelOutputs[f'p_{modelChoice}_{cat}_check'] == 'Y'].shape[0]/modelOutputs[(modelOutputs[f'p_{modelChoice}_{cat}_check'].notnull())\
                     & (modelOutputs[f'p_{modelChoice}_{cat}_check'] != 'Null')].shape[0]
     modelOutputs['entity_name'] = modelOutputs['UEN Number'].map(uenEntity_dict)
-    if cat == 'Subclass':
-        cat_key = subclass
-    else:
-        cat_key = cat
+    cat_key = cat
     df_display[cat_key] = modelOutputs[['entity_name', f'p_{modelChoice}_{cat}_check', 'ssic_code', 'ssic_code2', 'adjusted_score']]
     df_display[cat_key].rename(columns = {f'p_{modelChoice}_{cat}_check': 'classification'}, inplace = True)
 
@@ -122,7 +131,7 @@ with col1:
     
 with col2:
 
-    categories = [subclass, Class, group, division, section]
+    categories.reverse()
     values.reverse()
 
     # Create horizontal bar chart
@@ -152,7 +161,7 @@ with col2:
 # Streamlit selectbox for user input
 level_input = st.selectbox(
     "Level of Classification:",
-    (section, division, group, Class, subclass)
+    categories
 )
 level = level_input if level_input else section
 

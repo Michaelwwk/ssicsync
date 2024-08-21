@@ -135,7 +135,7 @@ def validatingClassificationModel(self, logger):
     # 2. 'Division'
     # 3. 'Group'
     # 4. 'Class'
-    # 5. 'Subclass'
+    # 5. 'Sub-class'
 
     ####################################################################################################
 
@@ -152,7 +152,7 @@ def validatingClassificationModel(self, logger):
                   reset_index(drop=True), "nusebacra/ssicsync_group_classifier", ssic_3),
         'Class': ('Class', ssic_dataframe.iloc[:, [0, 1, 8, 10, 11, 12, 13]].drop_duplicates(), ssic_4.iloc[:, [0, 1]].drop_duplicates().\
                   reset_index(drop=True), "nusebacra/ssicsync_class_classifier", ssic_4),
-        'Subclass': ('SSIC 2020', ssic_dataframe.iloc[:, [0, 1, 9, 10, 11, 12, 13]].drop_duplicates(), ssic_5.iloc[:, [0, 1]].drop_duplicates().\
+        'Sub-class': ('SSIC 2020', ssic_dataframe.iloc[:, [0, 1, 9, 10, 11, 12, 13]].drop_duplicates(), ssic_5.iloc[:, [0, 1]].drop_duplicates().\
                      reset_index(drop=True), "nusebacra/ssicsync_subclass_classifier", ssic_5)
     }
 
@@ -256,16 +256,12 @@ def validatingClassificationModel(self, logger):
     )
 
     # TODO For Wee Yang ... add in codes for 'adjusted_Score' column
-
-    vdf.to_csv('models/classificationModel/modelOutputFiles/pdfModelFinalOutputs.csv', index=False)
-
-    # take model from huggingFace
-    # read csv from "C:\..\GitHub\ssicsync\models\summaryModel\modelOutputFiles\pdfModelSummaryOutputs.csv"
-    # output csv file name as 'pdfModelFinalOutputs.csv' (not xlsx!)
-    # Store csv in "C:\..\GitHub\ssicsync\models\classificationModel\modelOutputFiles\pdfModelFinalOutputs.csv"
-
-    # Wee Yang's codes on other model evaluation metrices should be inserted here too!
+    # Wee Yang's codes on other model evaluation metrices should be inserted here too.
     # Then combine WY's output and Roy's parsed model output results into a final Excel file:
     # 'C:\..\GitHub\ssicsync\results.xlsx'
 
-    # streamlit's visualisation should be the based on the CSV files, after the model results has been parsed (pdfModelFinalOutputs.csv)!
+    vdf.to_csv('models/classificationModel/modelOutputFiles/pdfModelFinalOutputs.csv', index=False)
+
+    resultsLevel = 'Group'
+
+
