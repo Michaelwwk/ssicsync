@@ -173,7 +173,7 @@ if level == section:
 # Streamlit selectbox for user input
 level_input = st.selectbox(
     "Level of Classification:",
-    categories2.reverse()
+    categories
 )
 level = level_input if level_input else section
 
