@@ -169,11 +169,11 @@ with col2:
 #     categories2 = categories[:-3]
 # if level == section:
 #     categories2 = categories[:-4]
-
+categories.reverse()
 # Streamlit selectbox for user input
 level_input = st.selectbox(
     "Level of Classification:",
-    categories.reverse()
+    categories
 )
 level = level_input if level_input else section
 
