@@ -20,7 +20,7 @@ def validatingClassificationModel(self, logger):
     ssic_detailed_def_filepath = r"dataSources/DoS/ssic2020-detailed-definitions.xlsx"
     ssic_alpha_index_filepath = r"dataSources/DoS/ssic2020-alphabetical-index.xlsx"
     pdfModelFinalOutputs_filepath = 'models/classificationModel/modelOutputFiles/pdfModelFinalOutputs.csv'
-    overallResults_filepath = f'results_{resultsLevel}.xlsx'
+    overallResults_filepath = f'results_{resultsLevel}_top{topN}.xlsx'
 
     # funtions:
     
