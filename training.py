@@ -13,13 +13,13 @@ numLabels = 1032
 testSize = 0.01
 randomState = 0
 
-modelTraining = controllerService(maxFiles = 100, learningRate = 5e-5, epsilon = 1e-08,
-                                  patience = 3, shuffle = 1000, batch = 16, epochs = 3,
-                                  numLabels = 1032, testSize = 0.01, randomState = 0,
-                                  lvl_train = 'Group')
+modelTraining = controllerService(maxFiles = max_files, learningRate = learningRate, epsilon = epsilon,
+                                  patience = patience, shuffle = shuffle, batch = batch, epochs = epochs,
+                                  numLabels = numLabels, testSize = testSize, randomState = randomState,
+                                  lvl_train = lvl_train)
 
 logger = modelTraining.setup_logger('training')
 logger.info(f"Start training '{lvl_train}' model ...")
 
 modelTraining.runTrainingClassificationModel(logger)
-logger.info(f'{lvl_train} model training completed. Model file generated.')
+logger.info(f"'{lvl_train}' model training completed. Model file generated.")
