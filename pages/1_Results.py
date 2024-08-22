@@ -160,20 +160,20 @@ with col2:
 
 categories = [section, division, group, Class, subclass]
 if level == 'Subclass':
-    categories = categories
+    categories2 = categories.copy()
 if level == Class:
-    categories = categories[:-1]
+    categories2 = categories[:-1]
 if level == group:
-    categories = categories[:-2]
+    categories2 = categories[:-2]
 if level == division:
-    categories = categories[:-3]
+    categories2 = categories[:-3]
 if level == section:
-    categories = categories[:-4]
+    categories2 = categories[:-4]
 
 # Streamlit selectbox for user input
 level_input = st.selectbox(
     "Level of Classification:",
-    categories
+    categories2
 )
 level = level_input if level_input else section
 
