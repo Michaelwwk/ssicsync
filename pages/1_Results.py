@@ -173,7 +173,7 @@ with col2:
 # Streamlit selectbox for user input
 level_input = st.selectbox(
     "Level of Classification:",
-    categories[:-2]
+    categories
 )
 level = level_input if level_input else section
 
