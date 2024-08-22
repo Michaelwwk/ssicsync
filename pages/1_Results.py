@@ -8,21 +8,19 @@ import matplotlib.cm as cm
 from sklearn import datasets
 from transformers import AutoTokenizer, TFAutoModelForSequenceClassification
 from commonFunctions import ssic_df, capitalize_sentence
-from main import level
+from main import level, modelChoice, topN, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath
 
 pd.set_option('display.max_columns', None)
 
 # hard-coded values
-modelChoice = 'fb_bart_tfidf'
-topN = 3
 section = 'Section'
 division = 'Division'
 group = 'Group'
 Class = 'Class'
 subclass = 'Sub-class'
-ssic_detailed_def_filepath = "dataSources/DoS/ssic2020-detailed-definitions.xlsx"
-ssic_alpha_index_filepath = "dataSources/DoS/ssic2020-alphabetical-index.xlsx"
-companies_df = pd.read_csv("dataSources/input_listOfCompanies.csv")
+topN = topN
+modelChoice = modelChoice
+companies_df = pd.read_csv(companies_filepath)
 modelOutputs = pd.read_csv("./models/classificationModel/modelOutputFiles/pdfModelFinalOutputs.csv", dtype={'ssic_code': str, 'ssic_code2': str})
 adjustedWeightDef = """The Adjusted Score is a metric designed to assign higher weights to a company's top SSIC predictions, 
 with progressively lower weights applied to subsequent predictions. Weights are also distributed in descending order 
@@ -158,19 +156,8 @@ with col2:
     # Display plot in Streamlit
     st.pyplot(fig)
 
-# categories = [section, division, group, Class, subclass]
-# if level == 'Subclass':
-#     categories2 = categories.copy()
-# if level == Class:
-#     categories2 = categories[:-1]
-# if level == group:
-#     categories2 = categories[:-2]
-# if level == division:
-#     categories2 = categories[:-3]
-# if level == section:
-#     categories2 = categories[:-4]
-categories.reverse()
 # Streamlit selectbox for user input
+categories.reverse()
 level_input = st.selectbox(
     "Level of Classification:",
     categories

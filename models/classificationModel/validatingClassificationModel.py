@@ -4,9 +4,10 @@ import ast
 import tensorflow as tf
 from commonFunctions import ssic_df, capitalize_sentence
 from transformers import AutoTokenizer, TFAutoModelForSequenceClassification
+
 pd.set_option('display.max_columns', None)
 
-def validatingClassificationModel(self, logger):
+def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath):
 
     # hard-coded values:
 
@@ -15,10 +16,7 @@ def validatingClassificationModel(self, logger):
     resultsLevel = self.resultsLevel
     modelChoice = self.modelChoice
 
-    list_df_filepath = r"dataSources/input_listOfCompanies.csv"
     vdf_filepath = r"LLM_Test/Summarised_output_for_model_v3.xlsx" # TODO change path name and file name eventually!
-    ssic_detailed_def_filepath = r"dataSources/DoS/ssic2020-detailed-definitions.xlsx"
-    ssic_alpha_index_filepath = r"dataSources/DoS/ssic2020-alphabetical-index.xlsx"
     pdfModelFinalOutputs_filepath = 'models/classificationModel/modelOutputFiles/pdfModelFinalOutputs.csv'
     overallResults_filepath = f'results/results_{resultsLevel}_top{topN}.xlsx'
 
@@ -177,7 +175,7 @@ def validatingClassificationModel(self, logger):
     # load model directly from huggingface
     tokenizer = AutoTokenizer.from_pretrained(model)
     model = TFAutoModelForSequenceClassification.from_pretrained(model)
-    list_df = pd.read_csv(list_df_filepath, dtype = str)
+    list_df = pd.read_csv(companies_filepath, dtype = str)
 
     # Create new columns
     list_df['Division'] = list_df['ssic_code'].str[:2]
