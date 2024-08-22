@@ -22,4 +22,4 @@ logger = modelTraining.setup_logger('training')
 logger.info(f"Start training '{lvl_train}' model ...")
 
 modelTraining.runTrainingClassificationModel(logger)
-logger.info(f'{lvl_train} model training completed. Model file generated.')
+logger.info(f"'{lvl_train}' model training completed. Model file generated.")
