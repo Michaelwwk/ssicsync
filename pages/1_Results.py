@@ -158,17 +158,17 @@ with col2:
     # Display plot in Streamlit
     st.pyplot(fig)
 
-categories = [section, division, group, Class, subclass]
-if level == 'Subclass':
-    categories2 = categories.copy()
-if level == Class:
-    categories2 = categories[:-1]
-if level == group:
-    categories2 = categories[:-2]
-if level == division:
-    categories2 = categories[:-3]
-if level == section:
-    categories2 = categories[:-4]
+# categories = [section, division, group, Class, subclass]
+# if level == 'Subclass':
+#     categories2 = categories.copy()
+# if level == Class:
+#     categories2 = categories[:-1]
+# if level == group:
+#     categories2 = categories[:-2]
+# if level == division:
+#     categories2 = categories[:-3]
+# if level == section:
+#     categories2 = categories[:-4]
 
 # Streamlit selectbox for user input
 level_input = st.selectbox(
