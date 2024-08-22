@@ -1,7 +1,8 @@
 import pandas as pd
 import numpy as np
+import ast
 import tensorflow as tf
-from commonFunctions import ssic_df
+from commonFunctions import ssic_df, capitalize_sentence
 from transformers import AutoTokenizer, TFAutoModelForSequenceClassification
 pd.set_option('display.max_columns', None)
 
@@ -11,10 +12,15 @@ def validatingClassificationModel(self, logger):
 
     level = self.level
     topN = self.topN
-    list_df_filepath = r"dataSources/ScrapedOutputFiles/list of 90 Coy and SSIC.csv"
-    vdf_filepath = r"LLM_Test/Summarised_output_for_model.xlsx" # TODO change path name and file name eventually!
+    resultsLevel = self.resultsLevel
+    modelChoice = self.modelChoice
+
+    list_df_filepath = r"dataSources/input_listOfCompanies.csv"
+    vdf_filepath = r"LLM_Test/Summarised_output_for_model_v3.xlsx" # TODO change path name and file name eventually!
     ssic_detailed_def_filepath = r"dataSources/DoS/ssic2020-detailed-definitions.xlsx"
     ssic_alpha_index_filepath = r"dataSources/DoS/ssic2020-alphabetical-index.xlsx"
+    pdfModelFinalOutputs_filepath = 'models/classificationModel/modelOutputFiles/pdfModelFinalOutputs.csv'
+    overallResults_filepath = f'results_{resultsLevel}_top{topN}.xlsx'
 
     # funtions:
     
@@ -127,6 +133,9 @@ def validatingClassificationModel(self, logger):
             return None
         # Check if any item in predictions matches either Division or Division2
         return 'Y' if any(item[:5] == row['Sub-class'] or item[:5] == row['Sub-class2'] for item in row[prediction_col_name]) else 'N'
+    
+    def map_and_capitalize(ssic_list):
+        return [capitalize_sentence(ssic_to_title.get(ssic, np.NaN)) if pd.notna(ssic_to_title.get(ssic, np.NaN)) else np.NaN for ssic in ssic_list]
 
     ####################################################################################################
     ### Select SSIC Hierarchical Level
@@ -231,7 +240,7 @@ def validatingClassificationModel(self, logger):
         vdf[p_column_to_check + '_Division_check'] = vdf.apply(check_division, prediction_col_name=p_column_to_check, axis=1)
         vdf[p_column_to_check + '_Group_check'] = vdf.apply(check_group, prediction_col_name=p_column_to_check, axis=1)
         vdf[p_column_to_check + '_Class_check'] = vdf.apply(check_class, prediction_col_name=p_column_to_check, axis=1)
-        vdf[p_column_to_check + '_Subclass_check'] = vdf.apply(check_subclass, prediction_col_name=p_column_to_check, axis=1)
+        vdf[p_column_to_check + '_Sub-class_check'] = vdf.apply(check_subclass, prediction_col_name=p_column_to_check, axis=1)
 
     check_columns = [col for col in vdf.columns if col.endswith('_check')]
 
@@ -255,15 +264,130 @@ def validatingClassificationModel(self, logger):
         axis=1
     )
 
-    vdf.to_csv('models/classificationModel/modelOutputFiles/pdfModelFinalOutputs.csv', index=False)
-
-    # take model from huggingFace
-    # read csv from "C:\..\GitHub\ssicsync\models\summaryModel\modelOutputFiles\pdfModelSummaryOutputs.csv"
-    # output csv file name as 'pdfModelFinalOutputs.csv' (not xlsx!)
-    # Store csv in "C:\..\GitHub\ssicsync\models\classificationModel\modelOutputFiles\pdfModelFinalOutputs.csv"
-
-    # Wee Yang's codes on other model evaluation metrices should be inserted here too!
+    # TODO For Wee Yang ... add in codes for 'adjusted_Score' column
+    # Wee Yang's codes on other model evaluation metrices should be inserted here too.
     # Then combine WY's output and Roy's parsed model output results into a final Excel file:
     # 'C:\..\GitHub\ssicsync\results.xlsx'
 
-    # streamlit's visualisation should be the based on the CSV files, after the model results has been parsed (pdfModelFinalOutputs.csv)!
+    # vdf.to_csv(pdfModelFinalOutputs_filepath, index=False) # TODO uncomment this line!
+    logger.info('Model classification completed. CSV file generated for Streamlit.')
+    vdf = pd.read_csv('models/classificationModel/modelOutputFiles/pdfModelFinalOutputs.csv', dtype={'ssic_code': str, 'ssic_code2': str}) # TODO delete after WY appended the column!!
+    
+    if resultsLevel == 'Subclass':
+        resultsLevel = 'Sub-class'
+
+    accuracy = vdf[vdf[f'p_{modelChoice}_{resultsLevel}_check'] == 'Y'].shape[0]/vdf[(vdf[f'p_{modelChoice}_{resultsLevel}_check'].notnull())\
+                    & (vdf[f'p_{modelChoice}_{resultsLevel}_check'] != 'Null')].shape[0]
+    
+    avgAdjustedScore = vdf['adjusted_score'].mean()
+    modelResults_dict = {'Accuracy (%)': accuracy, 'Adjusted Score (Average %)': avgAdjustedScore}
+    modelResults_df = pd.DataFrame(modelResults_dict, index = [0])
+
+    # Transpose the DataFrame
+    modelResultsFINAL_df = modelResults_df.T.reset_index()
+    # Rename the columns
+    modelResultsFINAL_df.columns = ['Evaluation Metrics', 'Values']
+
+    uenEntity_dict = {"UEN": list_df['UEN'].to_list(), "entity_name": list_df['entity_name'].to_list()}
+    uenEntity_df = pd.DataFrame(uenEntity_dict)
+    uenEntity_dict = dict(zip(uenEntity_df['UEN'], uenEntity_df['entity_name']))
+    vdf['entity_name'] = vdf['UEN Number'].map(uenEntity_dict)
+    vdf['Company Name'] = vdf['entity_name'].str.rstrip('.')
+    vdf['adjusted_score'] = vdf['adjusted_score'].round(2)
+
+    modelOutputs_dict = {'Company': vdf['Company Name'].to_list(), 'SSIC 1': vdf['ssic_code'].to_list(), 'SSIC 2': vdf['ssic_code2'].to_list(),
+                         'Recommended SSICs': vdf[f'p_{modelChoice}'].to_list(), 'Adjusted Score': vdf['adjusted_score']}
+    modelOutputs_df = pd.DataFrame(modelOutputs_dict)
+    modelOutputs_df = modelOutputs_df[modelOutputs_df.Company.notnull()]
+    modelOutputsFINAL_df = modelOutputs_df.copy()
+
+    modelOutputs_df['SSIC 1'] = modelOutputs_df['SSIC 1'].apply(lambda x: str(x).zfill(5))
+    modelOutputs_df['SSIC 2'] = modelOutputs_df['SSIC 2'].apply(lambda x: str(x).zfill(5))
+
+    vdf.rename(columns = {'Company Name': 'Company'}, inplace = True)
+    modelOutputs_df = pd.merge(modelOutputs_df, vdf[['Company', 'Notes Page Content']], how = 'left', on = 'Company')
+    modelOutputs_df = modelOutputs_df[['Company', 'Notes Page Content', 'SSIC 1', 'SSIC 2', 'Recommended SSICs']]
+
+    if resultsLevel == 'Section':
+        df = ssic_dataframe.iloc[:, [0, 9]].drop_duplicates()
+        df_dict = dict(zip(df['SSIC 2020'], df['Section']))
+        modelOutputs_df['SSIC 1'] = modelOutputs_df['SSIC 1'].map(df_dict)
+        modelOutputs_df['SSIC 2'] = modelOutputs_df['SSIC 2'].map(df_dict)
+        
+        ssic_to_title = ssic_dataframe.set_index('Section')['Section Title'].to_dict()
+        modelOutputs_df['SSIC 1 Description'] = modelOutputs_df['SSIC 1'].map(ssic_to_title).apply(lambda x: capitalize_sentence(x) if pd.notna(x) else np.NaN)
+        modelOutputs_df['SSIC 2 Description'] = modelOutputs_df['SSIC 2'].map(ssic_to_title).apply(lambda x: capitalize_sentence(x) if pd.notna(x) else np.NaN)
+
+        modelOutputs_df['Recommended SSICs'] = modelOutputs_df['Recommended SSICs'].apply(lambda x: [df_dict.get(i, np.NaN) for i in ast.literal_eval(x)])
+        modelOutputs_df['Recommended SSIC Descriptions'] = modelOutputs_df['Recommended SSICs'].apply(map_and_capitalize)
+        description_df = modelOutputs_df['Recommended SSIC Descriptions'].apply(pd.Series)
+        description_df.columns = [f'Recommended SSIC Descriptions {i+1}' for i in range(description_df.shape[1])]
+        modelOutputs_df = pd.concat([modelOutputs_df, description_df], axis=1)
+
+    elif resultsLevel == 'Division':
+        modelOutputs_df['SSIC 1'] = modelOutputs_df['SSIC 1'].apply(lambda x: x[:2])
+        modelOutputs_df['SSIC 2'] = modelOutputs_df['SSIC 2'].apply(lambda x: x[:2])
+
+        ssic_to_title = ssic_dataframe.set_index('Division')['Division Title'].to_dict()
+        modelOutputs_df['SSIC 1 Description'] = modelOutputs_df['SSIC 1'].map(ssic_to_title).apply(lambda x: capitalize_sentence(x) if pd.notna(x) else np.NaN)
+        modelOutputs_df['SSIC 2 Description'] = modelOutputs_df['SSIC 2'].map(ssic_to_title).apply(lambda x: capitalize_sentence(x) if pd.notna(x) else np.NaN)
+
+        modelOutputs_df['Recommended SSICs'] = modelOutputs_df['Recommended SSICs'].apply(lambda x: [i[:2] for i in ast.literal_eval(x)])
+        modelOutputs_df['Recommended SSIC Descriptions'] = modelOutputs_df['Recommended SSICs'].apply(map_and_capitalize)
+        description_df = modelOutputs_df['Recommended SSIC Descriptions'].apply(pd.Series)
+        description_df.columns = [f'Recommended SSIC Descriptions {i+1}' for i in range(description_df.shape[1])]
+        modelOutputs_df = pd.concat([modelOutputs_df, description_df], axis=1)
+
+    elif resultsLevel == 'Group':
+        modelOutputs_df['SSIC 1'] = modelOutputs_df['SSIC 1'].apply(lambda x: x[:3])
+        modelOutputs_df['SSIC 2'] = modelOutputs_df['SSIC 2'].apply(lambda x: x[:3])
+
+        ssic_to_title = ssic_dataframe.set_index('Group')['Group Title'].to_dict()
+        modelOutputs_df['SSIC 1 Description'] = modelOutputs_df['SSIC 1'].map(ssic_to_title).apply(lambda x: capitalize_sentence(x) if pd.notna(x) else np.NaN)
+        modelOutputs_df['SSIC 2 Description'] = modelOutputs_df['SSIC 2'].map(ssic_to_title).apply(lambda x: capitalize_sentence(x) if pd.notna(x) else np.NaN)
+
+        modelOutputs_df['Recommended SSICs'] = modelOutputs_df['Recommended SSICs'].apply(lambda x: [i[:3] for i in ast.literal_eval(x)])
+        modelOutputs_df['Recommended SSIC Descriptions'] = modelOutputs_df['Recommended SSICs'].apply(map_and_capitalize)
+        description_df = modelOutputs_df['Recommended SSIC Descriptions'].apply(pd.Series)
+        description_df.columns = [f'Recommended SSIC Descriptions {i+1}' for i in range(description_df.shape[1])]
+        modelOutputs_df = pd.concat([modelOutputs_df, description_df], axis=1)
+
+    elif resultsLevel == 'Class':
+        modelOutputs_df['SSIC 1'] = modelOutputs_df['SSIC 1'].apply(lambda x: x[:4])
+        modelOutputs_df['SSIC 2'] = modelOutputs_df['SSIC 2'].apply(lambda x: x[:4])
+
+        ssic_to_title = ssic_dataframe.set_index('Class')['Class Title'].to_dict()
+        modelOutputs_df['SSIC 1 Description'] = modelOutputs_df['SSIC 1'].map(ssic_to_title).apply(lambda x: capitalize_sentence(x) if pd.notna(x) else np.NaN)
+        modelOutputs_df['SSIC 2 Description'] = modelOutputs_df['SSIC 2'].map(ssic_to_title).apply(lambda x: capitalize_sentence(x) if pd.notna(x) else np.NaN)
+
+        modelOutputs_df['Recommended SSICs'] = modelOutputs_df['Recommended SSICs'].apply(lambda x: [i[:4] for i in ast.literal_eval(x)])
+        modelOutputs_df['Recommended SSIC Descriptions'] = modelOutputs_df['Recommended SSICs'].apply(map_and_capitalize)
+        description_df = modelOutputs_df['Recommended SSIC Descriptions'].apply(pd.Series)
+        description_df.columns = [f'Recommended SSIC Descriptions {i+1}' for i in range(description_df.shape[1])]
+        modelOutputs_df = pd.concat([modelOutputs_df, description_df], axis=1)
+
+    elif resultsLevel == 'Sub-class':
+        modelOutputs_df['SSIC 1'] = modelOutputs_df['SSIC 1'].apply(lambda x: x[:5])
+        modelOutputs_df['SSIC 2'] = modelOutputs_df['SSIC 2'].apply(lambda x: x[:5])
+
+        ssic_to_title = ssic_dataframe.set_index('SSIC 2020')['SSIC 2020 Title'].to_dict()
+        modelOutputs_df['SSIC 1 Description'] = modelOutputs_df['SSIC 1'].map(ssic_to_title).apply(lambda x: capitalize_sentence(x) if pd.notna(x) else np.NaN)
+        modelOutputs_df['SSIC 2 Description'] = modelOutputs_df['SSIC 2'].map(ssic_to_title).apply(lambda x: capitalize_sentence(x) if pd.notna(x) else np.NaN)
+
+        modelOutputs_df['Recommended SSICs'] = modelOutputs_df['Recommended SSICs'].apply(lambda x: [i[:5] for i in ast.literal_eval(x)])
+        modelOutputs_df['Recommended SSIC Descriptions'] = modelOutputs_df['Recommended SSICs'].apply(map_and_capitalize)
+        description_df = modelOutputs_df['Recommended SSIC Descriptions'].apply(pd.Series)
+        description_df.columns = [f'Recommended SSIC Descriptions {i+1}' for i in range(description_df.shape[1])]
+        modelOutputs_df = pd.concat([modelOutputs_df, description_df], axis=1)
+    
+    modelOutputs_df.drop(columns = 'Recommended SSIC Descriptions', inplace = True)
+    modelValidationFINAL_df = modelOutputs_df.copy()
+
+    modelValidationFINAL_df.loc[modelValidationFINAL_df['SSIC 1'] == '00n', 'SSIC 1'] = np.NaN
+    modelValidationFINAL_df.loc[modelValidationFINAL_df['SSIC 2'] == '00n', 'SSIC 2'] = np.NaN
+
+    with pd.ExcelWriter(overallResults_filepath, engine='openpyxl') as writer:
+        modelResultsFINAL_df.to_excel(writer, sheet_name='Model Results', index=False)
+        modelOutputsFINAL_df.to_excel(writer, sheet_name='Model Outputs', index=False)
+        modelValidationFINAL_df.to_excel(writer, sheet_name='Model Validation', index=False)
+    logger.info('Model classification completed. Excel file generated for validation.')

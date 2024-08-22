@@ -1,5 +1,6 @@
 import streamlit as st
 from PIL import Image
+from main import section, division, group, Class, subclass
 
 # hard-coding
 acraLogoPath = 'image/ACRA_logo.jpg'
@@ -53,7 +54,7 @@ enabling users to gain a deeper understanding of their applications.
 st.write("## Table of Contents")
 
 st.markdown(
-'''
+f'''
 **Results**\n
 This section presents the overall classification results as well as SSIC results at the company level. \
 It is particularly useful for validating companies' declared SSIC codes against the recommended SSIC codes.
@@ -81,27 +82,27 @@ It is ideal for conducting quick analyses to obtain the recommended SSIC codes a
 
 
 **Reference (Section)**\n
-This section allows users to search across 21 SSIC Section codes and its related keywords in SSIC titles. \
+This section allows users to search across {section} SSIC Section codes and its related keywords in SSIC titles. \
 The search results will provide a relevant list of SSIC Section codes and titles based on the input terms. \
 This feature is ideal for gaining a comprehensive understanding of the meanings and applications of each SSIC Section code.
 
 **Reference (Division)**\n
-This section allows users to search across 81 SSIC Division codes and its related keywords in SSIC titles. \
+This section allows users to search across {division} SSIC Division codes and its related keywords in SSIC titles. \
 The search results will provide a relevant list of SSIC Division codes and titles based on the input terms. \
 This feature is ideal for gaining a comprehensive understanding of the meanings and applications of each SSIC Division code.
 
 **Reference (Group)**\n
-This section allows users to search across 204 SSIC Group codes and its related keywords in SSIC titles. \
+This section allows users to search across {group} SSIC Group codes and its related keywords in SSIC titles. \
 The search results will provide a relevant list of SSIC Group codes and titles based on the input terms. \
 This feature is ideal for gaining a comprehensive understanding of the meanings and applications of each SSIC Group code.
 
 **Reference (Class)**\n
-This section allows users to search across 382 SSIC Class codes and its related keywords in SSIC titles. \
+This section allows users to search across {Class} SSIC Class codes and its related keywords in SSIC titles. \
 The search results will provide a relevant list of SSIC Class codes and titles based on the input terms. \
 This feature is ideal for gaining a comprehensive understanding of the meanings and applications of each SSIC Class code.
 
 **Reference (Sub-class)**\n
-This section allows users to search across 1032 SSIC Sub-class codes and its related keywords in SSIC titles. \
+This section allows users to search across {subclass} SSIC Sub-class codes and its related keywords in SSIC titles. \
 The search results will provide a relevant list of SSIC Sub-class codes and titles based on the input terms. \
 This feature is ideal for gaining a comprehensive understanding of the meanings and applications of each SSIC Sub-class code.
 

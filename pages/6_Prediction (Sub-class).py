@@ -5,11 +5,12 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import tensorflow as tf
 from sklearn import datasets
-from commonFunctions import ssic_df
+from commonFunctions import ssic_df, capitalize_sentence
 from transformers import AutoTokenizer, TFAutoModelForSequenceClassification
+from main import topN, subclass
 
 # hard-coded values
-topN = 3
+topN = topN
 ssic_detailed_def_filepath = "dataSources/DoS/ssic2020-detailed-definitions.xlsx"
 ssic_alpha_index_filepath = "dataSources/DoS/ssic2020-alphabetical-index.xlsx"
 
@@ -82,9 +83,9 @@ with col1:
 
     # Add some text explaining the app
     st.write(f"""
-    ##### Classification (1032 Sub-class Categories)
+    ##### Classification ({subclass} Sub-class Categories)
     Welcome to the Business Description Classifier! This application utilizes a multi-class text classification model 
-    to categorize business descriptions into one of 1032 Sub-class categories. Simply input your business description, 
+    to categorize business descriptions into one of {subclass} Sub-class categories. Simply input your business description, 
     and the model will analyze the text and provide a list of predicted categories.
              
     ##### How to Use
@@ -98,7 +99,7 @@ with col2:
     st.write(f"""
     ##### About the Model
     This model has been trained on a diverse dataset of business descriptions and is capable of understanding and 
-    classifying a wide range of business activities. The 1032 Sub-class categories cover various industry sectors, 
+    classifying a wide range of business activities. The {subclass} Sub-class categories cover various industry sectors, 
     providing accurate and meaningful classifications for your business needs.
              
     ##### Examples
@@ -164,7 +165,7 @@ if user_input:
     for result in range(0,topN):
 
         lvl = merged_df2[['Value', lvl_train, lvl_train_title]].reset_index(drop = True)[lvl_train][result]
-        lvl_title = merged_df2[['Value', lvl_train, lvl_train_title]].reset_index(drop = True)[lvl_train_title][result].capitalize()
+        lvl_title = capitalize_sentence(merged_df2[['Value', lvl_train, lvl_train_title]].reset_index(drop = True)[lvl_train_title][result])
 
         st.write(f"**{lvl}**: {lvl_title}")
 

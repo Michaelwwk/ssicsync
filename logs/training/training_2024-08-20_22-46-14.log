@@ -1,0 +1,25 @@
+2024-08-20 22:46:14,370 - INFO - Start training Group model ...
+2024-08-20 22:46:16,274 - ERROR - Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\core\indexes\base.py", line 3653, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "pandas\_libs\index.pyx", line 147, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\_libs\index.pyx", line 176, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\_libs\hashtable_class_helper.pxi", line 7080, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\_libs\hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'Detailed Definitions'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\training.py", line 24, in <module>
+    modelTraining.runTrainingClassificationModel(logger)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\controller.py", line 89, in runTrainingClassificationModel
+    output = trainingClassificationModel(self, logger)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\models\classificationModel\trainingClassificationModel.py", line 54, in trainingClassificationModel
+    data_texts = df_prep['Detailed Definitions'].to_list() # text description data (not tokenized yet)
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\core\frame.py", line 3761, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\core\indexes\base.py", line 3655, in get_loc
+    raise KeyError(key) from err
+KeyError: 'Detailed Definitions'

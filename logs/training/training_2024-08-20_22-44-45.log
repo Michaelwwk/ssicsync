@@ -1,0 +1,10 @@
+2024-08-20 22:44:45,676 - INFO - Start training Group model ...
+2024-08-20 22:44:47,375 - ERROR - Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\training.py", line 24, in <module>
+    modelTraining.runTrainingClassificationModel(logger)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\controller.py", line 89, in runTrainingClassificationModel
+    output = trainingClassificationModel(self, logger)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\models\classificationModel\trainingClassificationModel.py", line 50, in trainingClassificationModel
+    df_prep = ssic_df[[lvl_train, lvl_train_title, 'Detailed Definitions']]
+TypeError: 'function' object is not subscriptable

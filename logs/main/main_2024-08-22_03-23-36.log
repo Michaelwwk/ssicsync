@@ -1,0 +1,3 @@
+2024-08-22 03:23:36,976 - INFO - Start code execution ...
+2024-08-22 03:25:25,370 - INFO - Model classification completed. CSV file generated for Streamlit.
+2024-08-22 03:25:25,514 - INFO - Model classification completed. Excel file generated for validation.

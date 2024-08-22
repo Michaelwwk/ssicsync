@@ -1,0 +1,16 @@
+2024-08-21 18:16:46,892 - INFO - Start code execution.
+2024-08-21 19:00:09,829 - ERROR - Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\main.py", line 20, in <module>
+    modelResults.runValidatingClassificationModel(logger)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\controller.py", line 92, in runValidatingClassificationModel
+    validatingClassificationModel(self, logger)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\models\classificationModel\validatingClassificationModel.py", line 284, in validatingClassificationModel
+    uenEntity_dict = {"UEN": list_df['UEN'].to_list(), "entity_name": list_df['entity_name'].to_list()}
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\models\classificationModel\validatingClassificationModel.py", line 284, in validatingClassificationModel
+    uenEntity_dict = {"UEN": list_df['UEN'].to_list(), "entity_name": list_df['entity_name'].to_list()}
+  File "C:\Program Files\Python310\lib\bdb.py", line 90, in trace_dispatch
+    return self.dispatch_line(frame)
+  File "C:\Program Files\Python310\lib\bdb.py", line 115, in dispatch_line
+    if self.quitting: raise BdbQuit
+bdb.BdbQuit

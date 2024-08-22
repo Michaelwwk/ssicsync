@@ -8,10 +8,27 @@ from models.classificationModel.validatingClassificationModel import validatingC
 
 class controllerService:
 
-    def __init__(self, level = 'Subclass', topN = 3, maxFiles = 100):
+    def __init__(self, level = 'Subclass', topN = 3,
+                 maxFiles = 100, learningRate = 5e-5, epsilon = 1e-08,
+                 patience = 3, shuffle = 1000, batch = 16, epochs = 3,
+                 numLabels = 1032, testSize = 0.01, randomState = 0,
+                 lvl_train = 'Group', resultsLevel = 'Group', modelChoice = 'fb_bart_tfidf'):
+        
         self.level = level
         self.topN = topN
         self.max_files = maxFiles
+        self.learningRate = learningRate
+        self.epsilon = epsilon
+        self.patience = patience
+        self.shuffle = shuffle
+        self.batch = batch
+        self.epochs = epochs
+        self.numLabels = numLabels
+        self.testSize = testSize
+        self.randomState = randomState
+        self.lvl_train = lvl_train
+        self.resultsLevel = resultsLevel
+        self.modelChoice = modelChoice
 
     def setup_logger(self, entryPoint = 'main'):
 
@@ -71,8 +88,7 @@ class controllerService:
         return logger
 
     def runTrainingClassificationModel(self, logger):
-        output = trainingClassificationModel(self, logger)
-        return output
+        trainingClassificationModel(self, logger)
 
     def runValidatingClassificationModel(self, logger):
         validatingClassificationModel(self, logger)

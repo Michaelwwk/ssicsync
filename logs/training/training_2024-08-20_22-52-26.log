@@ -1,0 +1,18 @@
+2024-08-20 22:52:26,344 - INFO - Start training Group model ...
+2024-08-20 22:52:27,746 - ERROR - Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\training.py", line 24, in <module>
+    modelTraining.runTrainingClassificationModel(logger)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\controller.py", line 89, in runTrainingClassificationModel
+    output = trainingClassificationModel(self, logger)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\models\classificationModel\trainingClassificationModel.py", line 70, in trainingClassificationModel
+    train_texts, test_texts, train_labels, test_labels = train_test_split(train_texts, train_labels, test_size= testSize, random_state= randomState, shuffle=True)
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\sklearn\utils\_param_validation.py", line 211, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\sklearn\model_selection\_split.py", line 2614, in train_test_split
+    arrays = indexable(*arrays)
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\sklearn\utils\validation.py", line 455, in indexable
+    check_consistent_length(*result)
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\sklearn\utils\validation.py", line 409, in check_consistent_length
+    raise ValueError(
+ValueError: Found input variables with inconsistent numbers of samples: [11847, 204]
