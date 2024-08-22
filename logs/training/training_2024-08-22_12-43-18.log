@@ -1,0 +1,16 @@
+2024-08-22 12:43:18,941 - INFO - Start training 'Group' model ...
+2024-08-22 12:45:04,047 - ERROR - Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\training.py", line 24, in <module>
+    modelTraining.runTrainingClassificationModel(logger)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\controller.py", line 91, in runTrainingClassificationModel
+    trainingClassificationModel(self, logger)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\models\classificationModel\trainingClassificationModel.py", line 106, in trainingClassificationModel
+    model.fit(train_dataset.shuffle(shuffle).batch(batch),
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\transformers\modeling_tf_utils.py", line 1229, in fit
+    return super().fit(*args, **kwargs)
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\tf_keras\src\utils\traceback_utils.py", line 70, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\tensorflow\python\eager\context.py", line 1481, in get_graph_debug_info
+    pywrap_tfe.TFE_ContextGetGraphDebugInfo(self._handle, name, buffer_)
+MemoryError: bad allocation

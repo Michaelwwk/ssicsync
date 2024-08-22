@@ -1,0 +1,3 @@
+2024-08-22 14:16:19,738 - INFO - Start training 'Group' model ...
+2024-08-22 20:32:54,040 - INFO - Folder 'distilBert Text Multiclass Model - Sample Size 6435 - Group level - 220824' created in C:\Users\Michael\Documents\GitHub\ssicsync\models\classificationModel\modelFiles
+2024-08-22 20:32:55,925 - INFO - Group model training completed. Model file generated.
