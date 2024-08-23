@@ -1,0 +1,20 @@
+2024-08-23 23:04:03,581 - INFO - Start code execution ...
+2024-08-23 23:04:03,599 - ERROR - Uncaught exception
+Traceback (most recent call last):
+  File "d:\ssicsync\main.py", line 27, in <module>
+    modelResults.runTrainingSummaryModel(logger)
+  File "d:\ssicsync\controller.py", line 98, in runTrainingSummaryModel
+    trainingSummaryModel(self, logger)
+  File "d:\ssicsync\models\summaryModel\trainingSummaryModel.py", line 10, in trainingSummaryModel
+    df_input = pd.read_excel(r"C:\path\to\your\GitHub\ssicsync\dataSources\ScrapedOutputFiles\10) extracted_notes_pages_with_uen.xlsx")
+  File "D:\Anaconda\lib\site-packages\pandas\util\_decorators.py", line 311, in wrapper
+    return func(*args, **kwargs)
+  File "D:\Anaconda\lib\site-packages\pandas\io\excel\_base.py", line 457, in read_excel
+    io = ExcelFile(io, storage_options=storage_options, engine=engine)
+  File "D:\Anaconda\lib\site-packages\pandas\io\excel\_base.py", line 1376, in __init__
+    ext = inspect_excel_format(
+  File "D:\Anaconda\lib\site-packages\pandas\io\excel\_base.py", line 1250, in inspect_excel_format
+    with get_handle(
+  File "D:\Anaconda\lib\site-packages\pandas\io\common.py", line 795, in get_handle
+    handle = open(handle, ioargs.mode)
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\path\\to\\your\\GitHub\\ssicsync\\dataSources\\ScrapedOutputFiles\\10) extracted_notes_pages_with_uen.xlsx'

@@ -1,0 +1,21 @@
+2024-08-23 18:03:48,408 - INFO - Start code execution ...
+2024-08-23 18:36:17,202 - INFO - Summary Outputs CSV generated.
+2024-08-23 18:36:21,544 - ERROR - Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\main.py", line 28, in <module>
+    modelResults.runValidatingClassificationModel(logger, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\controller.py", line 95, in runValidatingClassificationModel
+    validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\models\classificationModel\validatingClassificationModel.py", line 200, in validatingClassificationModel
+    vdf = vdf.merge(list_df[['UEN', 'ssic_code', 'ssic_code2', 'Section', 'Division', 'Group', 'Class',\
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\core\frame.py", line 9843, in merge
+    return merge(
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\core\reshape\merge.py", line 148, in merge
+    op = _MergeOperation(
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\core\reshape\merge.py", line 737, in __init__
+    ) = self._get_merge_keys()
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\core\reshape\merge.py", line 1221, in _get_merge_keys
+    left_keys.append(left._get_label_or_level_values(lk))
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\core\generic.py", line 1778, in _get_label_or_level_values
+    raise KeyError(key)
+KeyError: 'UEN Number'
