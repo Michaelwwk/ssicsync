@@ -2,13 +2,14 @@ import pandas as pd
 import torch
 from transformers import pipeline
 from sklearn.feature_extraction.text import TfidfVectorizer
+import ollama
 
 def trainingSummaryModel(df_input, output_excel=False):
     device = 0 if torch.cuda.is_available() else -1
 
     # read csv from "C:\..\GitHub\ssicsync\dataSources\ScrapedOutputFiles\pdfScrapedOutputs.csv"
-    df_input = pd.read_excel(r"C:\path\to\your\GitHub\ssicsync\dataSources\ScrapedOutputFiles\10) extracted_notes_pages_with_uen.xlsx")
-
+    df_input = pd.read_excel("dataSources/scrapedOutputFiles/10) extracted_notes_pages_with_uen.xlsx")
+    
     # Initialize the summarizers
     summarizer_facebook_bart = pipeline("summarization", model="facebook/bart-large-cnn", device=device)
     summarizer_philschmid_bart = pipeline("summarization", model="philschmid/bart-large-cnn-samsum", device=device)
