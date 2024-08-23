@@ -2,13 +2,14 @@ import pandas as pd
 from transformers import pipeline
 from sklearn.feature_extraction.text import TfidfVectorizer
 import torch
+import ollama
 
 def trainingSummaryModel(df_input, output_excel=False):
     device = 0 if torch.cuda.is_available() else -1
 
     # read csv from "C:\..\GitHub\ssicsync\dataSources\ScrapedOutputFiles\pdfScrapedOutputs.csv"
-    df_input = pd.read_excel("C:\..\GitHub\ssicsync\dataSources\ScrapedOutputFiles\pdfScrapedOutputs.csv")
-    
+    df_input = pd.read_csv(r"C:\path\to\your\GitHub\ssicsync\dataSources\ScrapedOutputFiles\pdfScrapedOutputs.csv")
+
     # Initialize the summarizers
     summarizer_facebook_bart = pipeline("summarization", model="facebook/bart-large-cnn", device=device)
     summarizer_philschmid_bart = pipeline("summarization", model="philschmid/bart-large-cnn-samsum", device=device)
@@ -16,9 +17,9 @@ def trainingSummaryModel(df_input, output_excel=False):
     question_answer = pipeline("question-answering", model="deepset/roberta-base-squad2", device=device)
 
     list_of_summarizer = [
-        (summarizer_facebook_bart, 'facebook_bart_summary'),
-        (summarizer_philschmid_bart, 'philschmid_bart_summary'),
-        (summarizer_azma_bart, 'azma_bart_summary')
+        (summarizer_facebook_bart, 'Summarized_Description_facebook_bart'),
+        (summarizer_philschmid_bart, 'Summarized_Description_philschmid_bart'),
+        (summarizer_azma_bart, 'Summarized_Description_azma_bart')
     ]
 
     def get_answer(row):
@@ -37,16 +38,25 @@ def trainingSummaryModel(df_input, output_excel=False):
         max_length = max(min_length, max_length)
         summary = summarizer(text, max_length=max_length, min_length=min_length)
         return summary[0]['summary_text']
+    
+    df_input['Input_length'] = df_input['Notes Page Content'].apply(lambda x: len(x.split()))
 
     for summarizer, output_column in list_of_summarizer:
         df_input[output_column] = df_input['Notes Page Content'].apply(
             lambda x: dynamic_summarizer(summarizer, x)
         )
-
+    
+    df_input['Summarised?'] = df_input.apply(lambda row: 'No' if row['Notes Page Content'] == row['Summarized_Description_azma_bart'] else 'Yes',axis=1)
+    
     tfidf_vectorizer = TfidfVectorizer()
-    for _, output_column in list_of_summarizer:
-        tfidf_column = output_column + '_tfidf'
-        df_input[tfidf_column] = df_input[output_column].apply(lambda x: ' '.join(x.split()))
+    tfidf_columns = {
+        'Summarized_Description_azma_bart': 'Azma_bart_tfidf',
+        'Summarized_Description_facebook_bart': 'FB_bart_tfidf',
+        'Summarized_Description_philschmid_bart': 'Philschmid_bart_tfidf'
+    }
+
+    for summary_column, tfidf_column in tfidf_columns.items():
+        df_input[tfidf_column] = df_input[summary_column].apply(lambda x: ' '.join(x.split()))
         tfidf_matrix = tfidf_vectorizer.fit_transform(df_input[tfidf_column])
 
         terms = tfidf_vectorizer.get_feature_names_out()
@@ -61,11 +71,12 @@ def trainingSummaryModel(df_input, output_excel=False):
             return ' '.join(important_terms_in_order[:top_tokens])
 
         df_input[tfidf_column] = [
-            get_important_terms(i, tfidf_matrix, terms, tfidf_threshold)
-            for i in range(tfidf_matrix.shape[0])
-        ]
+                get_important_terms(i, tfidf_matrix, terms, tfidf_threshold)
+                for i in range(tfidf_matrix.shape[0])
+            ]
 
-    df_input.drop('Unnamed: 0', axis=1, inplace=True, errors='ignore')
+    #df_input.drop('Unnamed: 0', axis=1, inplace=True, errors='ignore')
+    
     if output_excel:
         df_input.to_csv("C:\..\GitHub\ssicsync\models\summaryModel\modelOutputFiles\pdfModelSummaryOutputs.csv")
         return "pdfModelSummaryOutputs.csv"
