@@ -1,0 +1,8 @@
+2024-08-23 12:08:18,566 - INFO - Start code execution ...
+2024-08-23 12:08:18,566 - ERROR - Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\main.py", line 27, in <module>
+    modelResults.runTrainingSummaryModel(logger)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\controller.py", line 98, in runTrainingSummaryModel
+    trainingSummaryModel(self, logger)
+TypeError: 'module' object is not callable

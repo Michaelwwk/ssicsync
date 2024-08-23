@@ -74,11 +74,6 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
         df[output_col] = df[input_col].apply(predict_and_map)
         return df
     
-    def get_combined_title(row):
-        title1 = ssic_5_dict.get(row['ssic_code'], 'Unknown')
-        title2 = ssic_5_dict.get(row['ssic_code2'], 'Unknown')
-        return f"{row['ssic_code']}: {title1}\n{row['ssic_code2']}: {title2}"
-    
     # Function to create the combined title column
     def get_combined_title(row):
         title1 = ssic_5_dict.get(row['ssic_code'], 'Unknown')

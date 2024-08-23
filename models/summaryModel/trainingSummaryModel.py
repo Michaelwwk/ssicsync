@@ -30,7 +30,7 @@ def trainingSummaryModel(self, logger):
             important_terms_in_order = [term for term in original_text if term in important_terms]
             return ' '.join(important_terms_in_order[:top_tokens])
 
-    df_input = pd.read_excel("dataSources/ScrapedOutputFiles/pdfScrapedOutputs.csv")
+    df_input = pd.read_csv("dataSources/scrapedOutputFiles/pdfScrapedOutputs.csv")
     device = 0 if torch.cuda.is_available() else -1
     
     # Initialize the summarizers

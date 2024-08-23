@@ -5,7 +5,7 @@ from datetime import datetime
 from logging.handlers import RotatingFileHandler
 from models.classificationModel.trainingClassificationModel import trainingClassificationModel
 from models.classificationModel.validatingClassificationModel import validatingClassificationModel
-from models.summaryModel import trainingSummaryModel
+from models.summaryModel.trainingSummaryModel import trainingSummaryModel
 
 class controllerService:
 
