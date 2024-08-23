@@ -2,7 +2,7 @@ import pandas as pd
 import torch
 from transformers import pipeline
 from sklearn.feature_extraction.text import TfidfVectorizer
-import ollama
+# import ollama
 
 def trainingSummaryModel(self, logger):
 
@@ -14,23 +14,23 @@ def trainingSummaryModel(self, logger):
         result = question_answer(question=question, context=context)
         return result['answer']
     
-    def summarize_business_activity(content, model_name='llama3.1',too_short_threshold=3):
-        input_length = len(content.split())
-        if input_length < too_short_threshold:
-            return content  # If the content is too short, return it as is
+    # def summarize_business_activity(content, model_name='llama3.1',too_short_threshold=3):
+    #     input_length = len(content.split())
+    #     if input_length < too_short_threshold:
+    #         return content  # If the content is too short, return it as is
     
-        response = ollama.chat(model=model_name, messages=[
-            {
-                'role': 'user',
-                'content': f'''
-                {content}
+    #     response = ollama.chat(model=model_name, messages=[
+    #         {
+    #             'role': 'user',
+    #             'content': f'''
+    #             {content}
 
-                list down all the principal activity
-                ''',
-            },
-        ])
-        response_v = response['message']['content']  # Get the response content
-        return response_v
+    #             list down all the principal activity
+    #             ''',
+    #         },
+    #     ])
+    #     response_v = response['message']['content']  # Get the response content
+    #     return response_v
     
     def dynamic_summarizer(summarizer, text, min_length=30, length_fraction=0.9, too_short_threshold=30):
         input_length = len(text.split())
@@ -65,7 +65,7 @@ def trainingSummaryModel(self, logger):
     ]
 
     df_input['Q&A model Output'] = df_input.apply(get_answer, axis=1)
-    df_input['llm_output_llama3.1'] = df_input['Notes Page Content'].apply(lambda x: summarize_business_activity(x))   
+    # df_input['llm_output_llama3.1'] = df_input['Notes Page Content'].apply(lambda x: summarize_business_activity(x))   
     df_input['Input_length'] = df_input['Notes Page Content'].apply(lambda x: len(x.split()))
 
     for summarizer, output_column in list_of_summarizer:
@@ -81,7 +81,7 @@ def trainingSummaryModel(self, logger):
         'Summarized_Description_azma_bart': 'Azma_bart_tfidf',
         'Summarized_Description_facebook_bart': 'FB_bart_tfidf',
         'Summarized_Description_philschmid_bart': 'Philschmid_bart_tfidf',
-        'llm_output_llama3.1': 'llm_output_llama3.1_tfidf'  
+        # 'llm_output_llama3.1': 'llm_output_llama3.1_tfidf'  
     }
 
     for summary_column, tfidf_column in tfidf_columns.items():
