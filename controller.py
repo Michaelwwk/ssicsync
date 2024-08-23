@@ -5,6 +5,7 @@ from datetime import datetime
 from logging.handlers import RotatingFileHandler
 from models.classificationModel.trainingClassificationModel import trainingClassificationModel
 from models.classificationModel.validatingClassificationModel import validatingClassificationModel
+# from models.summaryModel import trainingSummaryModel
 
 class controllerService:
 
@@ -92,3 +93,6 @@ class controllerService:
 
     def runValidatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath):
         validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath)
+
+    # def runTrainingSummaryModel(self, logger):
+    #     trainingSummaryModel(self, logger)
