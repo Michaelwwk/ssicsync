@@ -17,7 +17,7 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
     modelChoice = self.modelChoice
 
     vdf_filepath = "models/summaryModel/modelOutputFiles/pdfModelSummaryOutputs.csv"
-    vdf_filepath = r"LLM_Test/Summarised_output_for_model_v3.xlsx" # TODO remove this line eventually!
+    # vdf_filepath = r"LLM_Test/Summarised_output_for_model_v3.xlsx" # TODO remove this line eventually!
     pdfModelFinalOutputs_filepath = 'models/classificationModel/modelOutputFiles/pdfModelFinalOutputs.csv'
     overallResults_filepath = f'results/results_{resultsLevel}_top{topN}.xlsx'
 
@@ -195,8 +195,8 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
     list_df = list_df.rename(columns={'Section2': 'Section2'})
 
     # Validation Data
-    vdf = pd.read_excel(vdf_filepath, dtype = str) # TODO remove this eventually!
-    # vdf = pd.read_csv(vdf_filepath, dtype = str) # TODO uncomment this eventually!
+    # vdf = pd.read_excel(vdf_filepath, dtype = str) # TODO remove this eventually!
+    vdf = pd.read_csv(vdf_filepath, dtype = str) # TODO uncomment this eventually!
     vdf = vdf.merge(list_df[['UEN', 'ssic_code', 'ssic_code2', 'Section', 'Division', 'Group', 'Class',\
                              'Sub-class', 'Section2', 'Division2', 'Group2', 'Class2', 'Sub-class2']], left_on='UEN Number', right_on='UEN', how='left')
 
