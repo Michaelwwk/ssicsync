@@ -98,9 +98,9 @@ def trainingSummaryModel(self, logger):
     question_answer = pipeline("question-answering", model="deepset/roberta-base-squad2", device=device)
 
     list_of_summarizer = [
-        (summarizer_facebook_bart, 'Summarized_Description_facebook_bart'),
-        (summarizer_philschmid_bart, 'Summarized_Description_philschmid_bart'),
-        (summarizer_azma_bart, 'Summarized_Description_azma_bart')
+        (summarizer_facebook_bart, 'facebook_bart_summary'),
+        (summarizer_philschmid_bart, 'philschmid_bart_summary'),
+        (summarizer_azma_bart, 'azma_bart_summary')
     ]
 
     df_input['Q&A model Output'] = df_input.apply(get_answer, axis=1)
@@ -109,18 +109,11 @@ def trainingSummaryModel(self, logger):
         df_input[output_column] = df_input['Notes Page Content'].apply(
             lambda x: dynamic_summarizer(summarizer, x)
         )
-    
-    df_input['Summarised?'] = df_input.apply(lambda row: 'No' if row['Notes Page Content'] == row['Summarized_Description_azma_bart'] else 'Yes',axis=1)
-    
-    tfidf_vectorizer = TfidfVectorizer()
-    tfidf_columns = {
-        'Summarized_Description_azma_bart': 'Azma_bart_tfidf',
-        'Summarized_Description_facebook_bart': 'FB_bart_tfidf',
-        'Summarized_Description_philschmid_bart': 'Philschmid_bart_tfidf'
-    }
 
-    for summary_column, tfidf_column in tfidf_columns.items():
-        df_input[tfidf_column] = df_input[summary_column].apply(lambda x: ' '.join(x.split()))
+    tfidf_vectorizer = TfidfVectorizer()
+    for _, output_column in list_of_summarizer:
+        tfidf_column = output_column + '_tfidf'
+        df_input[tfidf_column] = df_input[output_column].apply(lambda x: ' '.join(x.split()))
         tfidf_matrix = tfidf_vectorizer.fit_transform(df_input[tfidf_column])
 
         terms = tfidf_vectorizer.get_feature_names_out()
