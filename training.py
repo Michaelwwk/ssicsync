@@ -12,6 +12,8 @@ epochs = 3
 numLabels = 1032
 testSize = 0.01
 randomState = 0
+ssic_detailed_def_filepath = "dataSources/DoS/ssic2020-detailed-definitions.xlsx"
+ssic_alpha_index_filepath = "dataSources/DoS/ssic2020-alphabetical-index.xlsx"
 
 modelTraining = controllerService(maxFiles = max_files, learningRate = learningRate, epsilon = epsilon,
                                   patience = patience, shuffle = shuffle, batch = batch, epochs = epochs,
@@ -21,5 +23,5 @@ modelTraining = controllerService(maxFiles = max_files, learningRate = learningR
 logger = modelTraining.setup_logger('training')
 logger.info(f"Start training '{lvl_train}' model ...")
 
-modelTraining.runTrainingClassificationModel(logger)
+modelTraining.runTrainingClassificationModel(logger, ssic_detailed_def_filepath, ssic_alpha_index_filepath)
 logger.info(f"'{lvl_train}' model training completed. Model file generated.")

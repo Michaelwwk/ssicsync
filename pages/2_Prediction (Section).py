@@ -7,12 +7,10 @@ import tensorflow as tf
 from sklearn import datasets
 from commonFunctions import ssic_df, capitalize_sentence
 from transformers import AutoTokenizer, TFAutoModelForSequenceClassification
-from main import topN, section
+from main import topN, section, ssic_alpha_index_filepath, ssic_detailed_def_filepath
 
 # hard-coded values
 topN = topN
-ssic_detailed_def_filepath = "dataSources/DoS/ssic2020-detailed-definitions.xlsx"
-ssic_alpha_index_filepath = "dataSources/DoS/ssic2020-alphabetical-index.xlsx"
 
 # Set page config
 apptitle = 'SSIC Classification'

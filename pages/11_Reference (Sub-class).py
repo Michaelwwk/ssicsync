@@ -5,11 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn import datasets
 from commonFunctions import ssic_df, capitalize_sentence
-from main import subclass
-
-# hard-coded values
-ssic_detailed_def_filepath = "dataSources/DoS/ssic2020-detailed-definitions.xlsx"
-ssic_alpha_index_filepath = "dataSources/DoS/ssic2020-alphabetical-index.xlsx"
+from main import subclass, ssic_alpha_index_filepath, ssic_detailed_def_filepath
 
 ssic_1, ssic_2, ssic_3, ssic_4, ssic_5, ssic_df = ssic_df(ssic_detailed_def_filepath, ssic_alpha_index_filepath)
 

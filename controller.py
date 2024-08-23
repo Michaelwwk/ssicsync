@@ -87,8 +87,8 @@ class controllerService:
 
         return logger
 
-    def runTrainingClassificationModel(self, logger):
-        trainingClassificationModel(self, logger)
+    def runTrainingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic_alpha_index_filepath):
+        trainingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic_alpha_index_filepath)
 
-    def runValidatingClassificationModel(self, logger):
-        validatingClassificationModel(self, logger)
+    def runValidatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath):
+        validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath)

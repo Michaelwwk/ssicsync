@@ -7,7 +7,7 @@ from sklearn.model_selection import train_test_split
 from transformers import DistilBertTokenizer
 from transformers import TFDistilBertForSequenceClassification
 
-def trainingClassificationModel(self, logger):
+def trainingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic_alpha_index_filepath):
 
     # read DoS data from "C:\..\GitHub\ssicsync\dataSources\DoS"
     # output binary file name as 'classificationModel.h5'.
@@ -29,8 +29,6 @@ def trainingClassificationModel(self, logger):
     randomState = self.randomState
     lvl_train = self.lvl_train
 
-    ssic_detailed_def_filepath = r"dataSources/DoS/ssic2020-detailed-definitions.xlsx"
-    ssic_alpha_index_filepath = r"dataSources/DoS/ssic2020-alphabetical-index.xlsx"
     model_dir = os.getcwd() + "\\models\\classificationModel\\modelFiles"
 
     lvl_train_title = lvl_train + " Title"

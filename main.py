@@ -7,6 +7,9 @@ modelChoice = 'fb_bart_tfidf' # this refers to the chosen summary model of choic
 resultsLevel = 'Group' # this refers to the hierarchical level to be seen in final results file. 'resultsLevel' has to be equal or less granular than 'level'! ('Section', 'Division', 'Group', 'Class', 'Subclass')
 topN = 3 # this refers to the top N number of SSIC codes that each companies SSIC codes should be within to be considered as a hit (therefore classifying correctly). this score affects the prediction accuracy.
 max_files = 100 # this refers to the max log files recoded in the repository.
+ssic_detailed_def_filepath = "dataSources/DoS/ssic2020-detailed-definitions.xlsx"
+ssic_alpha_index_filepath = "dataSources/DoS/ssic2020-alphabetical-index.xlsx"
+companies_filepath = "dataSources/input_listOfCompanies.csv"
 
 ## for Streamlit
 section = 21 # this refers to the no. of SSIC codes in this hierarchy (from DoS).
@@ -21,4 +24,4 @@ modelResults = controllerService(level = level, topN = topN, maxFiles = max_file
 logger = modelResults.setup_logger('main')
 logger.info('Start code execution ...')
 
-modelResults.runValidatingClassificationModel(logger)
+modelResults.runValidatingClassificationModel(logger, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath)
