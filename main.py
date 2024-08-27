@@ -24,5 +24,6 @@ modelResults = controllerService(level = level, topN = topN, maxFiles = max_file
 logger = modelResults.setup_logger('main')
 logger.info('Start code execution ...')
 
+modelResults.runPdfScraping(logger)
 modelResults.runTrainingSummaryModel(logger)
 modelResults.runValidatingClassificationModel(logger, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath)
