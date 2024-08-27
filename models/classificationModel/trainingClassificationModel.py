@@ -4,8 +4,7 @@ import pandas as pd
 from commonFunctions import ssic_df
 from datetime import datetime
 from sklearn.model_selection import train_test_split
-from transformers import DistilBertTokenizer
-from transformers import TFDistilBertForSequenceClassification
+from transformers import DistilBertTokenizer, TFDistilBertForSequenceClassification
 
 def trainingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic_alpha_index_filepath):
 

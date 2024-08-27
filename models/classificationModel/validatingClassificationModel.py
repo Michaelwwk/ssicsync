@@ -16,7 +16,7 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
     resultsLevel = self.resultsLevel
     modelChoice = self.modelChoice
 
-    vdf_filepath = r"LLM_Test/Summarised_output_for_model_v3.xlsx" # TODO change path name and file name eventually!
+    vdf_filepath = "models/summaryModel/modelOutputFiles/pdfModelSummaryOutputs.csv"
     pdfModelFinalOutputs_filepath = 'models/classificationModel/modelOutputFiles/pdfModelFinalOutputs.csv'
     overallResults_filepath = f'results/results_{resultsLevel}_top{topN}.xlsx'
 
@@ -72,11 +72,6 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
         # Apply the predict_and_map function to the specified column and store results in a new column
         df[output_col] = df[input_col].apply(predict_and_map)
         return df
-    
-    def get_combined_title(row):
-        title1 = ssic_5_dict.get(row['ssic_code'], 'Unknown')
-        title2 = ssic_5_dict.get(row['ssic_code2'], 'Unknown')
-        return f"{row['ssic_code']}: {title1}\n{row['ssic_code2']}: {title2}"
     
     # Function to create the combined title column
     def get_combined_title(row):
@@ -194,9 +189,7 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
     list_df = list_df.rename(columns={'Section2': 'Section2'})
 
     # Validation Data
-    # vdf_filepath = r"dataSources\ScrapedOutputFiles\(Roy) data validation.xlsx"
-    vdf = pd.read_excel(vdf_filepath, dtype = str)
-
+    vdf = pd.read_csv(vdf_filepath, dtype = str)
     vdf = vdf.merge(list_df[['UEN', 'ssic_code', 'ssic_code2', 'Section', 'Division', 'Group', 'Class',\
                              'Sub-class', 'Section2', 'Division2', 'Group2', 'Class2', 'Sub-class2']], left_on='UEN Number', right_on='UEN', how='left')
 

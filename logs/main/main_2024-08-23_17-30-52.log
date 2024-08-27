@@ -1,0 +1,50 @@
+2024-08-23 17:30:52,838 - INFO - Start code execution ...
+2024-08-23 17:36:35,249 - ERROR - Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\main.py", line 27, in <module>
+    modelResults.runTrainingSummaryModel(logger)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\controller.py", line 98, in runTrainingSummaryModel
+    trainingSummaryModel(self, logger)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\models\summaryModel\trainingSummaryModel.py", line 51, in trainingSummaryModel
+    df_input[output_column] = df_input['Notes Page Content'].apply(
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\core\series.py", line 4630, in apply
+    return SeriesApply(self, func, convert_dtype, args, kwargs).apply()
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\core\apply.py", line 1025, in apply
+    return self.apply_standard()
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\core\apply.py", line 1076, in apply_standard
+    mapped = lib.map_infer(
+  File "pandas\_libs\lib.pyx", line 2834, in pandas._libs.lib.map_infer
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\models\summaryModel\trainingSummaryModel.py", line 52, in <lambda>
+    lambda x: dynamic_summarizer(summarizer, x)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\models\summaryModel\trainingSummaryModel.py", line 22, in dynamic_summarizer
+    summary = summarizer(text, max_length=max_length, min_length=min_length)
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\transformers\pipelines\text2text_generation.py", line 269, in __call__
+    return super().__call__(*args, **kwargs)
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\transformers\pipelines\text2text_generation.py", line 167, in __call__
+    result = super().__call__(*args, **kwargs)
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\transformers\pipelines\base.py", line 1243, in __call__
+    return self.run_single(inputs, preprocess_params, forward_params, postprocess_params)
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\transformers\pipelines\base.py", line 1250, in run_single
+    model_outputs = self.forward(model_inputs, **forward_params)
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\transformers\pipelines\base.py", line 1150, in forward
+    model_outputs = self._forward(model_inputs, **forward_params)
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\transformers\pipelines\text2text_generation.py", line 191, in _forward
+    output_ids = self.model.generate(**model_inputs, **generate_kwargs)
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\torch\utils\_contextlib.py", line 115, in decorate_context
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\transformers\generation\utils.py", line 1597, in generate
+    model_kwargs = self._prepare_encoder_decoder_kwargs_for_generation(
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\transformers\generation\utils.py", line 523, in _prepare_encoder_decoder_kwargs_for_generation
+    model_kwargs["encoder_outputs"]: ModelOutput = encoder(**encoder_kwargs)
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\torch\nn\modules\module.py", line 1511, in _wrapped_call_impl
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\torch\nn\modules\module.py", line 1520, in _call_impl
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\transformers\models\bart\modeling_bart.py", line 1178, in forward
+    attention_mask = _prepare_4d_attention_mask_for_sdpa(attention_mask, inputs_embeds.dtype)
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\transformers\modeling_attn_mask_utils.py", line 448, in _prepare_4d_attention_mask_for_sdpa
+    or (hasattr(torch, "_dynamo") and torch._dynamo.is_compiling())
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\torch\__init__.py", line 1936, in __getattr__
+  File "C:\Program Files\Python310\lib\importlib\__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1004, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'torch._dynamo'
