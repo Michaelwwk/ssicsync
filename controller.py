@@ -32,8 +32,8 @@ class controllerService:
         self.resultsLevel = resultsLevel
         self.modelChoice = modelChoice
 
-    def runPdfScraping(self, logger):
-        pdfScraping(self, logger)
+    # def runPdfScraping(self, logger):
+    #     pdfScraping(self, logger)
 
     def runTrainingSummaryModel(self, logger):
         trainingSummaryModel(self, logger)
