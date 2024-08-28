@@ -11,12 +11,12 @@ ssic_detailed_def_filepath = "dataSources/DoS/ssic2020-detailed-definitions.xlsx
 ssic_alpha_index_filepath = "dataSources/DoS/ssic2020-alphabetical-index.xlsx"
 companies_filepath = "dataSources/input_listOfCompanies.csv"
 
-## for Streamlit
-section = 21 # this refers to the no. of SSIC codes in this hierarchy (from DoS).
-division = 81 # this refers to the no. of SSIC codes in this hierarchy (from DoS).
-group = 204 # this refers to the no. of SSIC codes in this hierarchy (from DoS).
-Class = 382 # this refers to the no. of SSIC codes in this hierarchy (from DoS).
-subclass = 1032 # this refers to the no. of SSIC codes in this hierarchy (from DoS).
+# ## for Streamlit
+# section = 21 # this refers to the no. of SSIC codes in this hierarchy (from DoS).
+# division = 81 # this refers to the no. of SSIC codes in this hierarchy (from DoS).
+# group = 204 # this refers to the no. of SSIC codes in this hierarchy (from DoS).
+# Class = 382 # this refers to the no. of SSIC codes in this hierarchy (from DoS).
+# subclass = 1032 # this refers to the no. of SSIC codes in this hierarchy (from DoS).
 
 modelResults = controllerService(level = level, topN = topN, maxFiles = max_files,
                                  modelChoice = modelChoice, resultsLevel = resultsLevel)
