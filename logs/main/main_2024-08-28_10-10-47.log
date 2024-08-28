@@ -1,0 +1,8 @@
+2024-08-28 10:10:47,225 - INFO - Start code execution ...
+2024-08-28 10:10:47,225 - ERROR - Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\main.py", line 29, in <module>
+    modelResults.runPdfScraping(logger)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\controller.py", line 36, in runPdfScraping
+    pdfScraping(self, logger)
+TypeError: pdfScraping() takes 0 positional arguments but 2 were given

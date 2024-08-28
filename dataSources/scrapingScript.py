@@ -1,4 +1,4 @@
-def pdfScraping():
+def pdfScraping(self, logger):
 
     # TODO for Mei Chi to input
     # read pdfs from C:\..\GitHub\ssicsync\input_rawPDFReports\..pdf"
@@ -7,13 +7,13 @@ def pdfScraping():
 
     return
 
-def websiteScraping(): # not linked to main.py!
+def websiteScraping(self, logger): # not linked to main.py!
 
     # TODO for Roy to input
 
     return
 
-def linkedInScraping(): # not linked to main.py!
+def linkedInScraping(self, logger): # not linked to main.py!
 
     # TODO for Roy to input
     
