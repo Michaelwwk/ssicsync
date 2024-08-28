@@ -6,7 +6,7 @@ from logging.handlers import RotatingFileHandler
 from models.classificationModel.trainingClassificationModel import trainingClassificationModel
 from models.classificationModel.validatingClassificationModel import validatingClassificationModel
 from models.summaryModel.trainingSummaryModel import trainingSummaryModel
-from dataSources.scrapingScript import pdfScraping
+# from dataSources.scrapingScript import pdfScraping
 
 class controllerService:
 
