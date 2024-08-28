@@ -1,5 +1,3 @@
-from controller import controllerService
-
 # hard-coded variables
 
 level = 'Group' # ('Section', 'Division', 'Group', 'Class', 'Subclass') this refers to the model hierarchical type chosen to obtain the list of companies' SSIC results.
@@ -19,6 +17,8 @@ companies_filepath = "dataSources/input_listOfCompanies.csv"
 # subclass = 1032 # this refers to the no. of SSIC codes in this hierarchy (from DoS).
 
 if __name__ == "__main__":
+
+    from controller import controllerService
 
     modelResults = controllerService(level = level, topN = topN, maxFiles = max_files,
                                     modelChoice = modelChoice, resultsLevel = resultsLevel)
