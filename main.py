@@ -18,12 +18,14 @@ companies_filepath = "dataSources/input_listOfCompanies.csv"
 # Class = 382 # this refers to the no. of SSIC codes in this hierarchy (from DoS).
 # subclass = 1032 # this refers to the no. of SSIC codes in this hierarchy (from DoS).
 
-modelResults = controllerService(level = level, topN = topN, maxFiles = max_files,
-                                 modelChoice = modelChoice, resultsLevel = resultsLevel)
+if __name__ == "__main__":
 
-logger = modelResults.setup_logger('main')
-logger.info('Start code execution ...')
+    modelResults = controllerService(level = level, topN = topN, maxFiles = max_files,
+                                    modelChoice = modelChoice, resultsLevel = resultsLevel)
 
-# modelResults.runPdfScraping(logger)
-modelResults.runTrainingSummaryModel(logger)
-modelResults.runValidatingClassificationModel(logger, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath)
+    logger = modelResults.setup_logger('main')
+    logger.info('Start code execution ...')
+
+    # modelResults.runPdfScraping(logger)
+    modelResults.runTrainingSummaryModel(logger)
+    modelResults.runValidatingClassificationModel(logger, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath)
