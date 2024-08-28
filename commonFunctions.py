@@ -1,12 +1,5 @@
 import pandas as pd
 
-# for Streamlit
-section = 21 # this refers to the no. of SSIC codes in this hierarchy (from DoS).
-division = 81 # this refers to the no. of SSIC codes in this hierarchy (from DoS).
-group = 204 # this refers to the no. of SSIC codes in this hierarchy (from DoS).
-Class = 382 # this refers to the no. of SSIC codes in this hierarchy (from DoS).
-subclass = 1032 # this refers to the no. of SSIC codes in this hierarchy (from DoS).
-
 def capitalize_sentence(text):
     # Split the text into sentences
     sentences = text.split('. ')

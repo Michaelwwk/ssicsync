@@ -6,7 +6,7 @@ from logging.handlers import RotatingFileHandler
 from models.classificationModel.trainingClassificationModel import trainingClassificationModel
 from models.classificationModel.validatingClassificationModel import validatingClassificationModel
 from models.summaryModel.trainingSummaryModel import trainingSummaryModel
-# from dataSources.scrapingScript import pdfScraping
+from dataSources.scrapingScript import pdfScraping
 
 class controllerService:
 
@@ -32,8 +32,8 @@ class controllerService:
         self.resultsLevel = resultsLevel
         self.modelChoice = modelChoice
 
-    # def runPdfScraping(self, logger):
-    #     pdfScraping(self, logger)
+    def runPdfScraping(self, logger):
+        pdfScraping(self, logger)
 
     def runTrainingSummaryModel(self, logger):
         trainingSummaryModel(self, logger)
