@@ -1,0 +1,10 @@
+2024-08-23 23:30:05,918 - INFO - Start code execution ...
+2024-08-23 23:31:55,127 - ERROR - Uncaught exception
+Traceback (most recent call last):
+  File "d:\ssicsync\main.py", line 27, in <module>
+    modelResults.runTrainingSummaryModel(logger)
+  File "d:\ssicsync\controller.py", line 98, in runTrainingSummaryModel
+    trainingSummaryModel(self, logger)
+  File "d:\ssicsync\models\summaryModel\trainingSummaryModel.py", line 96, in trainingSummaryModel
+    logger.info('Summary Outputs CSV generated.')
+NameError: name 'logger' is not defined
