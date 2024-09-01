@@ -1,0 +1,5 @@
+2024-09-02 01:15:52,681 - INFO - Start code execution ...
+2024-09-02 01:38:09,484 - INFO - PDF extraction outputs CSV generated.
+2024-09-02 01:51:07,277 - INFO - Summary outputs CSV generated.
+2024-09-02 01:53:08,422 - INFO - Model classification completed. CSV file generated for Streamlit.
+2024-09-02 01:53:08,582 - INFO - Model classification completed. Excel file generated for validation.

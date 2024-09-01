@@ -4,17 +4,13 @@ import pdfplumber
 import pandas as pd
 import re
 
-
 def pdfScraping(self, logger):
 
-    # TODO for Mei Chi to input
-    # read pdfs from C:\..\GitHub\ssicsync\input_rawPDFReports\..pdf"
-    # output csv file name as 'pdfScrapedOutputs.csv' (not xlsx!)
-    # Store csv in "C:\..\GitHub\ssicsync\dataSources\ScrapedOutputFiles\pdfScrapedOutputs.csv"
+    # hard-coded values:
+    folder_path = r'dataSources/input_rawPDFReports'
+    final_folder_path = r'dataSources/ScrapedOutputFiles/pdfScrapedOutputs.csv'
 
-
-    # Path to the folder containing PDF files
-    folder_path = r'\input_rawPDFReports'
+    # functions:
 
     # Function to sanitize text
     def sanitize_text(text):
@@ -22,14 +18,12 @@ def pdfScraping(self, logger):
         sanitized_text = re.sub(r'[^\x20-\x7E]+', ' ', text)
         return sanitized_text
 
-
     # Function to extract UEN from filename
     def extract_uen(filename):
         match = re.search(r'\((\d{9}[A-Z])\)', filename)
         if match:
             return match.group(1)
         return ""
-
 
     def extract_principal_activities(text, subsidiary_keywords):
         # Find the position of the "Principal Activities" or "Principal Activity" section
@@ -54,7 +48,6 @@ def pdfScraping(self, logger):
             first_sentence = re.split(r'(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s', extracted_text.strip())[0]
             contains_subsidiary_keyword = any(keyword in first_sentence.lower() for keyword in subsidiary_keywords)
             
-        
             # Specific stop patterns
             stop_patterns = [
                 r"The (principal )?activit(y|ies) of .*? are .*? in (N|n)ot(e|es) \d+",
@@ -90,7 +83,6 @@ def pdfScraping(self, logger):
             return extracted_text
     
         return ""
-
 
     # Initialize a list to store the extracted data
     data = []
@@ -149,13 +141,8 @@ def pdfScraping(self, logger):
     # Create a DataFrame from the data
     df = pd.DataFrame(data)
 
-    folder_path = r'\ssicsync\dataSources\ScrapedOutputFiles\pdfScrapedOutputs.csv'
-    df.to_csv(folder_path)
-
-    logger.info('Annual Report PDF Extraction CSV generated.')
-
-    return
-
+    df.to_csv(final_folder_path)
+    logger.info('PDF extraction outputs CSV generated.')
 
 def websiteScraping(self, logger): # not linked to main.py!
 

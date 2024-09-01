@@ -1,0 +1,20 @@
+2024-09-01 23:50:05,002 - INFO - Start code execution ...
+2024-09-01 23:50:05,012 - ERROR - Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\main.py", line 33, in <module>
+    modelResults.runPdfScraping(logger)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\controller.py", line 36, in runPdfScraping
+    pdfScraping(self, logger)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\dataSources\scrapingScript.py", line 144, in pdfScraping
+    df.to_csv(final_folder_path)
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\core\generic.py", line 3772, in to_csv
+    return DataFrameRenderer(formatter).to_csv(
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\io\formats\format.py", line 1186, in to_csv
+    csv_formatter.save()
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\io\formats\csvs.py", line 240, in save
+    with get_handle(
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\io\common.py", line 737, in get_handle
+    check_parent_directory(str(handle))
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\io\common.py", line 600, in check_parent_directory
+    raise OSError(rf"Cannot save file into a non-existent directory: '{parent}'")
+OSError: Cannot save file into a non-existent directory: '\ssicsync\dataSources\ScrapedOutputFiles'
