@@ -1,0 +1,30 @@
+2024-09-01 23:25:39,434 - INFO - Start code execution ...
+2024-09-01 23:27:40,770 - INFO - Model classification completed. CSV file generated for Streamlit.
+2024-09-01 23:27:40,812 - ERROR - Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\main.py", line 31, in <module>
+    modelResults.runValidatingClassificationModel(logger, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\controller.py", line 42, in runValidatingClassificationModel
+    validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\models\classificationModel\validatingClassificationModel.py", line 559, in validatingClassificationModel
+    modelOutputs_df['Recommended SSICs'] = modelOutputs_df['Recommended SSICs'].apply(lambda x: [i[:3] for i in ast.literal_eval(x)])
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\core\series.py", line 4630, in apply
+    return SeriesApply(self, func, convert_dtype, args, kwargs).apply()
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\core\apply.py", line 1025, in apply
+    return self.apply_standard()
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\core\apply.py", line 1076, in apply_standard
+    mapped = lib.map_infer(
+  File "pandas\_libs\lib.pyx", line 2834, in pandas._libs.lib.map_infer
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\models\classificationModel\validatingClassificationModel.py", line 559, in <lambda>
+    modelOutputs_df['Recommended SSICs'] = modelOutputs_df['Recommended SSICs'].apply(lambda x: [i[:3] for i in ast.literal_eval(x)])
+  File "C:\Program Files\Python310\lib\ast.py", line 110, in literal_eval
+    return _convert(node_or_string)
+  File "C:\Program Files\Python310\lib\ast.py", line 109, in _convert
+    return _convert_signed_num(node)
+  File "C:\Program Files\Python310\lib\ast.py", line 83, in _convert_signed_num
+    return _convert_num(node)
+  File "C:\Program Files\Python310\lib\ast.py", line 74, in _convert_num
+    _raise_malformed_node(node)
+  File "C:\Program Files\Python310\lib\ast.py", line 71, in _raise_malformed_node
+    raise ValueError(msg + f': {node!r}')
+ValueError: malformed node or string: ['472', '561', '107']

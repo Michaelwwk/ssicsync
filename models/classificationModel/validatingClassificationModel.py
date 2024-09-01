@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import math as m
 import ast
 import tensorflow as tf
 from commonFunctions import ssic_df, capitalize_sentence
@@ -130,6 +131,222 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
     def map_and_capitalize(ssic_list):
         return [capitalize_sentence(ssic_to_title.get(ssic, np.NaN)) if pd.notna(ssic_to_title.get(ssic, np.NaN)) else np.NaN for ssic in ssic_list]
 
+    # Scoring functions
+    def calculateInverseScore(row, scoreCurve, refTable):
+        """
+        Parameters
+        ----------
+        row : Series
+            One row of data from dataframe.
+            
+        scoreCurve : int
+            Determine which score formula to use. See below.
+
+        Returns
+        -------
+        Series: a series of scoring for Division, Group, Class and Sub-class.
+        
+        Description
+        -------
+        Calculates scoring of various groups based on the below rank-score formula for correct prediction:
+            1 == 1/rank
+            2 == 1/(rank^2)
+            3 == 1/(rank^3)
+            4 == 1/exp(rank)
+            5 == 1/log2(rank + 1)
+            
+        Additionally the following score curve is used for category wise scoring:
+            Section == 1/log2(5 + 1)
+            Division == 1/log2(4 + 1)
+            Group == 1/log2(3 + 1)
+            Class == 1/log2(2 + 1)
+            Subclass == 1/log2(1 + 1)
+            
+        Hence combined score for a prediction row = sum all (rank scores x respective category score)
+        then after which the score would be normalised against the maximum possible combined score 
+        for that rank row. Then a single score would be obtained by filtering the max score
+        amongst the 15 rank-category combined scores.
+        Max combined scores for each respective rank rows (DCG curve) are as follows:
+            Prediction Row 1 = 2.948459119
+            Prediction Row 2 = 1.860270585
+            Prediction Row 3 = 1.474229559
+            Prediction Row 4 = 1.269832225
+            Prediction Row 5 = 1.140619687
+            Prediction Row 6 = 1.050262329
+            Prediction Row 7 = 0.982819706
+            Prediction Row 8 = 0.930135293
+            Prediction Row 9 = 0.887574636
+            Prediction Row 10 = 0.852295823
+            Prediction Row 11 = 0.822451872
+            Prediction Row 12 = 0.796786151
+            Prediction Row 13 = 0.774411417
+            Prediction Row 14 = 0.754681772
+            Prediction Row 15 = 0.73711478
+        """
+        # Define variable for adjusted score: max of ssic 1 and ssic 2 norm scores
+        max12Score = 0       
+        
+        # Define k value for SSIC category
+        kSection = 5
+        kDivision = 4
+        kGroup = 3
+        kClass = 2
+        kSubclass = 1
+        
+        # Read each to-be-score column values    
+        mSection = row['Section']
+        mSection2 = row['Section2']
+        
+        mDivision = row['Division']
+        mDivision2 = row['Division2']
+        
+        mGroup = row['Group']
+        mGroup2 = row['Group2']
+        
+        mClass = row['Class']
+        mClass2 = row['Class2']
+        
+        mSubclass = row['Sub-class']
+        mSubclass2 = row['Sub-class2']
+        
+        predictedList = row[f'p_{modelChoice}']   # extract predicted ssic codes
+        
+        for i in range(len(predictedList)):
+            rank = i + 1
+            
+            pDivision = predictedList[i][0:2]
+            pSection = refTable[refTable['Section, 2 digit code'] == pDivision]['Section'].to_string(index = False)
+            pGroup = predictedList[i][2:3]
+            pClass = predictedList[i][3:4]
+            pSubclass = predictedList[i][4:5]
+            
+            # Determine rank score curve
+            if scoreCurve == 4: 
+                detnomRank = m.exp(rank) # k value = Rank
+                detnomSection = m.exp(kSection)        # Section k value = 5
+                detnomDivision = m.exp(kDivision)       # Division k value = 4
+                detnomGroup = m.exp(kGroup)          # Group k value = 3
+                detnomClass = m.exp(kClass)          # Class k value = 2
+                detnomSubclass = m.exp(kSubclass)       # Subclass k value = 1
+                
+                maxScore = sum([1 / detnomRank * 1 / detnomSection, 
+                                1 / detnomRank * 1 / detnomDivision, 
+                                1 / detnomRank * 1 / detnomGroup, 
+                                1 / detnomRank * 1 / detnomClass, 
+                                1 / detnomRank * 1 / detnomSubclass])
+                
+            elif scoreCurve == 5: 
+                detnomRank = m.log2(rank + 1)# k value = Rank
+                detnomSection = m.log2(kSection + 1)       # Section k value = 5
+                detnomDivision = m.log2(kDivision + 1)      # Division k value = 4
+                detnomGroup = m.log2(kGroup + 1)         # Group k value = 3
+                detnomClass = m.log2(kClass + 1)         # Class k value = 2
+                detnomSubclass = m.log2(kSubclass + 1)      # Subclass k value = 1
+                
+                maxScore = sum([1 / detnomRank * 1 / detnomSection, 
+                                1 / detnomRank * 1 / detnomDivision, 
+                                1 / detnomRank * 1 / detnomGroup, 
+                                1 / detnomRank * 1 / detnomClass, 
+                                1 / detnomRank * 1 / detnomSubclass])
+                
+            else: 
+                detnomRank = m.pow(rank, scoreCurve) # k value = Rank
+                detnomSection = m.pow(kSection, scoreCurve)        # Section k value = 5
+                detnomDivision = m.pow(kDivision, scoreCurve)       # Division k value = 4
+                detnomGroup = m.pow(kGroup, scoreCurve)          # Group k value = 3
+                detnomClass = m.pow(kClass, scoreCurve)          # Class k value = 2
+                detnomSubclass = m.pow(kSubclass, scoreCurve)       # Subclass k value = 1
+                
+                maxScore = sum([1 / detnomRank * 1 / detnomSection, 
+                                1 / detnomRank * 1 / detnomDivision, 
+                                1 / detnomRank * 1 / detnomGroup, 
+                                1 / detnomRank * 1 / detnomClass, 
+                                1 / detnomRank * 1 / detnomSubclass])
+                
+            # Score for Section prediction
+            if mSection == pSection: 
+                pSectionScore = 1/detnomRank * 1/detnomSection
+            else: 
+                pSectionScore = 0
+                
+            if mSection2 == pSection: 
+                pSection2Score = 1/detnomRank * 1/detnomSection
+            else: 
+                pSection2Score = 0
+                
+            # Score for Division prediction
+            if mDivision == pDivision: 
+                pDivisionScore = 1/detnomRank * 1/detnomDivision
+            else: 
+                pDivisionScore = 0
+                
+            if mDivision2 == pDivision: 
+                pDivision2Score = 1/detnomRank * 1/detnomDivision
+            else: 
+                pDivision2Score = 0
+                
+            # Score for Group prediction
+            if mGroup == pGroup: 
+                pGroupScore = 1/detnomRank * 1/detnomGroup
+            else: 
+                pGroupScore = 0
+                
+            if mGroup2 == pGroup: 
+                pGroup2Score = 1/detnomRank * 1/detnomGroup
+            else: 
+                pGroup2Score = 0
+                
+            # Score for Class prediction
+            if mClass == pClass: 
+                pClassScore = 1/detnomRank * 1/detnomClass
+            else: 
+                pClassScore = 0
+                
+            if mClass2 == pClass: 
+                pClass2Score = 1/detnomRank * 1/detnomClass
+            else: 
+                pClass2Score = 0
+            
+            # Score for Sub-class prediction
+            if mSubclass == pSubclass: 
+                pSubclassScore = 1/detnomRank * 1/detnomClass
+            else: 
+                pSubclassScore = 0
+                
+            if mSubclass2 == pSubclass: 
+                pSubclass2Score = 1/detnomRank * 1/detnomClass
+            else: 
+                pSubclass2Score = 0
+                
+            # Computing adjusted score
+            combinedScore = sum((pSectionScore, pDivisionScore, pGroupScore, pClassScore, pSubclassScore))
+            combinedScore2 = sum((pSection2Score, pDivision2Score, pGroup2Score, pClass2Score, pSubclass2Score))
+            combinedScoreNorm = combinedScore / maxScore    # normalising scores to max score
+            combinedScore2Norm = combinedScore2 / maxScore  # normalising scores to max score
+            
+            # Determining adjusted score
+            if combinedScoreNorm >= combinedScore2Norm: 
+                if combinedScoreNorm > max12Score: 
+                    max12Score = combinedScoreNorm
+                    
+            else: 
+                if combinedScore2Norm > max12Score:
+                    max12Score = combinedScore2Norm
+                    
+        return max12Score
+
+    def calculatePredictionScore(vdf, refTable): 
+        df = vdf[['UEN', 'ssic_code', 'ssic_code2', 'Section', 'Division', 'Group', 
+                 'Class', 'Sub-class', 'Section2', 'Division2', 'Group2', 'Class2', 
+                 'Sub-class2', f'p_{modelChoice}']]
+        
+        # Apply function to calculate scores
+        predictionScore = df.apply(calculateInverseScore, axis = 1, scoreCurve = 5, refTable = refTable)
+        predictionScore.rename('adjusted_score', inplace = True)
+        vdf = pd.concat([vdf, predictionScore], axis = 1)
+        
+        return vdf
+
     ####################################################################################################
     ### Select SSIC Hierarchical Level
 
@@ -255,14 +472,9 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
         axis=1
     )
 
-    # TODO For Wee Yang ... add in codes for 'adjusted_Score' column
-    # Wee Yang's codes on other model evaluation metrices should be inserted here too.
-    # Then combine WY's output and Roy's parsed model output results into a final Excel file:
-    # 'C:\..\GitHub\ssicsync\results.xlsx'
-
-    # vdf.to_csv(pdfModelFinalOutputs_filepath, index=False) # TODO uncomment this line!
+    vdf = calculatePredictionScore(vdf, ssic_1)
+    vdf.to_csv(pdfModelFinalOutputs_filepath, index=False)
     logger.info('Model classification completed. CSV file generated for Streamlit.')
-    vdf = pd.read_csv('models/classificationModel/modelOutputFiles/pdfModelFinalOutputs.csv', dtype={'ssic_code': str, 'ssic_code2': str}) # TODO delete after WY appended the column!!
     
     if resultsLevel == 'Subclass':
         resultsLevel = 'Sub-class'
@@ -309,7 +521,7 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
         modelOutputs_df['SSIC 1 Description'] = modelOutputs_df['SSIC 1'].map(ssic_to_title).apply(lambda x: capitalize_sentence(x) if pd.notna(x) else np.NaN)
         modelOutputs_df['SSIC 2 Description'] = modelOutputs_df['SSIC 2'].map(ssic_to_title).apply(lambda x: capitalize_sentence(x) if pd.notna(x) else np.NaN)
 
-        modelOutputs_df['Recommended SSICs'] = modelOutputs_df['Recommended SSICs'].apply(lambda x: [df_dict.get(i, np.NaN) for i in ast.literal_eval(x)])
+        modelOutputs_df['Recommended SSICs'] = modelOutputs_df['Recommended SSICs'].apply(lambda x: [df_dict.get(i, np.NaN) for i in x])
         modelOutputs_df['Recommended SSIC Descriptions'] = modelOutputs_df['Recommended SSICs'].apply(map_and_capitalize)
         description_df = modelOutputs_df['Recommended SSIC Descriptions'].apply(pd.Series)
         description_df.columns = [f'Recommended SSIC Descriptions {i+1}' for i in range(description_df.shape[1])]
@@ -323,7 +535,7 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
         modelOutputs_df['SSIC 1 Description'] = modelOutputs_df['SSIC 1'].map(ssic_to_title).apply(lambda x: capitalize_sentence(x) if pd.notna(x) else np.NaN)
         modelOutputs_df['SSIC 2 Description'] = modelOutputs_df['SSIC 2'].map(ssic_to_title).apply(lambda x: capitalize_sentence(x) if pd.notna(x) else np.NaN)
 
-        modelOutputs_df['Recommended SSICs'] = modelOutputs_df['Recommended SSICs'].apply(lambda x: [i[:2] for i in ast.literal_eval(x)])
+        modelOutputs_df['Recommended SSICs'] = modelOutputs_df['Recommended SSICs'].apply(lambda x: [i[:2] for i in x])
         modelOutputs_df['Recommended SSIC Descriptions'] = modelOutputs_df['Recommended SSICs'].apply(map_and_capitalize)
         description_df = modelOutputs_df['Recommended SSIC Descriptions'].apply(pd.Series)
         description_df.columns = [f'Recommended SSIC Descriptions {i+1}' for i in range(description_df.shape[1])]
@@ -337,7 +549,7 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
         modelOutputs_df['SSIC 1 Description'] = modelOutputs_df['SSIC 1'].map(ssic_to_title).apply(lambda x: capitalize_sentence(x) if pd.notna(x) else np.NaN)
         modelOutputs_df['SSIC 2 Description'] = modelOutputs_df['SSIC 2'].map(ssic_to_title).apply(lambda x: capitalize_sentence(x) if pd.notna(x) else np.NaN)
 
-        modelOutputs_df['Recommended SSICs'] = modelOutputs_df['Recommended SSICs'].apply(lambda x: [i[:3] for i in ast.literal_eval(x)])
+        modelOutputs_df['Recommended SSICs'] = modelOutputs_df['Recommended SSICs'].apply(lambda x: [i[:3] for i in x])
         modelOutputs_df['Recommended SSIC Descriptions'] = modelOutputs_df['Recommended SSICs'].apply(map_and_capitalize)
         description_df = modelOutputs_df['Recommended SSIC Descriptions'].apply(pd.Series)
         description_df.columns = [f'Recommended SSIC Descriptions {i+1}' for i in range(description_df.shape[1])]
@@ -351,7 +563,7 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
         modelOutputs_df['SSIC 1 Description'] = modelOutputs_df['SSIC 1'].map(ssic_to_title).apply(lambda x: capitalize_sentence(x) if pd.notna(x) else np.NaN)
         modelOutputs_df['SSIC 2 Description'] = modelOutputs_df['SSIC 2'].map(ssic_to_title).apply(lambda x: capitalize_sentence(x) if pd.notna(x) else np.NaN)
 
-        modelOutputs_df['Recommended SSICs'] = modelOutputs_df['Recommended SSICs'].apply(lambda x: [i[:4] for i in ast.literal_eval(x)])
+        modelOutputs_df['Recommended SSICs'] = modelOutputs_df['Recommended SSICs'].apply(lambda x: [i[:4] for i in x])
         modelOutputs_df['Recommended SSIC Descriptions'] = modelOutputs_df['Recommended SSICs'].apply(map_and_capitalize)
         description_df = modelOutputs_df['Recommended SSIC Descriptions'].apply(pd.Series)
         description_df.columns = [f'Recommended SSIC Descriptions {i+1}' for i in range(description_df.shape[1])]
@@ -365,7 +577,7 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
         modelOutputs_df['SSIC 1 Description'] = modelOutputs_df['SSIC 1'].map(ssic_to_title).apply(lambda x: capitalize_sentence(x) if pd.notna(x) else np.NaN)
         modelOutputs_df['SSIC 2 Description'] = modelOutputs_df['SSIC 2'].map(ssic_to_title).apply(lambda x: capitalize_sentence(x) if pd.notna(x) else np.NaN)
 
-        modelOutputs_df['Recommended SSICs'] = modelOutputs_df['Recommended SSICs'].apply(lambda x: [i[:5] for i in ast.literal_eval(x)])
+        modelOutputs_df['Recommended SSICs'] = modelOutputs_df['Recommended SSICs'].apply(lambda x: [i[:5] for i in x])
         modelOutputs_df['Recommended SSIC Descriptions'] = modelOutputs_df['Recommended SSICs'].apply(map_and_capitalize)
         description_df = modelOutputs_df['Recommended SSIC Descriptions'].apply(pd.Series)
         description_df.columns = [f'Recommended SSIC Descriptions {i+1}' for i in range(description_df.shape[1])]

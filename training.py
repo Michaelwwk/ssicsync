@@ -1,7 +1,7 @@
 from controller import controllerService
 
 # hard-coded variables
-lvl_train = 'Group' # this refers to the model hierarchical type to be trained ('Section', 'Division', 'Group', 'Class', 'Subclass')
+lvl_train = 'Group' # this refers to the SSIC hierarchical model to be trained ('Section', 'Division', 'Group', 'Class', 'Subclass').
 max_files = 100
 learningRate = 5e-5
 epsilon = 1e-08
@@ -10,7 +10,7 @@ shuffle = 1000
 batch = 16
 epochs = 3
 numLabels = 1032
-testSize = 0.01
+testSize = 0.2
 randomState = 0
 ssic_detailed_def_filepath = "dataSources/DoS/ssic2020-detailed-definitions.xlsx"
 ssic_alpha_index_filepath = "dataSources/DoS/ssic2020-alphabetical-index.xlsx"
