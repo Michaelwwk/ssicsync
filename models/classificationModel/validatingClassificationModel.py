@@ -209,7 +209,7 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
         mSubclass = row['Sub-class']
         mSubclass2 = row['Sub-class2']
         
-        predictedList = ast.literal_eval(row[f'p_{modelChoice}'])   # extract predicted ssic codes
+        predictedList = row[f'p_{modelChoice}']   # extract predicted ssic codes
         
         for i in range(len(predictedList)):
             rank = i + 1
@@ -472,15 +472,9 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
         axis=1
     )
 
-    # TODO For Wee Yang ... add in codes for 'adjusted_Score' column
-    # Wee Yang's codes on other model evaluation metrices should be inserted here too.
-    # Then combine WY's output and Roy's parsed model output results into a final Excel file:
-    # 'C:\..\GitHub\ssicsync\results.xlsx'
     vdf = calculatePredictionScore(vdf, ssic_1)
-
-    vdf.to_csv(pdfModelFinalOutputs_filepath, index=False) # TODO uncomment this line!
+    vdf.to_csv(pdfModelFinalOutputs_filepath, index=False)
     logger.info('Model classification completed. CSV file generated for Streamlit.')
-    # vdf = pd.read_csv('models/classificationModel/modelOutputFiles/pdfModelFinalOutputs.csv', dtype={'ssic_code': str, 'ssic_code2': str}) # TODO delete after WY appended the column!!
     
     if resultsLevel == 'Subclass':
         resultsLevel = 'Sub-class'
@@ -527,7 +521,7 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
         modelOutputs_df['SSIC 1 Description'] = modelOutputs_df['SSIC 1'].map(ssic_to_title).apply(lambda x: capitalize_sentence(x) if pd.notna(x) else np.NaN)
         modelOutputs_df['SSIC 2 Description'] = modelOutputs_df['SSIC 2'].map(ssic_to_title).apply(lambda x: capitalize_sentence(x) if pd.notna(x) else np.NaN)
 
-        modelOutputs_df['Recommended SSICs'] = modelOutputs_df['Recommended SSICs'].apply(lambda x: [df_dict.get(i, np.NaN) for i in ast.literal_eval(x)])
+        modelOutputs_df['Recommended SSICs'] = modelOutputs_df['Recommended SSICs'].apply(lambda x: [df_dict.get(i, np.NaN) for i in x])
         modelOutputs_df['Recommended SSIC Descriptions'] = modelOutputs_df['Recommended SSICs'].apply(map_and_capitalize)
         description_df = modelOutputs_df['Recommended SSIC Descriptions'].apply(pd.Series)
         description_df.columns = [f'Recommended SSIC Descriptions {i+1}' for i in range(description_df.shape[1])]
@@ -541,7 +535,7 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
         modelOutputs_df['SSIC 1 Description'] = modelOutputs_df['SSIC 1'].map(ssic_to_title).apply(lambda x: capitalize_sentence(x) if pd.notna(x) else np.NaN)
         modelOutputs_df['SSIC 2 Description'] = modelOutputs_df['SSIC 2'].map(ssic_to_title).apply(lambda x: capitalize_sentence(x) if pd.notna(x) else np.NaN)
 
-        modelOutputs_df['Recommended SSICs'] = modelOutputs_df['Recommended SSICs'].apply(lambda x: [i[:2] for i in ast.literal_eval(x)])
+        modelOutputs_df['Recommended SSICs'] = modelOutputs_df['Recommended SSICs'].apply(lambda x: [i[:2] for i in x])
         modelOutputs_df['Recommended SSIC Descriptions'] = modelOutputs_df['Recommended SSICs'].apply(map_and_capitalize)
         description_df = modelOutputs_df['Recommended SSIC Descriptions'].apply(pd.Series)
         description_df.columns = [f'Recommended SSIC Descriptions {i+1}' for i in range(description_df.shape[1])]
@@ -555,7 +549,7 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
         modelOutputs_df['SSIC 1 Description'] = modelOutputs_df['SSIC 1'].map(ssic_to_title).apply(lambda x: capitalize_sentence(x) if pd.notna(x) else np.NaN)
         modelOutputs_df['SSIC 2 Description'] = modelOutputs_df['SSIC 2'].map(ssic_to_title).apply(lambda x: capitalize_sentence(x) if pd.notna(x) else np.NaN)
 
-        modelOutputs_df['Recommended SSICs'] = modelOutputs_df['Recommended SSICs'].apply(lambda x: [i[:3] for i in ast.literal_eval(x)])
+        modelOutputs_df['Recommended SSICs'] = modelOutputs_df['Recommended SSICs'].apply(lambda x: [i[:3] for i in x])
         modelOutputs_df['Recommended SSIC Descriptions'] = modelOutputs_df['Recommended SSICs'].apply(map_and_capitalize)
         description_df = modelOutputs_df['Recommended SSIC Descriptions'].apply(pd.Series)
         description_df.columns = [f'Recommended SSIC Descriptions {i+1}' for i in range(description_df.shape[1])]
@@ -569,7 +563,7 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
         modelOutputs_df['SSIC 1 Description'] = modelOutputs_df['SSIC 1'].map(ssic_to_title).apply(lambda x: capitalize_sentence(x) if pd.notna(x) else np.NaN)
         modelOutputs_df['SSIC 2 Description'] = modelOutputs_df['SSIC 2'].map(ssic_to_title).apply(lambda x: capitalize_sentence(x) if pd.notna(x) else np.NaN)
 
-        modelOutputs_df['Recommended SSICs'] = modelOutputs_df['Recommended SSICs'].apply(lambda x: [i[:4] for i in ast.literal_eval(x)])
+        modelOutputs_df['Recommended SSICs'] = modelOutputs_df['Recommended SSICs'].apply(lambda x: [i[:4] for i in x])
         modelOutputs_df['Recommended SSIC Descriptions'] = modelOutputs_df['Recommended SSICs'].apply(map_and_capitalize)
         description_df = modelOutputs_df['Recommended SSIC Descriptions'].apply(pd.Series)
         description_df.columns = [f'Recommended SSIC Descriptions {i+1}' for i in range(description_df.shape[1])]
@@ -583,7 +577,7 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
         modelOutputs_df['SSIC 1 Description'] = modelOutputs_df['SSIC 1'].map(ssic_to_title).apply(lambda x: capitalize_sentence(x) if pd.notna(x) else np.NaN)
         modelOutputs_df['SSIC 2 Description'] = modelOutputs_df['SSIC 2'].map(ssic_to_title).apply(lambda x: capitalize_sentence(x) if pd.notna(x) else np.NaN)
 
-        modelOutputs_df['Recommended SSICs'] = modelOutputs_df['Recommended SSICs'].apply(lambda x: [i[:5] for i in ast.literal_eval(x)])
+        modelOutputs_df['Recommended SSICs'] = modelOutputs_df['Recommended SSICs'].apply(lambda x: [i[:5] for i in x])
         modelOutputs_df['Recommended SSIC Descriptions'] = modelOutputs_df['Recommended SSICs'].apply(map_and_capitalize)
         description_df = modelOutputs_df['Recommended SSIC Descriptions'].apply(pd.Series)
         description_df.columns = [f'Recommended SSIC Descriptions {i+1}' for i in range(description_df.shape[1])]
