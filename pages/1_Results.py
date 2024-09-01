@@ -82,10 +82,8 @@ col1, col2 = st.columns([1,1])
 
 with col1:
 
-    # Generate random data points uniformly distributed between 0 and 1 TODO: CHANGE THIS PART TO THE ACTUAL DATA
-    np.random.seed(0)  # For reproducibility
-    data = np.random.uniform(0, 1, 86)
-
+    data = modelOutputs['adjusted_score'].to_list()
+    
     # Create histogram plot
     fig, ax = plt.subplots(figsize=(10, 6))  # Use same figsize as the bar chart
 
