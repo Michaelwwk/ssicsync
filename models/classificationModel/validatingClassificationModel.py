@@ -478,7 +478,7 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
     # 'C:\..\GitHub\ssicsync\results.xlsx'
     vdf = calculatePredictionScore(vdf, ssic_1)
 
-    # vdf.to_csv(pdfModelFinalOutputs_filepath, index=False) # TODO uncomment this line!
+    vdf.to_csv(pdfModelFinalOutputs_filepath, index=False) # TODO uncomment this line!
     logger.info('Model classification completed. CSV file generated for Streamlit.')
     # vdf = pd.read_csv('models/classificationModel/modelOutputFiles/pdfModelFinalOutputs.csv', dtype={'ssic_code': str, 'ssic_code2': str}) # TODO delete after WY appended the column!!
     
