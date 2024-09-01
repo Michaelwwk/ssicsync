@@ -82,7 +82,7 @@ col1, col2 = st.columns([1,1])
 
 with col1:
 
-    data = modelOutputs['adjusted_score'].to_list()
+    data = modelOutputs['adjusted_score'].values
     
     # Create histogram plot
     fig, ax = plt.subplots(figsize=(10, 6))  # Use same figsize as the bar chart
