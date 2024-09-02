@@ -9,7 +9,7 @@ The primary aim of this project is to enhance the accuracy of SSIC code verifica
 # How to use
 1. Git pull this repository from 'main' branch.
 2. Update [list of companies](https://github.com/yorwel/ssicsync/blob/main/dataSources/input_listOfCompanies.csv) to predict SSIC codes.
-3. Upload companies' annual reports [here](https://github.com/yorwel/ssicsync/tree/main/dataSources/input_rawPDFReports). Insert company's UEN number in the file names [e.g., ABC PTE LTD. (199999999C).pdf].
+3. Upload companies' annual reports [here](https://github.com/yorwel/ssicsync/tree/main/dataSources/input_rawPDFReports). Insert company's UEN number in the file names [e.g., ABC PTE LIMITED (199999999C).pdf].
 4. Ensure that SSIC Code's [source of truth](https://github.com/yorwel/ssicsync/tree/main/dataSources/DoS) is updated.
 5. Create virtual environment ("python -m venv myenv" followed by "myenv\Scripts\activate").
 6. Install required packages ("pip install -r requirements_repo.txt").
