@@ -88,7 +88,7 @@ with col1:
     fig, ax = plt.subplots(figsize=(10, 6))  # Use same figsize as the bar chart
 
     # Create the histogram to get counts and bins
-    counts, bins = np.histogram(data, bins=10, density=True)
+    counts, bins = np.histogram(data, bins=100, density=True)
     bin_width = bins[1] - bins[0]
     percentages = counts * bin_width * 100
 
