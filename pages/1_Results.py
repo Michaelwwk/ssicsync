@@ -217,7 +217,11 @@ allSSICs_list = coySSIC + ast.literal_eval(topNSSIC_input_list)
 
 coySSIC_input = []
 predictedSSIC_input = []
+loopCounterToDifferentiateSSIC1SSIC2 = 0
 for index, ssic in enumerate(allSSICs_list):
+
+    loopCounterToDifferentiateSSIC1SSIC2 += 1
+
     if ssic == 'NULL':
         pass
     else:
@@ -226,19 +230,23 @@ for index, ssic in enumerate(allSSICs_list):
         else:
             ssic = str(int(ssic))
 
-        if resultsLevel == 'Section':
-            ssic = ssic.zfill(1)
-            ssicResultsLevelColName = 'Section'
-        if resultsLevel == 'Division':
-            ssic = ssic.zfill(2)
-            ssicResultsLevelColName = 'Division'
-        if resultsLevel == 'Group':
-            ssic = ssic.zfill(3)
-            ssicResultsLevelColName = 'Group'
-        if resultsLevel == 'Class':
-            ssic = ssic.zfill(4)
-            ssicResultsLevelColName = 'Class'
-        if resultsLevel == 'Subclass':
+        if loopCounterToDifferentiateSSIC1SSIC2 > 2:
+            if resultsLevel == 'Section':
+                ssic = ssic.zfill(1)
+                ssicResultsLevelColName = 'Section'
+            if resultsLevel == 'Division':
+                ssic = ssic.zfill(2)
+                ssicResultsLevelColName = 'Division'
+            if resultsLevel == 'Group':
+                ssic = ssic.zfill(3)
+                ssicResultsLevelColName = 'Group'
+            if resultsLevel == 'Class':
+                ssic = ssic.zfill(4)
+                ssicResultsLevelColName = 'Class'
+            if resultsLevel == 'Subclass':
+                ssic = ssic.zfill(5)
+                ssicResultsLevelColName = 'SSIC 2020'
+        else:
             ssic = ssic.zfill(5)
             ssicResultsLevelColName = 'SSIC 2020'
 
