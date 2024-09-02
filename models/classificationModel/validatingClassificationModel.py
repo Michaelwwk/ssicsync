@@ -19,7 +19,7 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
 
     vdf_filepath = "models/summaryModel/modelOutputFiles/pdfModelSummaryOutputs.csv"
     pdfModelFinalOutputs_filepath = 'models/classificationModel/modelOutputFiles/pdfModelFinalOutputs.csv'
-    overallResults_filepath = f'results/results_{resultsLevel}_top{topN}.xlsx'
+    overallResults_filepath = f'results/results_summaryModel{modelChoice}_classificationModel{level}_results{resultsLevel}_top{topN}.xlsx'
 
     # funtions:
     
