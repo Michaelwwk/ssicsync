@@ -106,9 +106,10 @@ with col1:
     # Add percentage labels on top of each bar with added space
     offset = 0.08  # Adjust this value to control the amount of space
     for bar, percentage in zip(bars, percentages):
-        height = bar.get_height()
-        ax.text(bar.get_x() + bar.get_width() / 2, height + offset,
-                f'{percentage:.1f}%', ha='center', va='bottom')
+        if percentage > 0:
+            height = bar.get_height()
+            ax.text(bar.get_x() + bar.get_width() / 2, height + offset,
+                    f'{percentage:.1f}%', ha='center', va='bottom')
 
     # Remove right and top spines
     ax.spines['right'].set_visible(False)
@@ -189,7 +190,7 @@ companies_input = st.selectbox(
     "List of Companies",
     companies_tuple)
 
-score_input = str(modelOutputs[modelOutputs.entity_name.str.rstrip('.') == companies_input].reset_index(drop = True).adjusted_score[0])
+score_input = str(modelOutputs[modelOutputs.entity_name.str.rstrip('.') == companies_input].reset_index(drop = True).adjusted_score.round(2)[0])
 content_input = capitalize_sentence(modelOutputs[modelOutputs.entity_name.str.rstrip('.') == companies_input].reset_index(drop = True)['Notes Page Content'][0])
 ssic_input = modelOutputs[modelOutputs.entity_name.str.rstrip('.') == companies_input].reset_index(drop = True).ssic_code[0]
 ssic2_input = modelOutputs[modelOutputs.entity_name.str.rstrip('.') == companies_input].reset_index(drop = True).ssic_code2[0]
