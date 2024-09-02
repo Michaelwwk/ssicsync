@@ -88,12 +88,12 @@ with col1:
     fig, ax = plt.subplots(figsize=(10, 6))  # Use same figsize as the bar chart
 
     # Create the histogram to get counts and bins
-    counts, bins = np.histogram(data, bins=20, density=True)
+    counts, bins = np.histogram(data, bins=10, density=True)
     bin_width = bins[1] - bins[0]
     percentages = counts * bin_width * 100
 
     # Adjusting X-axis ticks to have 10 labels
-    plt.xticks(np.linspace(bins.min(), bins.max(), 20))
+    plt.xticks(np.linspace(bins.min(), bins.max(), 10))
 
     # Normalize bin centers to get a value between 0 and 1 for color mapping
     norm = plt.Normalize(bins.min(), bins.max())
