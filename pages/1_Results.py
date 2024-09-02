@@ -8,7 +8,7 @@ import matplotlib.cm as cm
 from sklearn import datasets
 from transformers import AutoTokenizer, TFAutoModelForSequenceClassification
 from commonFunctions import ssic_df, capitalize_sentence
-from main import level, modelChoice, topN, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath
+from main import level, modelChoice, topN, resultsLevel, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath
 
 pd.set_option('display.max_columns', None)
 
@@ -225,7 +225,23 @@ for index, ssic in enumerate(allSSICs_list):
             ssic = ssic
         else:
             ssic = str(int(ssic))
-        ssic = ssic.zfill(5)
+
+        if resultsLevel == 'Section':
+            ssic = ssic.zfill(1)
+            ssicResultsLevelColName = 'Section'
+        if resultsLevel == 'Division':
+            ssic = ssic.zfill(2)
+            ssicResultsLevelColName = 'Division'
+        if resultsLevel == 'Group':
+            ssic = ssic.zfill(3)
+            ssicResultsLevelColName = 'Group'
+        if resultsLevel == 'Class':
+            ssic = ssic.zfill(4)
+            ssicResultsLevelColName = 'Class'
+        if resultsLevel == 'Subclass':
+            ssic = ssic.zfill(5)
+            ssicResultsLevelColName = 'SSIC 2020'
+
         if level == section:
             ssicCode = ssic[:1]
         elif level == division:
@@ -237,25 +253,24 @@ for index, ssic in enumerate(allSSICs_list):
         elif level == subclass:
             ssicCode = ssic[:5]
 
-        # TODO ERROR HERE COZ IF GROUP THEN SSIC 2020 WONT MATCH SSIC
         try:
-            sectionTitle_input = capitalize_sentence(ssic_df[ssic_df['SSIC 2020'] == ssic].reset_index(drop = True)['Section Title'][0])
+            sectionTitle_input = capitalize_sentence(ssic_df[ssic_df[f'{ssicResultsLevelColName}'] == ssic].reset_index(drop = True)['Section Title'][0])
         except:
             sectionTitle_input = 'NULL'
         try:
-            divisionTitle_input = capitalize_sentence(ssic_df[ssic_df['SSIC 2020'] == ssic].reset_index(drop = True)['Division Title'][0])
+            divisionTitle_input = capitalize_sentence(ssic_df[ssic_df[f'{ssicResultsLevelColName}'] == ssic].reset_index(drop = True)['Division Title'][0])
         except:
             divisionTitle_input = 'NULL'
         try:
-            groupTitle_input = capitalize_sentence(ssic_df[ssic_df['SSIC 2020'] == ssic].reset_index(drop = True)['Group Title'][0])
+            groupTitle_input = capitalize_sentence(ssic_df[ssic_df[f'{ssicResultsLevelColName}'] == ssic].reset_index(drop = True)['Group Title'][0])
         except:
             groupTitle_input = 'NULL'
         try:
-            classTitle_input = capitalize_sentence(ssic_df[ssic_df['SSIC 2020'] == ssic].reset_index(drop = True)['Class Title'][0])
+            classTitle_input = capitalize_sentence(ssic_df[ssic_df[f'{ssicResultsLevelColName}'] == ssic].reset_index(drop = True)['Class Title'][0])
         except:
             classTitle_input = 'NULL'
         try:
-            subclassTitle_input = capitalize_sentence(ssic_df[ssic_df['SSIC 2020'] == ssic].reset_index(drop = True)['SSIC 2020 Title'][0])
+            subclassTitle_input = capitalize_sentence(ssic_df[ssic_df[f'{ssicResultsLevelColName}'] == ssic].reset_index(drop = True)['SSIC 2020 Title'][0])
         except:
             subclassTitle_input = 'NULL'
 
@@ -269,7 +284,7 @@ for index, ssic in enumerate(allSSICs_list):
         details_input = details_display[level]
 
         if level == section and details_input == sectionTitle_input:
-            ssicCode = ssic_df[ssic_df['Section Title'].str.lower() == sectionTitle_input.lower()].reset_index(drop = True)['Section'][0] # TODO ERROR HERE TOO COZ SECTION TITLE WONT MATCH TO NULL IF GROUP LEVEL!!
+            ssicCode = ssic_df[ssic_df['Section Title'].str.lower() == sectionTitle_input.lower()].reset_index(drop = True)['Section'][0]
 
         if index <= 1: # first 2 indexes are the company's 1st and/or 2nd SSIC codes
             coySSIC_input.append(f"**{ssicCode}**: {details_input}")
