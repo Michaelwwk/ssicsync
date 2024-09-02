@@ -23,7 +23,7 @@ The primary aim of this project is to enhance the accuracy of SSIC code verifica
 The folders in this repository are described as follows:
 
 - Data Sources (dataSources)
-  - Data sources required for the project (list of 2020 SSIC codes and descriptions, list of companies, and annual reports).
+  - Data sources required for the project.
 - Data Models (models)
   - Analytical techniques explored includes summarizer and transfer learning (multi-class classification) models.
 - Streamlit Pages (pages)
