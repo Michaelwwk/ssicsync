@@ -1,4 +1,4 @@
-<img src="https://github.com/Michaelwwk/appStoreAnalytics/blob/main/images/allLogosCombined.png" width="470" height="170">
+<img src="https://github.com/yorwel/ssicsync/blob/main/images/group_logo.png" width="470" height="170">
 
 # Background
 The Singapore Standard Industrial Classification (SSIC) is a critical numerical 5-digit coding system used to classify economic activities in Singapore. It serves as a key indicator in various surveys and databases, providing insights into the economic landscape. When businesses commence operations in Singapore, they are mandated to declare an appropriate SSIC code. However, due to the vast diversity of SSIC codes and the complexity of business activities, ensuring the accuracy of these declared SSIC codes presents a significant challenge.
