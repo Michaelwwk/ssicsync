@@ -15,7 +15,8 @@ The primary aim of this project is to enhance the accuracy of SSIC code verifica
 6. Install required packages ("pip install -r requirements_repo.txt").
 7. If you wish to train the transfer learning models, run "python training.py" and upload model files to [Hugging Face](https://huggingface.co/nusebacra). Change the hard-coded values at the top of script to your preference.
 8. Run "python main.py" to generate predicted SSIC results for the list of companies. Change the hard-coded values at the top of script to your preference.
-9. Visualize results on [Streamlit](https://ssicsync-nwdmvmh4vzhx4yfzqphazs.streamlit.app/).
+9. Push updated files back to main branch (*important*). Exclude model files.
+10. Visualize results on [Streamlit](https://ssicsync-nwdmvmh4vzhx4yfzqphazs.streamlit.app/).
 
 # Directory
 
