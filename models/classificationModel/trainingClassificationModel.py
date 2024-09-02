@@ -8,13 +8,6 @@ from transformers import DistilBertTokenizer, TFDistilBertForSequenceClassificat
 
 def trainingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic_alpha_index_filepath):
 
-    # read DoS data from "C:\..\GitHub\ssicsync\dataSources\DoS"
-    # output binary file name as 'classificationModel.h5'.
-    # Store model in "C:\..\GitHub\ssicsync\models\classificationModel\modelOutputFiles\classificationModel.h5"
-    # upload model to huggingFace
-
-    ### Step 1: get training data from DOS website - https://www.singstat.gov.sg/standards/standards-and-classifications/ssic
-
     # hard-coded values
 
     learningRate = self.learningRate
