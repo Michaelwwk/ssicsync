@@ -29,8 +29,8 @@ if __name__ == "__main__":
 
     logger = modelResults.setup_logger('main')
     logger.info('Start code execution ...')
-    logger.info(f'Classification model: {level}, Summary model: {modelChoice}, Results level: {resultsLevel}, Top N: {topN}')
+    logger.info(f'Summary model: {modelChoice}, Classification model: {level}, Results level: {resultsLevel}, Top N: {topN}')
 
-    modelResults.runPdfScraping(logger)
-    modelResults.runTrainingSummaryModel(logger)
+    modelResults.runPdfExtraction(logger)
+    modelResults.runSummaryModel(logger)
     modelResults.runValidatingClassificationModel(logger, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath)

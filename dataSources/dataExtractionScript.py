@@ -4,11 +4,11 @@ import pdfplumber
 import pandas as pd
 import re
 
-def pdfScraping(self, logger):
+def pdfExtraction(self, logger):
 
     # hard-coded values:
     folder_path = r'dataSources/input_rawPDFReports'
-    final_folder_path = r'dataSources/ScrapedOutputFiles/pdfScrapedOutputs.csv'
+    final_folder_path = r'dataSources/extractionOutputFiles/pdfExtractionOutputs.csv'
 
     # functions:
 

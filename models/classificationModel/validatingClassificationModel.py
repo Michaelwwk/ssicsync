@@ -74,11 +74,11 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
         df[output_col] = df[input_col].apply(predict_and_map)
         return df
     
-    # Function to create the combined title column
-    def get_combined_title(row):
-        title1 = ssic_5_dict.get(row['ssic_code'], 'Unknown')
-        title2 = ssic_5_dict.get(row['ssic_code2'], 'Unknown')
-        return f"{row['ssic_code']}: {title1}\n{row['ssic_code2']}: {title2}"
+    # # Function to create the combined title column
+    # def get_combined_title(row):
+    #     title1 = ssic_5_dict.get(row['ssic_code'], 'Unknown')
+    #     title2 = ssic_5_dict.get(row['ssic_code2'], 'Unknown')
+    #     return f"{row['ssic_code']}: {title1}\n{row['ssic_code2']}: {title2}"
     
     def check_section(row, ref_dict, prediction_col_name):
         # Retrieve the list of predictions from the specified column
@@ -336,7 +336,7 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
         return max12Score
 
     def calculatePredictionScore(vdf, refTable): 
-        df = vdf[['UEN', 'ssic_code', 'ssic_code2', 'Section', 'Division', 'Group', 
+        df = vdf[['UEN Number', 'ssic_code', 'ssic_code2', 'Section', 'Division', 'Group', 
                  'Class', 'Sub-class', 'Section2', 'Division2', 'Group2', 'Class2', 
                  'Sub-class2', f'p_{modelChoice}']]
         
@@ -415,32 +415,38 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
     # # Drop rows with any NaN values
     # vdf = vdf.dropna()
 
-    # Create a dictionary for quick lookup for ssic_5
+    # # Create a dictionary for quick lookup for ssic_5
 
-    ssic_5_dict = ssic_5[['SSIC 2020', 'SSIC 2020 Title']].drop_duplicates().set_index('SSIC 2020')['SSIC 2020 Title'].to_dict()
+    # ssic_5_dict = ssic_5[['SSIC 2020', 'SSIC 2020 Title']].drop_duplicates().set_index('SSIC 2020')['SSIC 2020 Title'].to_dict()
 
-    # Apply the function to create the new column
-    vdf['ssic_code&title'] = vdf.apply(get_combined_title, axis=1)
-    vdf['ssic_code&title'] = vdf.apply(get_combined_title, axis=1)
+    # # Apply the function to create the new column
+    # vdf['ssic_code&title'] = vdf.apply(get_combined_title, axis=1)
+    # vdf['ssic_code&title'] = vdf.apply(get_combined_title, axis=1)
 
-    # Summarized_Description_azma_bart / Azma_bart_tfidf
-    # Summarized_Description_facebook_bart / FB_bart_tfidf
-    # Summarized_Description_philschmid_bart / Philschmid_bart_tfidf
+    if modelChoice == 'sd_azma_bart':
+        vdf = apply_model_to_column(vdf, 'Summarized_Description_azma_bart', 'p_sd_azma_bart')
+    elif modelChoice == 'sd_fb_bart':
+        vdf = apply_model_to_column(vdf, 'Summarized_Description_facebook_bart', 'p_sd_fb_bart')
+    elif modelChoice == 'sd_philschmid_bart':
+        vdf = apply_model_to_column(vdf, 'Summarized_Description_philschmid_bart', 'p_sd_philschmid_bart')
+    elif modelChoice == 'azma_bart_tfidf':
+        vdf = apply_model_to_column(vdf, 'Azma_bart_tfidf', 'p_azma_bart_tfidf')
+    elif modelChoice == 'fb_bart_tfidf':
+        vdf = apply_model_to_column(vdf, 'FB_bart_tfidf', 'p_fb_bart_tfidf')
+    elif modelChoice == 'philschmid_bart_tfidf':
+        vdf = apply_model_to_column(vdf, 'Philschmid_bart_tfidf', 'p_philschmid_bart_tfidf')
+    elif modelChoice == 'QA':
+        vdf = apply_model_to_column(vdf, 'Q&A model Output', 'p_QA')
 
-    vdf = apply_model_to_column(vdf, 'Summarized_Description_azma_bart', 'p_sd_azma_bart')
-    vdf = apply_model_to_column(vdf, 'Summarized_Description_facebook_bart', 'p_sd_fb_bart')
-    vdf = apply_model_to_column(vdf, 'Summarized_Description_philschmid_bart', 'p_sd_philschmid_bart')
-    vdf = apply_model_to_column(vdf, 'Azma_bart_tfidf', 'p_azma_bart_tfidf')
-    vdf = apply_model_to_column(vdf, 'FB_bart_tfidf', 'p_fb_bart_tfidf')
-    vdf = apply_model_to_column(vdf, 'Philschmid_bart_tfidf', 'p_philschmid_bart_tfidf')
-    vdf = apply_model_to_column(vdf, 'Q&A model Output', 'p_QA')
+    vdf.drop(columns = ['Summarized_Description_azma_bart', 'Summarized_Description_facebook_bart',
+                        'Summarized_Description_philschmid_bart', 'Azma_bart_tfidf',
+                        'FB_bart_tfidf', 'Philschmid_bart_tfidf', 'Q&A model Output', 'Summarised?', 'UEN'], inplace = True)
 
     ########################################################################## Define functions to check conditions
     # Create a dictionary from the reference DataFrame for mapping
     ref_dict = pd.Series(ssic_1['Section'].values, index=ssic_1['Section, 2 digit code']).to_dict()
 
-    # list_columns = ['p_azma_bart_tfidf']
-    list_columns = ['p_sd_azma_bart', 'p_sd_fb_bart', 'p_sd_philschmid_bart', 'p_azma_bart_tfidf', 'p_fb_bart_tfidf', 'p_philschmid_bart_tfidf', 'p_QA']
+    list_columns = [f'p_{modelChoice}']
 
     # Apply the functions to create new columns
     for p_column_to_check in list_columns:
@@ -450,27 +456,26 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
         vdf[p_column_to_check + '_Class_check'] = vdf.apply(check_class, prediction_col_name=p_column_to_check, axis=1)
         vdf[p_column_to_check + '_Sub-class_check'] = vdf.apply(check_subclass, prediction_col_name=p_column_to_check, axis=1)
 
-    check_columns = [col for col in vdf.columns if col.endswith('_check')]
-
-    # Calculate the counts, ratios, and info_column
-    vdf[['count_Y', 'count_N', 'total_Y_N', 'YN_ratio', 'info_column']] = vdf.apply(
-        lambda row: pd.Series({
-            'count_Y': (row[check_columns] == 'Y').sum(),
-            'count_N': (row[check_columns] == 'N').sum(),
-            'total_Y_N': (row[check_columns] == 'Y').sum() + (row[check_columns] == 'N').sum(),
-            'Y_to_N_ratio': (row[check_columns] == 'Y').sum() / (row[check_columns] == 'N').sum() if (row[check_columns] == 'N').sum() != 0 else np.nan,
-            'info_column': (
-                lambda counts: f"Y: {counts['Y']}/{counts['total']} ({counts['Y'] / counts['total']:.2%}), "
-                            f"N: {counts['N']}/{counts['total']} ({counts['N'] / counts['total']:.2%}), "
-                            f"Y:N Ratio: {counts['Y'] / counts['N'] if counts['N'] != 0 else np.nan:.2f}"
-            )({
-                'Y': (row[check_columns] == 'Y').sum(),
-                'N': (row[check_columns] == 'N').sum(),
-                'total': (row[check_columns] == 'Y').sum() + (row[check_columns] == 'N').sum()
-            })
-        }),
-        axis=1
-    )
+    # check_columns = [col for col in vdf.columns if col.endswith('_check')]
+    # # Calculate the counts, ratios, and info_column
+    # vdf[['count_Y', 'count_N', 'total_Y_N', 'YN_ratio', 'info_column']] = vdf.apply(
+    #     lambda row: pd.Series({
+    #         'count_Y': (row[check_columns] == 'Y').sum(),
+    #         'count_N': (row[check_columns] == 'N').sum(),
+    #         'total_Y_N': (row[check_columns] == 'Y').sum() + (row[check_columns] == 'N').sum(),
+    #         'Y_to_N_ratio': (row[check_columns] == 'Y').sum() / (row[check_columns] == 'N').sum() if (row[check_columns] == 'N').sum() != 0 else np.nan,
+    #         'info_column': (
+    #             lambda counts: f"Y: {counts['Y']}/{counts['total']} ({counts['Y'] / counts['total']:.2%}), "
+    #                         f"N: {counts['N']}/{counts['total']} ({counts['N'] / counts['total']:.2%}), "
+    #                         f"Y:N Ratio: {counts['Y'] / counts['N'] if counts['N'] != 0 else np.nan:.2f}"
+    #         )({
+    #             'Y': (row[check_columns] == 'Y').sum(),
+    #             'N': (row[check_columns] == 'N').sum(),
+    #             'total': (row[check_columns] == 'Y').sum() + (row[check_columns] == 'N').sum()
+    #         })
+    #     }),
+    #     axis=1
+    # )
 
     vdf = calculatePredictionScore(vdf, ssic_1)
     vdf.to_csv(pdfModelFinalOutputs_filepath, index=False)

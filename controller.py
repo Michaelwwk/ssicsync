@@ -5,8 +5,8 @@ from datetime import datetime
 from logging.handlers import RotatingFileHandler
 from models.classificationModel.trainingClassificationModel import trainingClassificationModel
 from models.classificationModel.validatingClassificationModel import validatingClassificationModel
-from models.summaryModel.trainingSummaryModel import trainingSummaryModel
-from dataSources.scrapingScript import pdfScraping
+from models.summaryModel.summaryModelScript import summaryModel
+from dataSources.dataExtractionScript import pdfExtraction
 
 class controllerService:
 
@@ -32,11 +32,11 @@ class controllerService:
         self.resultsLevel = resultsLevel
         self.modelChoice = modelChoice
 
-    def runPdfScraping(self, logger):
-        pdfScraping(self, logger)
+    def runPdfExtraction(self, logger):
+        pdfExtraction(self, logger)
 
-    def runTrainingSummaryModel(self, logger):
-        trainingSummaryModel(self, logger)
+    def runSummaryModel(self, logger):
+        summaryModel(self, logger)
 
     def runValidatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath):
         validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath)

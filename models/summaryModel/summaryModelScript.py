@@ -4,7 +4,7 @@ from transformers import pipeline
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
 
-def trainingSummaryModel(self, logger):
+def summaryModel(self, logger):
 
     # hard-coded values:
 
@@ -39,7 +39,7 @@ def trainingSummaryModel(self, logger):
             return ' '.join(important_terms_in_order[:top_tokens])
 
     device = 0 if torch.cuda.is_available() else -1
-    df_input = pd.read_csv("dataSources/scrapedOutputFiles/pdfScrapedOutputs.csv")
+    df_input = pd.read_csv("dataSources/extractionOutputFiles/pdfExtractionOutputs.csv")
 
     # Initialize the summarizers
     summarizer_facebook_bart = pipeline("summarization", model="facebook/bart-large-cnn", device=device)
