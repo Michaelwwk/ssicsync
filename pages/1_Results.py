@@ -8,7 +8,7 @@ import matplotlib.cm as cm
 from sklearn import datasets
 from transformers import AutoTokenizer, TFAutoModelForSequenceClassification
 from commonFunctions import ssic_df, capitalize_sentence
-from main import level, modelChoice, topN, resultsLevel, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath
+from main import binSize, level, modelChoice, topN, resultsLevel, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath
 
 pd.set_option('display.max_columns', None)
 
@@ -88,12 +88,12 @@ with col1:
     fig, ax = plt.subplots(figsize=(10, 6))  # Use same figsize as the bar chart
 
     # Create the histogram to get counts and bins
-    counts, bins = np.histogram(data, bins=10, density=True)
+    counts, bins = np.histogram(data, bins=binSize, density=True)
     bin_width = bins[1] - bins[0]
     percentages = counts * bin_width * 100
 
     # Adjusting X-axis ticks to have 10 labels
-    plt.xticks(np.linspace(bins.min(), bins.max(), 10))
+    # plt.xticks(np.linspace(bins.min(), bins.max(), 10))
 
     # Normalize bin centers to get a value between 0 and 1 for color mapping
     norm = plt.Normalize(bins.min(), bins.max())
@@ -173,7 +173,8 @@ correctWrongClassification_df.loc[correctWrongClassification_df.classification =
 correctWrongClassification_df.loc[correctWrongClassification_df.classification == 'Null', 'classification'] = 'NA'
 correctWrongClassification_df.rename(columns = {'classification': f'Within Top {topN}', 'adjusted_score': 'Adjusted Score'}, inplace = True)
 correctWrongClassification_df['Company Name'] = correctWrongClassification_df['entity_name'].str.rstrip('.')
-correctWrongClassification_df['Adjusted Score'] = correctWrongClassification_df['Adjusted Score'].astype(str)
+correctWrongClassification_df['Adjusted Score'] = correctWrongClassification_df['Adjusted Score'].round(2).astype(str)
+correctWrongClassification_df.loc[correctWrongClassification_df['Adjusted Score'] == '0.0', 'Adjusted Score'] = '0.00'
 
 # Display df with text wrapping and no truncation
 st.dataframe(

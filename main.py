@@ -13,6 +13,7 @@ ssic_alpha_index_filepath = "dataSources/DoS/ssic2020-alphabetical-index.xlsx"
 companies_filepath = "dataSources/input_listOfCompanies.csv"
 
 ## specifically for Streamlit
+binSize = 10 # this setting is to adjust the bin size of Adjusted Score's histogram chart
 section = 21 # this refers to the no. of SSIC codes in this hierarchy (from DoS).
 division = 81 # this refers to the no. of SSIC codes in this hierarchy (from DoS).
 group = 204 # this refers to the no. of SSIC codes in this hierarchy (from DoS).
