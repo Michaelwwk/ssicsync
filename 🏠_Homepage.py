@@ -3,7 +3,7 @@ from PIL import Image
 from main import section, division, group, Class, subclass
 
 # hard-coding
-acraLogoPath = 'image/ACRA_logo.jpg'
+acraLogoPath = 'images/ACRA_logo.jpg'
 
 # Set page config
 st.set_page_config(

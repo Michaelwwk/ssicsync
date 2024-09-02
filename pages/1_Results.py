@@ -237,6 +237,7 @@ for index, ssic in enumerate(allSSICs_list):
         elif level == subclass:
             ssicCode = ssic[:5]
 
+        # TODO ERROR HERE COZ IF GROUP THEN SSIC 2020 WONT MATCH SSIC
         try:
             sectionTitle_input = capitalize_sentence(ssic_df[ssic_df['SSIC 2020'] == ssic].reset_index(drop = True)['Section Title'][0])
         except:
@@ -268,7 +269,7 @@ for index, ssic in enumerate(allSSICs_list):
         details_input = details_display[level]
 
         if level == section and details_input == sectionTitle_input:
-            ssicCode = ssic_df[ssic_df['Section Title'].str.lower() == sectionTitle_input.lower()].reset_index(drop = True)['Section'][0]
+            ssicCode = ssic_df[ssic_df['Section Title'].str.lower() == sectionTitle_input.lower()].reset_index(drop = True)['Section'][0] # TODO ERROR HERE TOO COZ SECTION TITLE WONT MATCH TO NULL IF GROUP LEVEL!!
 
         if index <= 1: # first 2 indexes are the company's 1st and/or 2nd SSIC codes
             coySSIC_input.append(f"**{ssicCode}**: {details_input}")
