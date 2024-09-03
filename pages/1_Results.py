@@ -28,7 +28,6 @@ from Sub-class to Class, Group, Division, and Section. These weights are then ag
 for each company. This score measures accuracy based on the top predictions, regardless of classification level. 
 The Adjusted Score ranges from 0 to 1, where a value closer to 0 indicates poorer overall classification accuracy, 
 and a value closer to 1 indicates stronger overall classification accuracy."""
-# @Roy to check on the description
 
 # Set page config
 st.set_page_config(
