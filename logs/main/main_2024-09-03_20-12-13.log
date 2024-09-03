@@ -1,0 +1,27 @@
+2024-09-03 20:12:13,201 - INFO - Start code execution ...
+2024-09-03 20:12:13,204 - INFO - Summary model: fb_bart_tfidf, Classification model: Class, Results level: Section, Top N: 5
+2024-09-03 20:12:28,266 - INFO - Model classification completed. CSV file generated for Streamlit.
+2024-09-03 20:12:28,266 - ERROR - Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\core\indexes\base.py", line 3653, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "pandas\_libs\index.pyx", line 147, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\_libs\index.pyx", line 176, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\_libs\hashtable_class_helper.pxi", line 7080, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\_libs\hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'Class'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\main.py", line 40, in <module>
+    modelResults.runValidatingClassificationModel(logger, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\controller.py", line 42, in runValidatingClassificationModel
+    validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\models\classificationModel\validatingClassificationModel.py", line 525, in validatingClassificationModel
+    df_dict = dict(zip(df['Class'], df['Section']))
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\core\frame.py", line 3761, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\core\indexes\base.py", line 3655, in get_loc
+    raise KeyError(key) from err
+KeyError: 'Class'

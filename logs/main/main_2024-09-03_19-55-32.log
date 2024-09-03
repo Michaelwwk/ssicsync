@@ -1,0 +1,19 @@
+2024-09-03 19:55:32,511 - INFO - Start code execution ...
+2024-09-03 19:55:32,512 - INFO - Summary model: fb_bart_tfidf, Classification model: Class, Results level: Section, Top N: 5
+2024-09-03 19:55:47,975 - ERROR - Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\main.py", line 40, in <module>
+    modelResults.runValidatingClassificationModel(logger, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\controller.py", line 42, in runValidatingClassificationModel
+    validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\models\classificationModel\validatingClassificationModel.py", line 481, in validatingClassificationModel
+    vdf.to_csv(pdfModelFinalOutputs_filepath, index=False)
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\core\generic.py", line 3772, in to_csv
+    return DataFrameRenderer(formatter).to_csv(
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\io\formats\format.py", line 1186, in to_csv
+    csv_formatter.save()
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\io\formats\csvs.py", line 240, in save
+    with get_handle(
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\io\common.py", line 859, in get_handle
+    handle = open(
+PermissionError: [Errno 13] Permission denied: 'models/classificationModel/modelOutputFiles/pdfModelFinalOutputs.csv'

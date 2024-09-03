@@ -507,7 +507,7 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
                          'Recommended SSICs': vdf[f'p_{modelChoice}'].to_list(), 'Adjusted Score': vdf['adjusted_score']}
     modelOutputs_df = pd.DataFrame(modelOutputs_dict)
     modelOutputs_df = modelOutputs_df[modelOutputs_df.Company.notnull()]
-    modelOutputsFINAL_df = modelOutputs_df.copy()
+    modelOutputsPrefinal_df = modelOutputs_df.copy()
 
     modelOutputs_df['SSIC 1'] = modelOutputs_df['SSIC 1'].apply(lambda x: str(x).zfill(5))
     modelOutputs_df['SSIC 2'] = modelOutputs_df['SSIC 2'].apply(lambda x: str(x).zfill(5))
@@ -517,10 +517,28 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
     modelOutputs_df = modelOutputs_df[['Company', 'Notes Page Content', 'SSIC 1', 'SSIC 2', 'Recommended SSICs']]
 
     if resultsLevel == 'Section':
+
         df = ssic_dataframe.iloc[:, [0, 9]].drop_duplicates()
-        df_dict = dict(zip(df['SSIC 2020'], df['Section']))
-        modelOutputs_df['SSIC 1'] = modelOutputs_df['SSIC 1'].map(df_dict)
-        modelOutputs_df['SSIC 2'] = modelOutputs_df['SSIC 2'].map(df_dict)
+        coySSICdf_dict = dict(zip(df['SSIC 2020'], df['Section']))
+
+        if level == 'Subclass':
+            df = ssic_dataframe.iloc[:, [0, 9]].drop_duplicates()
+            df_dict = dict(zip(df['SSIC 2020'], df['Section']))
+        elif level == 'Class':
+            df = ssic_dataframe.iloc[:, [8, 9]].drop_duplicates()
+            df_dict = dict(zip(df['Class'], df['Section']))
+        elif level == 'Group':
+            df = ssic_dataframe.iloc[:, [7, 9]].drop_duplicates()
+            df_dict = dict(zip(df['Group'], df['Section']))
+        elif level == 'Division':
+            df = ssic_dataframe.iloc[:, [6, 9]].drop_duplicates()
+            df_dict = dict(zip(df['Division'], df['Section']))
+        elif level == 'Section':
+            df = ssic_dataframe.iloc[:, [9, 9]].drop_duplicates()
+            df_dict = dict(zip(df['Section'], df['Section']))
+
+        modelOutputs_df['SSIC 1'] = modelOutputs_df['SSIC 1'].map(coySSICdf_dict)
+        modelOutputs_df['SSIC 2'] = modelOutputs_df['SSIC 2'].map(coySSICdf_dict)
         
         ssic_to_title = ssic_dataframe.set_index('Section')['Section Title'].to_dict()
         modelOutputs_df['SSIC 1 Description'] = modelOutputs_df['SSIC 1'].map(ssic_to_title).apply(lambda x: capitalize_sentence(x) if pd.notna(x) else np.NaN)
@@ -593,6 +611,9 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
 
     modelValidationFINAL_df.loc[modelValidationFINAL_df['SSIC 1'] == '00n', 'SSIC 1'] = np.NaN
     modelValidationFINAL_df.loc[modelValidationFINAL_df['SSIC 2'] == '00n', 'SSIC 2'] = np.NaN
+
+    modelOutputsPrefinal_df['Recommended SSICs'] = modelValidationFINAL_df['Recommended SSICs']
+    modelOutputsFINAL_df = modelOutputsPrefinal_df.copy()
 
     with pd.ExcelWriter(overallResults_filepath, engine='openpyxl') as writer:
         modelResultsFINAL_df.to_excel(writer, sheet_name='Model Results', index=False)

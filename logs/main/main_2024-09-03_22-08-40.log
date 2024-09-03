@@ -1,0 +1,4 @@
+2024-09-03 22:08:40,736 - INFO - Start code execution ...
+2024-09-03 22:08:40,737 - INFO - Summary model: fb_bart_tfidf, Classification model: Subclass, Results level: Subclass, Top N: 5
+2024-09-03 22:09:00,747 - INFO - Model classification completed. CSV file generated for Streamlit.
+2024-09-03 22:09:00,887 - INFO - Model classification completed. Excel file generated for validation.
