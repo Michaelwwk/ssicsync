@@ -160,9 +160,9 @@ level_input = st.selectbox(
     "Level of Classification:",
     categories
 )
-level = level_input if level_input else section
+userUISelection = level_input if level_input else section
+levelDisplay_df = df_display[userUISelection]
 
-levelDisplay_df = df_display[level]
 # Filter records with annual report PDF but no record in input_listOfCompanies.csv
 correctWrongClassification_df = levelDisplay_df[levelDisplay_df.entity_name.notnull()]
 # Filter records with no SSIC predictions (e.g. no company descriptions) 
@@ -230,59 +230,72 @@ for index, ssic in enumerate(allSSICs_list):
             ssic = ssic
         else:
             ssic = str(int(ssic))
-
+       
         if loopCounterToDifferentiateSSIC1SSIC2 > 2:
-            if resultsLevel == 'Section':
-                ssic = ssic.zfill(1)
+            if level == 'Section':
+                ssic = ssic.zfill(1) # TODO NOT FILL 5!
                 ssicResultsLevelColName = 'Section'
-            if resultsLevel == 'Division':
-                ssic = ssic.zfill(2)
+            if level == 'Division':
+                ssic = ssic.zfill(2) # TODO NOT FILL 5!
                 ssicResultsLevelColName = 'Division'
-            if resultsLevel == 'Group':
-                ssic = ssic.zfill(3)
+            if level == 'Group':
+                ssic = ssic.zfill(3) # TODO NOT FILL 5!
                 ssicResultsLevelColName = 'Group'
-            if resultsLevel == 'Class':
-                ssic = ssic.zfill(4)
+            if level == 'Class':
+                ssic = ssic.zfill(4) # TODO NOT FILL 5!
                 ssicResultsLevelColName = 'Class'
-            if resultsLevel == 'Subclass':
-                ssic = ssic.zfill(5)
+            if level == 'Subclass':
+                ssic = ssic.zfill(5) # TODO NOT FILL 5!
                 ssicResultsLevelColName = 'SSIC 2020'
         else:
             ssic = ssic.zfill(5)
             ssicResultsLevelColName = 'SSIC 2020'
 
-        if level == section:
-            ssicCode = ssic[:1]
-        elif level == division:
+        if userUISelection == section: # TODO new
+            # TODO
+            if level == section:
+                ssicCode = ssic.copy()
+            else:
+                ssicCode = ssic[:2]
+                userUISelection = '2 digit code'
+        elif userUISelection == division:
             ssicCode = ssic[:2]
-        elif level == group:
+        elif userUISelection == group:
             ssicCode = ssic[:3]
-        elif level == Class:
+        elif userUISelection == Class:
             ssicCode = ssic[:4]
-        elif level == subclass:
+        elif userUISelection == subclass:
+            userUISelection = 'SSIC 2020'
             ssicCode = ssic[:5]
 
+        # TODO ERROR HERE COZ IF GROUP THEN SSIC 2020 WONT MATCH SSIC
+
         try:
-            sectionTitle_input = capitalize_sentence(ssic_df[ssic_df[f'{ssicResultsLevelColName}'] == ssic].reset_index(drop = True)['Section Title'][0])
+            sectionTitle_input = capitalize_sentence(ssic_df[ssic_df[f'{userUISelection}'] == ssicCode].reset_index(drop = True)['Section Title'][0]) # TODO new
         except:
             sectionTitle_input = 'NULL'
         try:
-            divisionTitle_input = capitalize_sentence(ssic_df[ssic_df[f'{ssicResultsLevelColName}'] == ssic].reset_index(drop = True)['Division Title'][0])
+            divisionTitle_input = capitalize_sentence(ssic_df[ssic_df[f'{userUISelection}'] == ssicCode].reset_index(drop = True)['Division Title'][0])
         except:
             divisionTitle_input = 'NULL'
         try:
-            groupTitle_input = capitalize_sentence(ssic_df[ssic_df[f'{ssicResultsLevelColName}'] == ssic].reset_index(drop = True)['Group Title'][0])
+            groupTitle_input = capitalize_sentence(ssic_df[ssic_df[f'{userUISelection}'] == ssicCode].reset_index(drop = True)['Group Title'][0])
         except:
             groupTitle_input = 'NULL'
         try:
-            classTitle_input = capitalize_sentence(ssic_df[ssic_df[f'{ssicResultsLevelColName}'] == ssic].reset_index(drop = True)['Class Title'][0])
+            classTitle_input = capitalize_sentence(ssic_df[ssic_df[f'{userUISelection}'] == ssicCode].reset_index(drop = True)['Class Title'][0])
         except:
             classTitle_input = 'NULL'
         try:
-            subclassTitle_input = capitalize_sentence(ssic_df[ssic_df[f'{ssicResultsLevelColName}'] == ssic].reset_index(drop = True)['SSIC 2020 Title'][0])
+            subclassTitle_input = capitalize_sentence(ssic_df[ssic_df[f'{userUISelection}'] == ssicCode].reset_index(drop = True)['SSIC 2020 Title'][0]) # TODO new
         except:
             subclassTitle_input = 'NULL'
 
+        if userUISelection == 'SSIC 2020':
+            userUISelection = subclass
+        if userUISelection == '2 digit code':
+            userUISelection == section
+        
         details_display = {
             section: sectionTitle_input,
             division: divisionTitle_input,
@@ -290,10 +303,10 @@ for index, ssic in enumerate(allSSICs_list):
             Class: classTitle_input,
             subclass: subclassTitle_input
         }
-        details_input = details_display[level]
+        details_input = details_display[userUISelection] # TODO
 
-        if level == section and details_input == sectionTitle_input:
-            ssicCode = ssic_df[ssic_df['Section Title'].str.lower() == sectionTitle_input.lower()].reset_index(drop = True)['Section'][0]
+        if userUISelection == section and details_input == sectionTitle_input: # TODO
+            ssicCode = ssic_df[ssic_df['Section Title'].str.lower() == sectionTitle_input.lower()].reset_index(drop = True)['Section'][0] # TODO ERROR HERE TOO COZ SECTION TITLE WONT MATCH TO NULL IF GROUP LEVEL!!
 
         if index <= 1: # first 2 indexes are the company's 1st and/or 2nd SSIC codes
             coySSIC_input.append(f"**{ssicCode}**: {details_input}")
