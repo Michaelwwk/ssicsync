@@ -1,0 +1,28 @@
+2024-09-04 01:51:07,286 - INFO - Start code execution ...
+2024-09-04 01:51:07,286 - INFO - Summary model: fb_bart_tfidf, Classification model: Section, Results level: Section, Top N: 3
+2024-09-04 01:51:41,073 - INFO - Model classification completed. CSV file generated for Streamlit.
+2024-09-04 01:51:41,105 - ERROR - Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\core\indexes\base.py", line 3653, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "pandas\_libs\index.pyx", line 147, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\_libs\index.pyx", line 155, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\_libs\index_class_helper.pxi", line 70, in pandas._libs.index.Int64Engine._check_type
+KeyError: 'Section'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\main.py", line 40, in <module>
+    modelResults.runValidatingClassificationModel(logger, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\controller.py", line 42, in runValidatingClassificationModel
+    validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\models\classificationModel\validatingClassificationModel.py", line 538, in validatingClassificationModel
+    df_dict = dict(zip(df['Section'], df['Section']))
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\core\series.py", line 1007, in __getitem__
+    return self._get_value(key)
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\core\series.py", line 1116, in _get_value
+    loc = self.index.get_loc(label)
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\core\indexes\base.py", line 3655, in get_loc
+    raise KeyError(key) from err
+KeyError: 'Section'

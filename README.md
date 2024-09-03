@@ -34,6 +34,8 @@ The folders in this repository are described as follows:
   - Log files generated from this repository.
 - Images (images)
   - Contains ACRA and our group logos.
+- Sandbox (sandbox)
+  - Stash of all draft codes.
  
 # Contributors
 1. Ang Mei Chi

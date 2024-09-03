@@ -1,0 +1,29 @@
+2024-09-04 02:11:10,976 - INFO - Start code execution ...
+2024-09-04 02:11:10,976 - INFO - Summary model: fb_bart_tfidf, Classification model: Section, Results level: Section, Top N: 3
+2024-09-04 02:20:40,566 - ERROR - Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\main.py", line 40, in <module>
+    modelResults.runValidatingClassificationModel(logger, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\controller.py", line 42, in runValidatingClassificationModel
+    validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\models\classificationModel\validatingClassificationModel.py", line 459, in validatingClassificationModel
+    vdf[p_column_to_check + '_Division_check'] = vdf.apply(check_division, prediction_col_name=p_column_to_check, axis=1)
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\core\frame.py", line 9423, in apply
+    return op.apply().__finalize__(self, method="apply")
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\core\apply.py", line 678, in apply
+    return self.apply_standard()
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\core\apply.py", line 798, in apply_standard
+    results, res_index = self.apply_series_generator()
+  File "C:\Users\Michael\AppData\Roaming\Python\Python310\site-packages\pandas\core\apply.py", line 814, in apply_series_generator
+    results[i] = self.f(v)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\models\classificationModel\validatingClassificationModel.py", line 459, in <lambda>
+    vdf[p_column_to_check + '_Division_check'] = vdf.apply(check_division, prediction_col_name=p_column_to_check, axis=1)
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\models\classificationModel\validatingClassificationModel.py", line 96, in check_section
+    return 'Y'
+  File "C:\Users\Michael\Documents\GitHub\ssicsync\models\classificationModel\validatingClassificationModel.py", line 96, in check_section
+    return 'Y'
+  File "C:\Program Files\Python310\lib\bdb.py", line 90, in trace_dispatch
+    return self.dispatch_line(frame)
+  File "C:\Program Files\Python310\lib\bdb.py", line 115, in dispatch_line
+    if self.quitting: raise BdbQuit
+bdb.BdbQuit

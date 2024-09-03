@@ -1,0 +1,4 @@
+2024-09-04 01:40:36,143 - INFO - Start code execution ...
+2024-09-04 01:40:36,143 - INFO - Summary model: fb_bart_tfidf, Classification model: Group, Results level: Group, Top N: 3
+2024-09-04 01:41:11,700 - INFO - Model classification completed. CSV file generated for Streamlit.
+2024-09-04 01:41:11,978 - INFO - Model classification completed. Excel file generated for validation.

@@ -86,7 +86,12 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
         # Check if the list is empty or null
         if not predictions:
             return None
-        mapped_predictions = [ref_dict.get(str(pred)[:2]) for pred in row[prediction_col_name] if str(pred)[:2] in ref_dict]
+        
+        if level != 'Section':
+            mapped_predictions = [ref_dict.get(str(pred)[:2]) for pred in row[prediction_col_name] if str(pred)[:2] in ref_dict]
+        else:
+            mapped_predictions = row[prediction_col_name]
+
         if row['Section'] in mapped_predictions or row['Section2'] in mapped_predictions:
             return 'Y'
         else:
@@ -214,8 +219,10 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
         for i in range(len(predictedList)):
             rank = i + 1
             
+            # import pdb;pdb.set_trace() # can ensure that line 225 (pSection) is correct? if model is chosen as Section, predictedList will be all alphabets. if model is division, its 2 digits, group 3 digits, subclass 5 digits, etc. logic here has to be dynamic!
+
             pDivision = predictedList[i][0:2]
-            pSection = refTable[refTable['Section, 2 digit code'] == pDivision]['Section'].to_string(index = False)
+            pSection = refTable[refTable['Section, 2 digit code'] == pDivision]['Section'].to_string(index = False) # TODO
             pGroup = predictedList[i][2:3]
             pClass = predictedList[i][3:4]
             pSubclass = predictedList[i][4:5]
@@ -534,7 +541,7 @@ def validatingClassificationModel(self, logger, ssic_detailed_def_filepath, ssic
             df = ssic_dataframe.iloc[:, [6, 9]].drop_duplicates()
             df_dict = dict(zip(df['Division'], df['Section']))
         elif level == 'Section':
-            df = ssic_dataframe.iloc[:, [9, 9]].drop_duplicates()
+            df = ssic_dataframe.iloc[:, [9]].drop_duplicates()
             df_dict = dict(zip(df['Section'], df['Section']))
 
         modelOutputs_df['SSIC 1'] = modelOutputs_df['SSIC 1'].map(coySSICdf_dict)

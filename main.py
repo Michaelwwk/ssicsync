@@ -1,9 +1,9 @@
 # hard-coded variables
 modelChoice = 'fb_bart_tfidf' # ('sd_azma_bart', 'azma_bart_tfidf', 'sd_philschmid_bart', 'philschmid_bart_tfidf', 'sd_fb_bart', 'fb_bart_tfidf', 'QA') ...
 # ... this refers to the chosen summary model of choice.
-level = 'Group' # ('Section', 'Division', 'Group', 'Class', 'Subclass') ... #TODO level section and resultslevel section got prob!
+level = 'Section' # ('Section', 'Division', 'Group', 'Class', 'Subclass') ... #TODO level section and resultslevel section got prob!
 # ... this refers to chosen SSIC hierarchical model to obtain the list of companies' SSIC results.
-resultsLevel = 'Group' # this refers to the hierarchical level to be seen in final results file ...
+resultsLevel = 'Section' # this refers to the hierarchical level to be seen in final results file ...
 # ... 'resultsLevel' has to be equal or less granular than 'level'! ('Section', 'Division', 'Group', 'Class', 'Subclass')
 topN = 3 # this refers to the top N number of SSIC codes that each companies SSIC codes ...
 # ... should be within to be considered as a hit (therefore classifying correctly). this score affects the prediction accuracy.
@@ -20,10 +20,6 @@ group = 204 # this refers to the no. of SSIC codes in this hierarchy (from DoS).
 Class = 382 # this refers to the no. of SSIC codes in this hierarchy (from DoS).
 subclass = 1032 # this refers to the no. of SSIC codes in this hierarchy (from DoS).
 
-# level = 'Class' # ('Section', 'Division', 'Group', 'Class', 'Subclass') ...
-# # ... this refers to chosen SSIC hierarchical model to obtain the list of companies' SSIC results.
-# resultsLevel = 'Group' # this refers to the hierarchical level to be seen in final results file ...
-
 if __name__ == "__main__":
 
     from controller import controllerService
@@ -35,6 +31,6 @@ if __name__ == "__main__":
     logger.info('Start code execution ...')
     logger.info(f'Summary model: {modelChoice}, Classification model: {level}, Results level: {resultsLevel}, Top N: {topN}')
 
-    # modelResults.runPdfExtraction(logger)
-    # modelResults.runSummaryModel(logger)
+    modelResults.runPdfExtraction(logger)
+    modelResults.runSummaryModel(logger)
     modelResults.runValidatingClassificationModel(logger, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath)
