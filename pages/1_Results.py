@@ -250,7 +250,7 @@ for index, ssic in enumerate(allSSICs_list):
                 ssicCode = ssic.copy()
             else:
                 ssicCode = ssic[:2]
-                userUISelection = '2 digit code'
+                userUISelection = 'Section, 2 digit code'
         elif userUISelection == division:
             ssicCode = ssic[:2]
         elif userUISelection == group:
@@ -284,7 +284,7 @@ for index, ssic in enumerate(allSSICs_list):
 
         if userUISelection == 'SSIC 2020':
             userUISelection = subclass
-        if userUISelection == '2 digit code':
+        if userUISelection == 'Section, 2 digit code':
             userUISelection = section
         
         details_display = {
