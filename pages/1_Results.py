@@ -243,8 +243,12 @@ for index, ssic in enumerate(allSSICs_list):
 
         if userUISelection == section:
             if level == section:
-                ssicCode = ssic
-                userUISelection = section
+                if loopCounterToDifferentiateSSIC1SSIC2 > 2:
+                    ssicCode = ssic
+                    userUISelection = section
+                else:
+                    ssicCode = ssic[:2]
+                    userUISelection = 'Section, 2 digit code'
             else:
                 ssicCode = ssic[:2]
                 userUISelection = 'Section, 2 digit code'
