@@ -243,7 +243,7 @@ for index, ssic in enumerate(allSSICs_list):
 
         if userUISelection == section:
             if level == section:
-                ssicCode = ssic.copy()
+                ssicCode = ssic
                 userUISelection = section
             else:
                 ssicCode = ssic[:2]
