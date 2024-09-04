@@ -70,8 +70,8 @@ for cat in categories:
                             (df_display[cat_key]['ssic_code2'].isnull() | (df_display[cat_key]['ssic_code2'] == 'Null')), 
                             'classification'] = 'Null'
 
-for level in prop_dict.values():
-    values.append(round(level*100, 1))
+for levelScore in prop_dict.values():
+    values.append(round(levelScore*100, 1))
 
 col1, col2 = st.columns([1,1])
 
