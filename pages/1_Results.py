@@ -5,10 +5,8 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
-from sklearn import datasets
-from transformers import AutoTokenizer, TFAutoModelForSequenceClassification
 from commonFunctions import ssic_df, capitalize_sentence
-from main import binSize, level, modelChoice, topN, resultsLevel, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath
+from main import binSize, level, modelChoice, topN, ssic_detailed_def_filepath, ssic_alpha_index_filepath, companies_filepath
 
 pd.set_option('display.max_columns', None)
 
@@ -18,8 +16,6 @@ division = 'Division'
 group = 'Group'
 Class = 'Class'
 subclass = 'Sub-class'
-topN = topN
-modelChoice = modelChoice
 companies_df = pd.read_csv(companies_filepath)
 modelOutputs = pd.read_csv("./models/classificationModel/modelOutputFiles/pdfModelFinalOutputs.csv", dtype={'ssic_code': str, 'ssic_code2': str})
 adjustedWeightDef = """The Adjusted Score is a metric designed to assign higher weights to a company's top SSIC predictions, 
@@ -248,6 +244,7 @@ for index, ssic in enumerate(allSSICs_list):
         if userUISelection == section:
             if level == section:
                 ssicCode = ssic.copy()
+                userUISelection = section
             else:
                 ssicCode = ssic[:2]
                 userUISelection = 'Section, 2 digit code'
